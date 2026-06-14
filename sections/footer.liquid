@@ -87,6 +87,55 @@
       grid-column: 1 / -1;
     }
   }
+
+  /* Wider first column for email/social/contact group */
+  @media screen and (min-width: 990px) {
+    .footer-content[style*='--grid-columns: 4'] {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+
+  /* Email signup gray pill background */
+  .footer-content .email-signup__input-group--integrated {
+    background-color: #D9D9DB;
+  }
+
+  /* Menu heading font override */
+  .footer-content .menu__heading__default {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  /* Menu item link font size */
+  .footer-content .menu__item a {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* Footer button pill styling */
+  .footer-content .button,
+  .footer-content .button-secondary {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+    border-radius: 28px;
+    text-transform: uppercase;
+    font-family: var(--font-accent--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    padding: 16px 28px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .footer-content .button,
+    .footer-content .button-secondary {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
