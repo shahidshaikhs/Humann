@@ -219,10 +219,50 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "banner_cards": {
+      "type": "banner-cards",
+      "settings": {
+        "heading": "Learn about the <br><strong>Miracle Molecule</strong>",
+        "subtitle": "<strong>Did you know</strong> that Nitric Oxide is one of the most important molecules produced in your body?",
+        "subtitle_mobile": "Science grounded in the <strong>Nobel Prize-winning</strong> nitric oxide pathway.",
+        "button_text": "Explore Our Science",
+        "color_scheme": "scheme-7",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/1-mobile-31613935.jpg",
+            "icon_style": "1",
+            "card_text": "<p>By age 40, Humans naturally produce <strong>50% less Nitric Oxide</strong> than they did at age 20.</p>"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/2-mobile-31613943.jpg",
+            "icon_style": "2",
+            "card_text": "<p>Nitric Oxide helps circulate more oxygen and nutrients to your <strong>36 trillion cells.</strong></p>"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/3-mobile-31613972.jpg",
+            "icon_style": "3",
+            "card_text": "<p>More oxygen and nutrients means <strong>more healthy energy support.</strong></p>"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3"]
     }
   },
   "order": [
     "hero_carousel",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "banner_cards"
   ]
 }

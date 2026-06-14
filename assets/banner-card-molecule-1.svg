@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 161 161" width="161" height="161" fill="none">
+  <!-- Outer circle -->
+  <circle cx="80.5" cy="80.5" r="80" stroke="#FFFFFF" stroke-width="0.5" fill="none"/>
+  <!-- Ellipse 30 (18x18) — largest dot, center-left area -->
+  <circle cx="47" cy="81" r="9" fill="#FFFFFF"/>
+  <!-- Ellipse 28 (10x10) — lower-left -->
+  <circle cx="36" cy="97" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 29 (10x10) — lower, center-left -->
+  <circle cx="59" cy="113" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 31 (9x9) — right of cluster -->
+  <circle cx="70" cy="97" r="4.5" fill="#FFFFFF"/>
+</svg>

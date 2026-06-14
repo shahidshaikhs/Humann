@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 169 169" width="169" height="169" fill="none">
+  <!-- Outer circle (Ellipse 44, 169x169, stroke 0.5px) -->
+  <circle cx="84.5" cy="84.5" r="84" stroke="#FFFFFF" stroke-width="0.5" fill="none"/>
+  <!-- Inner circle (Ellipse 32, 125x125, stroke 1px) -->
+  <circle cx="84.5" cy="84.5" r="62" stroke="#FFFFFF" stroke-width="1" fill="none"/>
+
+  <!-- 12 radial chevron arrow marks between inner (r=62) and outer (r=84) circles -->
+  <!-- Each chevron points radially outward; positioned at r=73.5 from center -->
+  <defs>
+    <g id="mol2-tick">
+      <line x1="-4.5" y1="6" x2="0" y2="0" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+      <line x1="4.5" y1="6" x2="0" y2="0" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <!-- 0° (top) -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(0) translate(0,-73.5)"/>
+  <!-- 30° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(30) translate(0,-73.5)"/>
+  <!-- 60° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(60) translate(0,-73.5)"/>
+  <!-- 90° (right) -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(90) translate(0,-73.5)"/>
+  <!-- 120° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(120) translate(0,-73.5)"/>
+  <!-- 150° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(150) translate(0,-73.5)"/>
+  <!-- 180° (bottom) -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(180) translate(0,-73.5)"/>
+  <!-- 210° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(210) translate(0,-73.5)"/>
+  <!-- 240° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(240) translate(0,-73.5)"/>
+  <!-- 270° (left) -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(270) translate(0,-73.5)"/>
+  <!-- 300° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(300) translate(0,-73.5)"/>
+  <!-- 330° -->
+  <use href="#mol2-tick" transform="translate(84.5,84.5) rotate(330) translate(0,-73.5)"/>
+
+  <!-- Inner dots — 3x 10px (r=5) -->
+  <!-- Ellipse 33 -->
+  <circle cx="78" cy="72" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 34 -->
+  <circle cx="92" cy="82" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 38 -->
+  <circle cx="74" cy="90" r="5" fill="#FFFFFF"/>
+  <!-- Inner dots — 3x 6px (r=3) -->
+  <!-- Ellipse 37 -->
+  <circle cx="67" cy="78" r="3" fill="#FFFFFF"/>
+  <!-- Ellipse 40 -->
+  <circle cx="90" cy="68" r="3" fill="#FFFFFF"/>
+  <!-- Ellipse 41 -->
+  <circle cx="83" cy="96" r="3" fill="#FFFFFF"/>
+</svg>

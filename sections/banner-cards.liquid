@@ -1,0 +1,471 @@
+{%- comment -%} Banner Cards section — "Learn about the Miracle Molecule" {%- endcomment -%}
+
+<section
+  class="banner-cards {{ section.settings.color_scheme }}"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="banner-cards__inner">
+
+    {%- comment -%} Header: heading + subtitles {%- endcomment -%}
+    <div class="banner-cards__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="banner-cards__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="banner-cards__subtitle banner-cards__subtitle--desktop">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      {%- if section.settings.subtitle_mobile != blank -%}
+        <p class="banner-cards__subtitle banner-cards__subtitle--mobile">{{ section.settings.subtitle_mobile }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="banner-cards__divider" aria-hidden="true"></div>
+
+    {%- comment -%} Cards row / horizontal scroll {%- endcomment -%}
+    <div class="banner-cards__cards">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'card' -%}
+          <div class="banner-cards__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img
+                class="banner-cards__card-bg"
+                src="{{ block.settings.image | image_url: width: 778 }}"
+                alt=""
+                aria-hidden="true"
+                width="389"
+                height="480"
+                loading="lazy"
+              >
+            {%- endif -%}
+            <div class="banner-cards__card-content">
+              {%- unless block.settings.icon_style == 'none' -%}
+                {%- assign molecule_src = 'banner-card-molecule-' | append: block.settings.icon_style | append: '.svg' | asset_url -%}
+                <img
+                  class="banner-cards__card-icon"
+                  src="{{ molecule_src }}"
+                  alt=""
+                  aria-hidden="true"
+                  width="161"
+                  height="161"
+                  loading="lazy"
+                >
+              {%- endunless -%}
+              {%- if block.settings.card_text != blank -%}
+                <div class="banner-cards__card-text">{{ block.settings.card_text }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="banner-cards__divider" aria-hidden="true"></div>
+
+    {%- if section.settings.button_text != blank -%}
+      <div class="banner-cards__cta">
+        <a
+          href="{{ section.settings.button_url | default: '#' }}"
+          class="banner-cards__button"
+        >
+          {{- section.settings.button_text -}}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+/* ============================================================
+   Banner Cards — BEM component styles (mobile-first)
+   ============================================================ */
+
+.banner-cards {
+  background-color: #BC0F0F;
+  color: #FFFFFF;
+  padding-block-start: var(--padding-block-start, 40px);
+  padding-block-end: var(--padding-block-end, 40px);
+}
+
+/* Inner container — mobile: 16px horizontal padding */
+.banner-cards__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 16px;
+}
+
+/* Header group */
+.banner-cards__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Heading — mobile: Moderat Serif 400, 48px/36px, letter-spacing -1px */
+.banner-cards__heading {
+  font-family: 'Moderat Serif', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 36px;
+  letter-spacing: -1px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* On mobile, strong inside heading inherits serif (no font switch) */
+.banner-cards__heading strong {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+/* Desktop subtitle — hidden on mobile */
+.banner-cards__subtitle--desktop {
+  display: none;
+  margin: 0;
+}
+
+/* Mobile subtitle — Stabil Grotesk 500, 18px/20px */
+.banner-cards__subtitle--mobile {
+  display: block;
+  font-family: 'Stabil Grotesk', var(--font-heading--family, sans-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.banner-cards__subtitle--mobile strong {
+  font-weight: 700;
+}
+
+/* Divider — 1px rgba line */
+.banner-cards__divider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* ---- Cards container — mobile: horizontal snap scroll ---- */
+.banner-cards__cards {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.banner-cards__cards::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual card — mobile: fixed 320px, snap to start */
+.banner-cards__card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  position: relative;
+  min-height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+/* Background image — absolute, covers full card */
+.banner-cards__card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 0;
+}
+
+/* Content wrapper sits above bg image */
+.banner-cards__card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Molecule icon */
+.banner-cards__card-icon {
+  display: block;
+  width: 161px;
+  height: 161px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* Card text — mobile: Moderat Serif 400, 24px/28px, letter-spacing -1px */
+.banner-cards__card-text {
+  font-family: 'Moderat Serif', serif;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.banner-cards__card-text p {
+  margin: 0;
+}
+
+.banner-cards__card-text strong {
+  font-weight: 700;
+}
+
+/* CTA container — mobile: centered */
+.banner-cards__cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+}
+
+/* CTA pill button — mobile: 14px */
+.banner-cards__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  border: 2px solid currentColor;
+  padding: 12px 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  text-decoration: none;
+  font-family: 'Uniforma', var(--font-body--family, sans-serif);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.banner-cards__button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================================
+   Desktop — min-width: 750px
+   ============================================================ */
+@media screen and (min-width: 750px) {
+
+  /* Inner: centered 1200px content area, no horizontal padding */
+  .banner-cards__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    gap: 20px;
+  }
+
+  /* Heading — desktop: Stabil Grotesk 500, 48px/52px */
+  .banner-cards__heading {
+    font-family: 'Stabil Grotesk', var(--font-heading--family, sans-serif);
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: 0;
+  }
+
+  /* Strong inside heading — desktop: Moderat Serif 400 */
+  .banner-cards__heading strong {
+    font-family: 'Moderat Serif', serif;
+    font-weight: 400;
+  }
+
+  /* Desktop subtitle — visible, Stabil Grotesk 700, 20px/24px */
+  .banner-cards__subtitle--desktop {
+    display: block;
+    font-family: 'Stabil Grotesk', var(--font-heading--family, sans-serif);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: #FFFFFF;
+  }
+
+  .banner-cards__subtitle--desktop strong {
+    font-weight: 700;
+  }
+
+  /* Mobile subtitle — hidden on desktop */
+  .banner-cards__subtitle--mobile {
+    display: none;
+  }
+
+  /* Cards — desktop: equal-width flex row, no scroll */
+  .banner-cards__cards {
+    overflow-x: visible;
+    scroll-snap-type: unset;
+    -webkit-overflow-scrolling: auto;
+  }
+
+  /* Each card — desktop: grow equally */
+  .banner-cards__card {
+    flex: 1;
+    scroll-snap-align: unset;
+  }
+
+  /* Card text — desktop: 28px/32px */
+  .banner-cards__card-text {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  /* CTA — desktop: left-aligned */
+  .banner-cards__cta {
+    justify-content: flex-start;
+  }
+
+  /* CTA button — desktop: 16px */
+  .banner-cards__button {
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Banner Cards",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Learn about the <br><strong>Miracle Molecule</strong>"
+    },
+    {
+      "type": "header",
+      "content": "Desktop Subtitle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<strong>Did you know</strong> that Nitric Oxide is one of the most important molecules produced in your body?"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Subtitle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle_mobile",
+      "label": "Mobile Subtitle",
+      "default": "Science grounded in the <strong>Nobel Prize-winning</strong> nitric oxide pathway."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Explore Our Science"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-7"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "select",
+          "id": "icon_style",
+          "label": "Icon Style",
+          "options": [
+            { "value": "1", "label": "Style 1 - Simple" },
+            { "value": "2", "label": "Style 2 - Complex" },
+            { "value": "3", "label": "Style 3 - Dense" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "richtext",
+          "id": "card_text",
+          "label": "Card Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Cards",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
