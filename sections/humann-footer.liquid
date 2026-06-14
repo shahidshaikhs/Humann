@@ -1,0 +1,840 @@
+{%- comment -%} Humann Footer — email signup, social, menus, address, buttons, disclaimer, legal {%- endcomment -%}
+{%- liquid
+  assign shop_menu = linklists[section.settings.shop_menu]
+  assign learn_menu = linklists[section.settings.learn_menu]
+  assign support_menu = linklists[section.settings.support_menu]
+  assign policy_links = linklists[section.settings.policy_menu]
+-%}
+
+<div
+  class="humann-footer"
+  style="
+    --footer-bg: {{ section.settings.background_color }};
+    --footer-text-color: {{ section.settings.text_color }};
+    --footer-muted-color: {{ section.settings.muted_text_color }};
+    --footer-input-bg: {{ section.settings.input_background_color }};
+    {% render 'spacing-style', settings: section.settings %}
+  "
+>
+  {%- comment -%} ===== Zone 1: Content Grid ===== {%- endcomment -%}
+  <div class="humann-footer__grid">
+    <div class="humann-footer__left">
+      {%- comment -%} Email Signup {%- endcomment -%}
+      <div class="humann-footer__signup">
+        <div class="humann-footer__signup-text">
+          {%- if section.settings.signup_heading != blank -%}
+            <p class="humann-footer__signup-heading">{{ section.settings.signup_heading }}</p>
+          {%- endif -%}
+          {%- if section.settings.signup_subtext != blank -%}
+            <p class="humann-footer__signup-subtext">{{ section.settings.signup_subtext }}</p>
+          {%- endif -%}
+        </div>
+        {%- form 'customer' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="humann-footer__input-group">
+            <label for="FooterEmail-{{ section.id }}" class="visually-hidden">Email</label>
+            <input
+              id="FooterEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              placeholder="{{ section.settings.signup_placeholder }}"
+              required
+              class="humann-footer__email-input"
+              {%- if form.errors -%}
+                aria-invalid="true"
+                aria-describedby="FooterEmail-error-{{ section.id }}"
+              {%- elsif form.posted_successfully? -%}
+                aria-describedby="FooterEmail-success-{{ section.id }}"
+              {%- endif -%}
+            >
+            <button type="submit" class="humann-footer__submit-btn" aria-label="Subscribe">
+              <img
+                src="{{ 'long-arrow-alt-right-solid.svg' | asset_url }}"
+                alt=""
+                width="20"
+                height="20"
+                style="width:20px;height:20px"
+                loading="lazy"
+              >
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <p id="FooterEmail-error-{{ section.id }}" class="humann-footer__form-message humann-footer__form-message--error">
+              {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+            </p>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <p id="FooterEmail-success-{{ section.id }}" class="humann-footer__form-message humann-footer__form-message--success">
+              Thanks for subscribing!
+            </p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      {%- comment -%} Social Icons {%- endcomment -%}
+      <div class="humann-footer__social">
+        {%- if section.settings.instagram_url != blank -%}
+          <a href="{{ section.settings.instagram_url }}" class="humann-footer__social-link" aria-label="Instagram" target="_blank" rel="noopener">
+            <img src="{{ 'social-icons.svg' | asset_url }}" alt="Instagram" width="26" height="26" style="width:26px;height:26px" loading="lazy">
+          </a>
+        {%- endif -%}
+        {%- if section.settings.twitter_url != blank -%}
+          <a href="{{ section.settings.twitter_url }}" class="humann-footer__social-link" aria-label="X" target="_blank" rel="noopener">
+            <img src="{{ 'social-icons-2.svg' | asset_url }}" alt="X" width="27" height="26" style="width:27px;height:26px" loading="lazy">
+          </a>
+        {%- endif -%}
+        {%- if section.settings.facebook_url != blank -%}
+          <a href="{{ section.settings.facebook_url }}" class="humann-footer__social-link" aria-label="Facebook" target="_blank" rel="noopener">
+            <img src="{{ 'social-icons-3.svg' | asset_url }}" alt="Facebook" width="26" height="26" style="width:26px;height:26px" loading="lazy">
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Address {%- endcomment -%}
+      <div class="humann-footer__address">
+        {%- if section.settings.address_text != blank -%}
+          <p class="humann-footer__address-line">{{ section.settings.address_text | newline_to_br }}</p>
+        {%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <p class="humann-footer__address-line">{{ section.settings.phone }}</p>
+        {%- endif -%}
+        {%- if section.settings.email_address != blank -%}
+          <p class="humann-footer__address-line">{{ section.settings.email_address }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Menu: Shop {%- endcomment -%}
+    {%- capture shop_accordion_children -%}
+      <details class="humann-footer__menu-details">
+        <summary class="humann-footer__menu-summary">
+          <span class="humann-footer__menu-title">{{ section.settings.shop_menu_heading }}</span>
+          <img src="{{ 'plus-solid.svg' | asset_url }}" alt="" width="20" height="20" class="humann-footer__accordion-icon" loading="lazy">
+        </summary>
+        <nav class="details-content humann-footer__menu-nav">
+          {%- if shop_menu != blank -%}
+            <ul class="humann-footer__menu-list">
+              {%- for link in shop_menu.links -%}
+                <li class="humann-footer__menu-item">
+                  <a href="{{ link.url }}" class="humann-footer__menu-link">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </nav>
+      </details>
+    {%- endcapture -%}
+    {%- render 'accordion-custom-component',
+      children: shop_accordion_children,
+      class: 'humann-footer__menu-col',
+      disable_on_desktop: true,
+      open_by_default_on_desktop: true,
+      disable_on_mobile: false,
+      open_by_default_on_mobile: false
+    -%}
+
+    {%- comment -%} Menu: Learn {%- endcomment -%}
+    {%- capture learn_accordion_children -%}
+      <details class="humann-footer__menu-details">
+        <summary class="humann-footer__menu-summary">
+          <span class="humann-footer__menu-title">{{ section.settings.learn_menu_heading }}</span>
+          <img src="{{ 'plus-solid.svg' | asset_url }}" alt="" width="20" height="20" class="humann-footer__accordion-icon" loading="lazy">
+        </summary>
+        <nav class="details-content humann-footer__menu-nav">
+          {%- if learn_menu != blank -%}
+            <ul class="humann-footer__menu-list">
+              {%- for link in learn_menu.links -%}
+                <li class="humann-footer__menu-item">
+                  <a href="{{ link.url }}" class="humann-footer__menu-link">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </nav>
+      </details>
+    {%- endcapture -%}
+    {%- render 'accordion-custom-component',
+      children: learn_accordion_children,
+      class: 'humann-footer__menu-col',
+      disable_on_desktop: true,
+      open_by_default_on_desktop: true,
+      disable_on_mobile: false,
+      open_by_default_on_mobile: false
+    -%}
+
+    {%- comment -%} Menu: Support {%- endcomment -%}
+    {%- capture support_accordion_children -%}
+      <details class="humann-footer__menu-details">
+        <summary class="humann-footer__menu-summary">
+          <span class="humann-footer__menu-title">{{ section.settings.support_menu_heading }}</span>
+          <img src="{{ 'plus-solid.svg' | asset_url }}" alt="" width="20" height="20" class="humann-footer__accordion-icon" loading="lazy">
+        </summary>
+        <nav class="details-content humann-footer__menu-nav">
+          {%- if support_menu != blank -%}
+            <ul class="humann-footer__menu-list">
+              {%- for link in support_menu.links -%}
+                <li class="humann-footer__menu-item">
+                  <a href="{{ link.url }}" class="humann-footer__menu-link">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </nav>
+      </details>
+    {%- endcapture -%}
+    {%- render 'accordion-custom-component',
+      children: support_accordion_children,
+      class: 'humann-footer__menu-col',
+      disable_on_desktop: true,
+      open_by_default_on_desktop: true,
+      disable_on_mobile: false,
+      open_by_default_on_mobile: false
+    -%}
+  </div>
+
+  {%- comment -%} ===== Zone 2: CTA Buttons ===== {%- endcomment -%}
+  <div class="humann-footer__buttons">
+    {%- if section.settings.button_1_text != blank -%}
+      <a
+        class="humann-footer__cta-btn"
+        {%- if section.settings.button_1_url != blank %} href="{{ section.settings.button_1_url }}"{% endif %}
+      >
+        {{ section.settings.button_1_text }}
+      </a>
+    {%- endif -%}
+    {%- if section.settings.button_2_text != blank -%}
+      <a
+        class="humann-footer__cta-btn"
+        {%- if section.settings.button_2_url != blank %} href="{{ section.settings.button_2_url }}"{% endif %}
+      >
+        {{ section.settings.button_2_text }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ===== Zone 3: Disclaimer ===== {%- endcomment -%}
+  {%- if section.settings.disclaimer_html != blank -%}
+    <div class="humann-footer__disclaimer">
+      <div class="humann-footer__disclaimer-box">
+        {{ section.settings.disclaimer_html }}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ===== Zone 4: Legal ===== {%- endcomment -%}
+  <div class="humann-footer__legal">
+    {%- if policy_links != blank -%}
+      <div class="humann-footer__policy-links">
+        {%- for link in policy_links.links -%}
+          <a href="{{ link.url }}" class="humann-footer__policy-link">{{ link.title }}</a>
+          {%- unless forloop.last -%}
+            <span class="humann-footer__policy-sep">|</span>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.copyright_text != blank -%}
+      <p class="humann-footer__copyright">{{ section.settings.copyright_text }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* ===== Main Container ===== */
+  .humann-footer {
+    background-color: var(--footer-bg, #F5F5F5);
+    padding-block-start: var(--padding-block-start, 40px);
+    padding-block-end: var(--padding-block-end, 60px);
+    padding-inline: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* ===== Zone 1: Content Grid ===== */
+  .humann-footer__grid {
+    display: grid;
+    grid-template-columns: 2.7fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+
+  .humann-footer__left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* --- Email Signup --- */
+  .humann-footer__signup {
+    padding: 8px;
+  }
+
+  .humann-footer__signup-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-block-end: 16px;
+  }
+
+  .humann-footer__signup-heading {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--footer-text-color, #414141);
+    margin: 0;
+  }
+
+  .humann-footer__signup-subtext {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--footer-muted-color, #767676);
+    margin: 0;
+  }
+
+  .humann-footer__input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: var(--footer-input-bg, #D9D9DB);
+    border-radius: 48px;
+    padding: 16px 24px;
+  }
+
+  .humann-footer__email-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: var(--footer-text-color, #414141);
+    outline: none;
+    padding: 0;
+  }
+
+  .humann-footer__email-input::placeholder {
+    color: var(--footer-muted-color, #767676);
+  }
+
+  .humann-footer__submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .humann-footer__form-message {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 8px 0 0;
+  }
+
+  .humann-footer__form-message--error {
+    color: #BC0F0F;
+  }
+
+  .humann-footer__form-message--success {
+    color: #2E7D32;
+  }
+
+  /* --- Social Icons --- */
+  .humann-footer__social {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .humann-footer__social-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  /* --- Address --- */
+  .humann-footer__address {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 8px;
+  }
+
+  .humann-footer__address-line {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--footer-text-color, #414141);
+    margin: 0;
+  }
+
+  /* ===== Menu Columns ===== */
+  .humann-footer__menu-col {
+    width: 100%;
+  }
+
+  .humann-footer__menu-details {
+    width: 100%;
+  }
+
+  .humann-footer__menu-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    list-style: none;
+    cursor: default;
+  }
+
+  .humann-footer__menu-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .humann-footer__menu-title {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--footer-text-color, #414141);
+  }
+
+  .humann-footer__accordion-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .humann-footer__menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .humann-footer__menu-item {
+    padding: 8px;
+  }
+
+  .humann-footer__menu-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--footer-text-color, #414141);
+    text-decoration: none;
+  }
+
+  .humann-footer__menu-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ===== Zone 2: CTA Buttons ===== */
+  .humann-footer__buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .humann-footer__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border-radius: 28px;
+    padding: 16px 28px;
+    font-family: '(K) Uniforma', var(--font-body--family), sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .humann-footer__cta-btn:hover {
+    opacity: 0.85;
+  }
+
+  /* ===== Zone 3: Disclaimer ===== */
+  .humann-footer__disclaimer {
+    padding: 16px 0;
+  }
+
+  .humann-footer__disclaimer-box {
+    border: 1px solid #D9D9DB;
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .humann-footer__disclaimer-box p {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--footer-muted-color, #767676);
+    margin: 0;
+    padding-inline-start: 14px;
+    text-indent: -14px;
+  }
+
+  .humann-footer__disclaimer-box p + p {
+    margin-block-start: 8px;
+  }
+
+  /* ===== Zone 4: Legal ===== */
+  .humann-footer__legal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .humann-footer__policy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .humann-footer__policy-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--footer-muted-color, #767676);
+    text-decoration: underline;
+  }
+
+  .humann-footer__policy-sep {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--footer-muted-color, #767676);
+  }
+
+  .humann-footer__copyright {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--footer-muted-color, #767676);
+    margin: 0;
+  }
+
+  /* ===== Mobile ===== */
+  @media screen and (max-width: 749px) {
+    .humann-footer {
+      --padding-block-start: 16px;
+      --padding-block-end: 16px;
+      padding-inline: 12px;
+      gap: 8px;
+    }
+
+    /* Flatten grid and left column into main flex container */
+    .humann-footer__grid {
+      display: contents;
+    }
+
+    .humann-footer__left {
+      display: contents;
+    }
+
+    /* Reorder zones for mobile layout */
+    .humann-footer__signup { order: 1; }
+    .humann-footer__social { order: 2; }
+    .humann-footer__menu-col { order: 3; }
+    .humann-footer__address { order: 4; }
+    .humann-footer__disclaimer { order: 5; }
+    .humann-footer__buttons { order: 6; }
+    .humann-footer__legal { order: 7; }
+
+    /* Mobile CTA buttons */
+    .humann-footer__buttons {
+      padding: 12px 0;
+    }
+
+    .humann-footer__cta-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    /* Mobile accordion icon visible */
+    .humann-footer__accordion-icon {
+      display: block;
+    }
+
+    .humann-footer__menu-summary {
+      cursor: pointer;
+    }
+
+    .humann-footer__menu-details[open] .humann-footer__accordion-icon {
+      transform: rotate(45deg);
+    }
+
+    /* Mobile social icon color: #414141 → #767676 */
+    .humann-footer__social-link img {
+      filter: brightness(1.815);
+    }
+
+    /* Mobile address text color */
+    .humann-footer__address-line {
+      color: var(--footer-muted-color, #767676);
+    }
+
+    /* Mobile email subtext color */
+    .humann-footer__signup-subtext {
+      color: #A0A0A0;
+    }
+
+    /* Mobile disclaimer border color */
+    .humann-footer__disclaimer-box {
+      border-color: #A0A0A0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Humann footer",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Email signup"
+    },
+    {
+      "type": "text",
+      "id": "signup_heading",
+      "label": "Heading",
+      "default": "Get 10% off when you sign up today."
+    },
+    {
+      "type": "text",
+      "id": "signup_subtext",
+      "label": "Subtext",
+      "default": "Humann science in your inbox"
+    },
+    {
+      "type": "text",
+      "id": "signup_placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "header",
+      "content": "Social links"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "X (Twitter) URL"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "header",
+      "content": "Shop menu"
+    },
+    {
+      "type": "text",
+      "id": "shop_menu_heading",
+      "label": "Heading",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Learn menu"
+    },
+    {
+      "type": "text",
+      "id": "learn_menu_heading",
+      "label": "Heading",
+      "default": "Learn"
+    },
+    {
+      "type": "link_list",
+      "id": "learn_menu",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Support menu"
+    },
+    {
+      "type": "text",
+      "id": "support_menu_heading",
+      "label": "Heading",
+      "default": "Support"
+    },
+    {
+      "type": "link_list",
+      "id": "support_menu",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Contact information"
+    },
+    {
+      "type": "textarea",
+      "id": "address_text",
+      "label": "Address",
+      "default": "1250 S Capital of Texas Highway\nAustin, TX 78746"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "(855) 636-4040"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email",
+      "default": "info@humann.com"
+    },
+    {
+      "type": "header",
+      "content": "CTA buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1 text",
+      "default": "Accessibility"
+    },
+    {
+      "type": "url",
+      "id": "button_1_url",
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 text",
+      "default": "Chat"
+    },
+    {
+      "type": "url",
+      "id": "button_2_url",
+      "label": "Button 2 URL"
+    },
+    {
+      "type": "header",
+      "content": "Disclaimer"
+    },
+    {
+      "type": "html",
+      "id": "disclaimer_html",
+      "label": "Disclaimer content",
+      "default": "<p>* According to IQVIA ProVoice Survey 2024</p><p>1 Based on the combination of all sales data for medical practitioners and professionals for humann products sold through pro.humann.com and medical sales distributor partners from 12/1/23 to 11/30/2024.</p><p>2 In a 16-week, double-blind, placebo-controlled study involving 119 healthy men and women, Heart Chews' polyphenol compound, taken as part of a healthy lifestyle was clinically shown nearly 2-times as effective at promoting normal blood pressure already in the normal range as a healthy lifestyle alone.</p><p>3 Based on Amazon 5-star ratings and reviews as of May 2024 for SuperBeets Heart Chews, Powder, Collagen, Energy Plus, Circulation Gummies, Energy Gummies, Beet Root Capsules, Sport, Memory + Focus.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Legal"
+    },
+    {
+      "type": "link_list",
+      "id": "policy_menu",
+      "label": "Policy links menu"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2025 Humann"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#414141"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text color",
+      "default": "#767676"
+    },
+    {
+      "type": "color",
+      "id": "input_background_color",
+      "label": "Input background",
+      "default": "#D9D9DB"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Humann footer"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  }
+}
+{% endschema %}
