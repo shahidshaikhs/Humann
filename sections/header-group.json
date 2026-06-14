@@ -1,116 +1,63 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "header",
-  "name": "t:names.header",
+  "name": "Header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
-      "blocks": {
-        "announcement_BxgCk9": {
-          "type": "_announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "announcement_BxgCk9"
-      ],
-      "name": "t:names.announcement_bar",
+    "humann_promo_bar": {
+      "type": "humann-promo-bar",
       "settings": {
-        "speed": 5,
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "divider_width": 1,
-        "padding-block-start": 15,
-        "padding-block-end": 15
+        "promo_text": "Free Shipping on orders $49.99+",
+        "promo_link_text": "Shop now",
+        "utility_link_1_text": "Store Locator",
+        "utility_link_2_text": "Humann Professional",
+        "background_color": "#BC0F0F",
+        "padding-block-start": 8,
+        "padding-block-end": 8
       }
     },
-    "header_section": {
-      "type": "header",
-      "blocks": {
-        "header-logo": {
-          "type": "_header-logo",
-          "static": true,
-          "settings": {
-            "hide_logo_on_home_page": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0
-          },
-          "blocks": {}
-        },
-        "header-menu": {
-          "type": "_header-menu",
-          "static": true,
-          "settings": {
-            "menu": "main-menu",
-            "color_scheme": "",
-            "type_font_primary_size": "0.875rem",
-            "menu_font_style": "inverse",
-            "type_font_primary_link": "body",
-            "type_case_primary_link": "none",
-            "menu_style": "featured_products",
-            "featured_products_aspect_ratio": "4 / 5",
-            "featured_collections_aspect_ratio": "16 / 9",
-            "image_border_radius": 0,
-            "navigation_bar": false,
-            "color_scheme_navigation_bar": "",
-            "drawer_accordion": false,
-            "drawer_accordion_expand_first": false,
-            "drawer_dividers": false
-          },
-          "blocks": {}
-        }
-      },
+    "humann_header": {
+      "type": "humann-header",
       "settings": {
-        "logo_position": "left",
-        "menu_position": "left",
-        "menu_row": "top",
-        "show_search": true,
-        "search_position": "right",
-        "search_row": "top",
-        "show_country": true,
-        "country_selector_style": false,
-        "show_language": true,
-        "localization_font": "heading",
-        "localization_font_size": "0.875rem",
-        "localization_position": "right",
-        "localization_row": "top",
-        "section_width": "page-width",
-        "section_height": "standard",
-        "enable_sticky_header": "always",
-        "divider_width": 0,
-        "divider_size": "page-width",
-        "border_width": 0,
-        "color_scheme_top": "scheme-1",
-        "color_scheme_bottom": "",
-        "color_scheme_transparent": "scheme-6",
-        "enable_transparent_header_home": false,
-        "home_color_scheme": "inverse",
-        "enable_transparent_header_product": false,
-        "product_color_scheme": "default",
-        "enable_transparent_header_collection": false,
-        "collection_color_scheme": "default"
+        "main_menu": "main-menu",
+        "mega_trigger_text": "Shop All",
+        "mega_shop_heading": "Shop",
+        "mega_shop_link_1_text": "Shop All",
+        "mega_shop_link_2_text": "Shop SuperBeets",
+        "mega_benefit_heading": "Shop by Benefit",
+        "mega_benefit_1_text": "Blood Pressure",
+        "mega_benefit_1_color": "#761A2C",
+        "mega_benefit_2_text": "Blood Flow",
+        "mega_benefit_2_color": "#D72A2A",
+        "mega_benefit_3_text": "Metabolic",
+        "mega_benefit_3_color": "#E6305E",
+        "mega_benefit_4_text": "Cholesterol",
+        "mega_benefit_4_color": "#D54427",
+        "mega_benefit_5_text": "Cognitive",
+        "mega_benefit_5_color": "#B1369A",
+        "mega_benefit_6_text": "Sports",
+        "mega_benefit_6_color": "#E9FF6D",
+        "mega_featured_heading": "Featured",
+        "mega_card_1_badge_text": "#1 Doctor Recommended",
+        "mega_card_1_description": "Get 50% off our heart health routine",
+        "mega_card_1_bg_color": "#BC0F0F",
+        "mega_card_2_badge_text": "#1 Doctor Recommended",
+        "mega_card_2_description": "Buy 2 SuperBeets, get 1 free",
+        "mega_card_2_bg_color": "#BC0F0F",
+        "mega_card_3_badge_text": "Limited Time Offer",
+        "mega_card_3_description": "Buy 2 Superbeets, get 1 free",
+        "mega_card_3_bg_color": "#F5F5F5",
+        "header_bg_color": "#FFFFFF",
+        "header_text_color": "#414141",
+        "header_border_color": "#A0A0A0",
+        "cart_badge_color": "#BC0F0F",
+        "pro_heading": "Humann Professional",
+        "pro_description": "Our program for medical organizations, professional collegiate sports teams, and more.",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
-    "header_section"
+    "humann_promo_bar",
+    "humann_header"
   ]
 }

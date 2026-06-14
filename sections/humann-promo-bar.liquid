@@ -1,0 +1,285 @@
+<div
+  class="humann-promo-bar"
+  style="
+    --promo-bg: {{ section.settings.background_color }};
+    {% render 'spacing-style', settings: section.settings %}
+  "
+>
+  <div class="humann-promo-bar__inner">
+    <div class="humann-promo-bar__center">
+      <a
+        class="humann-promo-bar__arrow humann-promo-bar__arrow--prev"
+        aria-label="Previous announcement"
+      >
+        <img
+          src="{{ 'chevron-left.svg' | asset_url }}"
+          alt=""
+          width="24"
+          height="24"
+          style="width:24px;height:24px"
+          loading="eager"
+        >
+      </a>
+
+      <div class="humann-promo-bar__content">
+        <span class="humann-promo-bar__text">
+          {{ section.settings.promo_text }}
+        </span>
+
+        {%- if section.settings.promo_link_text != blank -%}
+          <a
+            class="humann-promo-bar__link"
+            {% if section.settings.promo_link_url != blank %}href="{{ section.settings.promo_link_url }}"{% endif %}
+          >
+            {{ section.settings.promo_link_text }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <a
+        class="humann-promo-bar__arrow humann-promo-bar__arrow--next"
+        aria-label="Next announcement"
+      >
+        <img
+          src="{{ 'chevron-right.svg' | asset_url }}"
+          alt=""
+          width="24"
+          height="24"
+          style="width:24px;height:24px"
+          loading="eager"
+        >
+      </a>
+    </div>
+
+    {%- if section.settings.utility_link_1_text != blank or section.settings.utility_link_2_text != blank -%}
+      <div class="humann-promo-bar__utility">
+        {%- if section.settings.utility_link_1_text != blank -%}
+          <a
+            class="humann-promo-bar__utility-link"
+            {% if section.settings.utility_link_1_url != blank %}href="{{ section.settings.utility_link_1_url }}"{% endif %}
+          >
+            {{ section.settings.utility_link_1_text }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.utility_link_1_text != blank and section.settings.utility_link_2_text != blank -%}
+          <span class="humann-promo-bar__utility-separator">|</span>
+        {%- endif -%}
+
+        {%- if section.settings.utility_link_2_text != blank -%}
+          <a
+            class="humann-promo-bar__utility-link"
+            {% if section.settings.utility_link_2_url != blank %}href="{{ section.settings.utility_link_2_url }}"{% endif %}
+          >
+            {{ section.settings.utility_link_2_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .humann-promo-bar {
+    background-color: var(--promo-bg, #BC0F0F);
+    padding-block-start: var(--padding-block-start, 8px);
+    padding-block-end: var(--padding-block-end, 8px);
+    position: relative;
+  }
+
+  .humann-promo-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-inline: 16px;
+  }
+
+  .humann-promo-bar__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .humann-promo-bar__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .humann-promo-bar__arrow img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+
+  .humann-promo-bar__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .humann-promo-bar__text {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-align: center;
+  }
+
+  .humann-promo-bar__link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .humann-promo-bar__utility {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    inset-inline-end: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .humann-promo-bar__utility-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+
+  .humann-promo-bar__utility-separator {
+    color: #FFFFFF;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .humann-promo-bar__utility {
+      display: none;
+    }
+
+    .humann-promo-bar__inner {
+      padding-inline: 16px;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-promo-bar__inner {
+      padding-inline: 208px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Promo bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Announcement text",
+      "default": "Free Shipping on orders $49.99+"
+    },
+    {
+      "type": "text",
+      "id": "promo_link_text",
+      "label": "Link text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "promo_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Utility links"
+    },
+    {
+      "type": "text",
+      "id": "utility_link_1_text",
+      "label": "Utility link 1 text",
+      "default": "Store Locator"
+    },
+    {
+      "type": "url",
+      "id": "utility_link_1_url",
+      "label": "Utility link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "utility_link_2_text",
+      "label": "Utility link 2 text",
+      "default": "Humann Professional"
+    },
+    {
+      "type": "url",
+      "id": "utility_link_2_url",
+      "label": "Utility link 2 URL"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo bar"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

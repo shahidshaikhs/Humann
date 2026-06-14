@@ -1,0 +1,1637 @@
+{%- liquid
+  assign main_menu = section.settings.main_menu
+  assign mega_trigger_text = section.settings.mega_trigger_text | default: 'Shop All'
+-%}
+
+<humann-header-component
+  class="humann-header"
+  data-section-id="{{ section.id }}"
+  style="
+    --header-bg: {{ section.settings.header_bg_color }};
+    --header-text: {{ section.settings.header_text_color }};
+    --header-border: {{ section.settings.header_border_color }};
+    --cart-badge-bg: {{ section.settings.cart_badge_color }};
+    {% render 'spacing-style', settings: section.settings %}
+  "
+>
+  {%- comment -%} ===== DESKTOP + MOBILE HEADER BAR ===== {%- endcomment -%}
+  <header class="humann-header__bar">
+    <div class="humann-header__bar-inner">
+      {%- comment -%} LEFT: Logo + Nav {%- endcomment -%}
+      <div class="humann-header__left">
+        <a href="{{ routes.root_url }}" class="humann-header__logo" aria-label="Home">
+          {%- if section.settings.logo_image != blank -%}
+            {{ section.settings.logo_image | image_url: width: 278 | image_tag: alt: shop.name, loading: 'eager', width: 139, height: 24 }}
+          {%- else -%}
+            <img
+              src="{{ 'logo.svg' | asset_url }}"
+              alt="{{ shop.name }}"
+              width="139"
+              height="24"
+              style="width:139px;height:24px"
+              loading="eager"
+            >
+          {%- endif -%}
+        </a>
+
+        <nav class="humann-header__nav" aria-label="Main navigation">
+          <ul class="humann-header__nav-list">
+            {%- comment -%} Mega-menu trigger {%- endcomment -%}
+            <li class="humann-header__nav-item">
+              <button
+                class="humann-header__mega-trigger"
+                data-mega-trigger
+                aria-expanded="false"
+                aria-controls="humann-mega-menu-{{ section.id }}"
+                type="button"
+              >
+                <span>{{ mega_trigger_text }}</span>
+                <img
+                  src="{{ 'chevron-down-2.svg' | asset_url }}"
+                  alt=""
+                  width="24"
+                  height="24"
+                  class="humann-header__chevron-icon"
+                  loading="eager"
+                >
+              </button>
+            </li>
+
+            {%- comment -%} Regular nav links from link_list {%- endcomment -%}
+            {%- if main_menu != blank -%}
+              {%- for link in linklists[main_menu].links -%}
+                <li class="humann-header__nav-item">
+                  <a href="{{ link.url }}" class="humann-header__nav-link">
+                    {{ link.title }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+        </nav>
+      </div>
+
+      {%- comment -%} RIGHT: Icons {%- endcomment -%}
+      <div class="humann-header__right">
+        {%- comment -%} Search icon {%- endcomment -%}
+        <a href="{{ routes.search_url }}" class="humann-header__icon" aria-label="Search">
+          <img
+            src="{{ 'search.svg' | asset_url }}"
+            alt=""
+            width="24"
+            height="24"
+            style="width:24px;height:24px"
+            loading="eager"
+          >
+        </a>
+
+        {%- comment -%} User icon + welcome text {%- endcomment -%}
+        <a href="{{ routes.account_url }}" class="humann-header__icon humann-header__user-group" aria-label="Account">
+          <img
+            src="{{ 'user.svg' | asset_url }}"
+            alt=""
+            width="24"
+            height="24"
+            style="width:24px;height:24px"
+            loading="eager"
+          >
+          {%- if customer -%}
+            <span class="humann-header__welcome-text">Welcome, {{ customer.first_name }}!</span>
+          {%- endif -%}
+        </a>
+
+        {%- comment -%} Cart icon with badge {%- endcomment -%}
+        <a href="{{ routes.cart_url }}" class="humann-header__icon humann-header__cart-wrap" aria-label="Cart">
+          <img
+            src="{{ 'cart.svg' | asset_url }}"
+            alt=""
+            width="24"
+            height="24"
+            style="width:24px;height:24px"
+            loading="eager"
+          >
+          <span class="humann-header__cart-badge" data-cart-badge style="display:none;">
+            <span data-cart-count>0</span>
+          </span>
+        </a>
+
+        {%- comment -%} Mobile hamburger {%- endcomment -%}
+        <button
+          class="humann-header__hamburger"
+          data-drawer-open
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="humann-drawer-{{ section.id }}"
+        >
+          {{ 'icon-menu.svg' | inline_asset_content }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%} ===== DESKTOP MEGA-MENU ===== {%- endcomment -%}
+  <div
+    class="humann-header__mega-overlay"
+    data-mega-overlay
+    aria-hidden="true"
+  ></div>
+  <div
+    class="humann-header__mega-menu"
+    id="humann-mega-menu-{{ section.id }}"
+    data-mega-menu
+    aria-hidden="true"
+  >
+    <div class="humann-header__mega-inner">
+      {%- comment -%} Column 1: Shop {%- endcomment -%}
+      <div class="humann-header__mega-col">
+        <p class="humann-header__mega-heading">{{ section.settings.mega_shop_heading }}</p>
+        <ul class="humann-header__mega-links">
+          {%- if section.settings.mega_shop_link_1_text != blank -%}
+            <li>
+              <a
+                href="{{ section.settings.mega_shop_link_1_url | default: routes.all_products_collection_url }}"
+                class="humann-header__mega-link"
+              >
+                {{ section.settings.mega_shop_link_1_text }}
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.mega_shop_link_2_text != blank -%}
+            <li>
+              <a
+                href="{{ section.settings.mega_shop_link_2_url | default: '#' }}"
+                class="humann-header__mega-link"
+              >
+                {{ section.settings.mega_shop_link_2_text }}
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      {%- comment -%} Column 2: Shop by Benefit {%- endcomment -%}
+      <div class="humann-header__mega-col">
+        <p class="humann-header__mega-heading">{{ section.settings.mega_benefit_heading }}</p>
+        <ul class="humann-header__mega-benefits">
+          {%- for i in (1..6) -%}
+            {%- liquid
+              assign text_key = 'mega_benefit_' | append: i | append: '_text'
+              assign url_key = 'mega_benefit_' | append: i | append: '_url'
+              assign color_key = 'mega_benefit_' | append: i | append: '_color'
+              assign benefit_text = section.settings[text_key]
+              assign benefit_url = section.settings[url_key]
+              assign benefit_color = section.settings[color_key]
+            -%}
+            {%- if benefit_text != blank -%}
+              <li class="humann-header__mega-benefit-item">
+                <a
+                  href="{{ benefit_url | default: '#' }}"
+                  class="humann-header__mega-benefit-link"
+                >
+                  <span
+                    class="humann-header__mega-benefit-dot{% if i == 6 %} humann-header__mega-benefit-dot--bordered{% endif %}"
+                    style="background-color: {{ benefit_color }};"
+                  ></span>
+                  <span class="humann-header__mega-benefit-text">{{ benefit_text }}</span>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      {%- comment -%} Column 3: Featured {%- endcomment -%}
+      <div class="humann-header__mega-col humann-header__mega-col--featured">
+        <p class="humann-header__mega-heading">{{ section.settings.mega_featured_heading }}</p>
+        <div class="humann-header__mega-cards">
+          {%- for i in (1..3) -%}
+            {%- liquid
+              assign img_key = 'mega_card_' | append: i | append: '_image'
+              assign badge_key = 'mega_card_' | append: i | append: '_badge_text'
+              assign desc_key = 'mega_card_' | append: i | append: '_description'
+              assign url_key = 'mega_card_' | append: i | append: '_url'
+              assign bg_key = 'mega_card_' | append: i | append: '_bg_color'
+              assign card_image = section.settings[img_key]
+              assign card_badge = section.settings[badge_key]
+              assign card_desc = section.settings[desc_key]
+              assign card_url = section.settings[url_key]
+              assign card_bg = section.settings[bg_key]
+            -%}
+            {%- if card_image != blank or card_desc != blank -%}
+              <a
+                href="{{ card_url | default: '#' }}"
+                class="humann-header__mega-card"
+              >
+                <div
+                  class="humann-header__mega-card-img"
+                  style="background-color: {{ card_bg | default: '#BC0F0F' }};"
+                >
+                  {%- if card_image != blank -%}
+                    {{ card_image | image_url: width: 628 | image_tag: alt: card_desc, loading: 'lazy', class: 'humann-header__mega-card-photo' }}
+                  {%- endif -%}
+                  {%- if card_badge != blank -%}
+                    <span class="humann-header__mega-card-badge">{{ card_badge }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if card_desc != blank -%}
+                  <p class="humann-header__mega-card-desc">{{ card_desc }}</p>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ===== MOBILE DRAWER ===== {%- endcomment -%}
+  <div
+    class="humann-header__drawer-overlay"
+    data-drawer-overlay
+    aria-hidden="true"
+  ></div>
+  <div
+    class="humann-header__drawer"
+    id="humann-drawer-{{ section.id }}"
+    data-drawer
+    aria-hidden="true"
+  >
+    <div class="humann-header__drawer-top">
+      {%- comment -%} Search input {%- endcomment -%}
+      <form action="{{ routes.search_url }}" method="get" class="humann-header__drawer-search" role="search">
+        <img
+          src="{{ 'search.svg' | asset_url }}"
+          alt=""
+          width="20"
+          height="20"
+          class="humann-header__drawer-search-icon"
+          loading="lazy"
+        >
+        <input
+          type="search"
+          name="q"
+          class="humann-header__drawer-search-input"
+          placeholder="Search products, articles, etc..."
+          autocomplete="off"
+        >
+      </form>
+
+      {%- comment -%} Close button {%- endcomment -%}
+      <button
+        class="humann-header__drawer-close"
+        data-drawer-close
+        type="button"
+        aria-label="Close menu"
+      >
+        {{ 'icon-close.svg' | inline_asset_content }}
+      </button>
+    </div>
+
+    {%- comment -%} Main nav {%- endcomment -%}
+    <nav class="humann-header__drawer-nav" aria-label="Mobile navigation">
+      <ul class="humann-header__drawer-nav-list">
+        {%- comment -%} Shop by Benefit with expandable sub-items {%- endcomment -%}
+        <li class="humann-header__drawer-nav-item">
+          <button
+            class="humann-header__drawer-nav-btn"
+            data-benefit-toggle
+            type="button"
+            aria-expanded="false"
+          >
+            <span>{{ section.settings.mega_benefit_heading | default: 'Shop by Benefit' }}</span>
+            <img
+              src="{{ 'chevron-right.svg' | asset_url }}"
+              alt=""
+              width="24"
+              height="24"
+              class="humann-header__drawer-chevron"
+              loading="lazy"
+            >
+          </button>
+          <ul class="humann-header__drawer-sub" data-benefit-sub aria-hidden="true">
+            {%- for i in (1..6) -%}
+              {%- liquid
+                assign text_key = 'mega_benefit_' | append: i | append: '_text'
+                assign url_key = 'mega_benefit_' | append: i | append: '_url'
+                assign color_key = 'mega_benefit_' | append: i | append: '_color'
+                assign benefit_text = section.settings[text_key]
+                assign benefit_url = section.settings[url_key]
+                assign benefit_color = section.settings[color_key]
+              -%}
+              {%- if benefit_text != blank -%}
+                <li class="humann-header__drawer-sub-item">
+                  <a href="{{ benefit_url | default: '#' }}" class="humann-header__drawer-sub-link">
+                    <span
+                      class="humann-header__mega-benefit-dot{% if i == 6 %} humann-header__mega-benefit-dot--bordered{% endif %}"
+                      style="background-color: {{ benefit_color }};"
+                    ></span>
+                    <span>{{ benefit_text }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </li>
+
+        {%- comment -%} Shop SuperBeets {%- endcomment -%}
+        {%- if section.settings.mega_shop_link_2_text != blank -%}
+          <li class="humann-header__drawer-nav-item">
+            <a href="{{ section.settings.mega_shop_link_2_url | default: '#' }}" class="humann-header__drawer-nav-link">
+              {{ section.settings.mega_shop_link_2_text }}
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Shop All {%- endcomment -%}
+        {%- if section.settings.mega_shop_link_1_text != blank -%}
+          <li class="humann-header__drawer-nav-item">
+            <a href="{{ section.settings.mega_shop_link_1_url | default: routes.all_products_collection_url }}" class="humann-header__drawer-nav-link">
+              {{ section.settings.mega_shop_link_1_text }}
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Regular menu links {%- endcomment -%}
+        {%- if main_menu != blank -%}
+          {%- for link in linklists[main_menu].links -%}
+            <li class="humann-header__drawer-nav-item">
+              <a href="{{ link.url }}" class="humann-header__drawer-nav-link">
+                {{ link.title }}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </nav>
+
+    <hr class="humann-header__drawer-divider">
+
+    {%- comment -%} Featured promo cards {%- endcomment -%}
+    <div class="humann-header__drawer-featured">
+      <p class="humann-header__drawer-featured-heading">{{ section.settings.mega_featured_heading | default: 'Featured' }}</p>
+      <div class="humann-header__drawer-cards">
+        {%- for i in (1..3) -%}
+          {%- liquid
+            assign img_key = 'mega_card_' | append: i | append: '_image'
+            assign badge_key = 'mega_card_' | append: i | append: '_badge_text'
+            assign desc_key = 'mega_card_' | append: i | append: '_description'
+            assign url_key = 'mega_card_' | append: i | append: '_url'
+            assign bg_key = 'mega_card_' | append: i | append: '_bg_color'
+            assign card_image = section.settings[img_key]
+            assign card_badge = section.settings[badge_key]
+            assign card_desc = section.settings[desc_key]
+            assign card_url = section.settings[url_key]
+            assign card_bg = section.settings[bg_key]
+          -%}
+          {%- if card_image != blank or card_desc != blank -%}
+            <a
+              href="{{ card_url | default: '#' }}"
+              class="humann-header__drawer-card"
+            >
+              <div
+                class="humann-header__drawer-card-img"
+                style="background-color: {{ card_bg | default: '#BC0F0F' }};"
+              >
+                {%- if card_image != blank -%}
+                  {{ card_image | image_url: width: 508 | image_tag: alt: card_desc, loading: 'lazy', class: 'humann-header__drawer-card-photo' }}
+                {%- endif -%}
+                {%- if card_badge != blank -%}
+                  <span class="humann-header__drawer-card-badge">{{ card_badge }}</span>
+                {%- endif -%}
+              </div>
+              {%- if card_desc != blank -%}
+                <p class="humann-header__drawer-card-desc">{{ card_desc }}</p>
+              {%- endif -%}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <hr class="humann-header__drawer-divider">
+
+    {%- comment -%} Secondary links {%- endcomment -%}
+    <div class="humann-header__drawer-secondary">
+      {%- if section.settings.pro_heading != blank -%}
+        <div class="humann-header__drawer-pro">
+          <a
+            href="{{ section.settings.pro_url | default: '#' }}"
+            class="humann-header__drawer-pro-title"
+          >
+            {{ section.settings.pro_heading }}
+          </a>
+          {%- if section.settings.pro_description != blank -%}
+            <p class="humann-header__drawer-pro-desc">{{ section.settings.pro_description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.secondary_menu != blank -%}
+        <ul class="humann-header__drawer-secondary-list">
+          {%- for link in linklists[section.settings.secondary_menu].links -%}
+            <li>
+              <a href="{{ link.url }}" class="humann-header__drawer-secondary-link">
+                {{ link.title }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</humann-header-component>
+
+{% stylesheet %}
+  /* ===== HEADER BAR ===== */
+  .humann-header {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .humann-header__bar {
+    background-color: var(--header-bg, #FFFFFF);
+    border-bottom: 1px solid var(--header-border, #A0A0A0);
+    height: 64px;
+  }
+
+  .humann-header__bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* Left zone: logo + nav */
+  .humann-header__left {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .humann-header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .humann-header__logo img {
+    width: 139px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  /* Nav */
+  .humann-header__nav {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-header__nav {
+      display: block;
+    }
+  }
+
+  .humann-header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .humann-header__nav-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--header-text, #414141);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .humann-header__nav-link:hover {
+    opacity: 0.7;
+  }
+
+  /* Mega-menu trigger */
+  .humann-header__mega-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--header-text, #414141);
+    white-space: nowrap;
+  }
+
+  .humann-header__mega-trigger:hover {
+    opacity: 0.7;
+  }
+
+  .humann-header__chevron-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+    transform: rotate(180deg);
+  }
+
+  .humann-header__mega-trigger[aria-expanded="true"] .humann-header__chevron-icon {
+    transform: rotate(0deg);
+  }
+
+  /* Right zone: icons */
+  .humann-header__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-header__right {
+      gap: 24px;
+    }
+  }
+
+  .humann-header__icon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .humann-header__icon img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .humann-header__user-group {
+    gap: 4px;
+  }
+
+  .humann-header__welcome-text {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    white-space: nowrap;
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-header__welcome-text {
+      display: inline;
+    }
+  }
+
+  /* Cart badge */
+  .humann-header__cart-wrap {
+    position: relative;
+  }
+
+  .humann-header__cart-badge {
+    position: absolute;
+    top: -6px;
+    inset-inline-end: -6px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: var(--cart-badge-bg, #BC0F0F);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: '(K) Uniforma', 'Uniforma', var(--font-accent--family), sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: -1px;
+    color: #FFFFFF;
+    pointer-events: none;
+  }
+
+  /* Hamburger - mobile only */
+  .humann-header__hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--header-text, #414141);
+  }
+
+  .humann-header__hamburger svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-header__hamburger {
+      display: none;
+    }
+  }
+
+  /* ===== MEGA-MENU (desktop only) ===== */
+  .humann-header__mega-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(24px);
+    z-index: 98;
+  }
+
+  .humann-header__mega-overlay[aria-hidden="false"] {
+    display: block;
+  }
+
+  .humann-header__mega-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    z-index: 99;
+    padding: 0 16px;
+  }
+
+  .humann-header__mega-menu[aria-hidden="false"] {
+    display: block;
+  }
+
+  .humann-header__mega-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 40px;
+    max-width: 1408px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 40px 48px;
+  }
+
+  .humann-header__mega-heading {
+    font-family: '(K) Uniforma', 'Uniforma', var(--font-accent--family), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #9A9A9A;
+    margin: 0 0 24px 0;
+  }
+
+  /* Mega Column 1: Shop Links */
+  .humann-header__mega-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-header__mega-link {
+    font-family: 'Moderat Serif', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-header__mega-link:hover {
+    opacity: 0.7;
+  }
+
+  /* Mega Column 2: Benefits */
+  .humann-header__mega-benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-header__mega-benefit-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .humann-header__mega-benefit-link:hover {
+    opacity: 0.7;
+  }
+
+  .humann-header__mega-benefit-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .humann-header__mega-benefit-dot--bordered {
+    border: 1px solid #A0A0A0;
+  }
+
+  .humann-header__mega-benefit-text {
+    font-family: 'Moderat Serif', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+  }
+
+  /* Mega Column 3: Featured Cards */
+  .humann-header__mega-col--featured {
+    min-width: 0;
+  }
+
+  .humann-header__mega-cards {
+    display: flex;
+    gap: 16px;
+  }
+
+  .humann-header__mega-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .humann-header__mega-card:hover {
+    opacity: 0.9;
+  }
+
+  .humann-header__mega-card-img {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 314 / 244;
+  }
+
+  .humann-header__mega-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .humann-header__mega-card-badge {
+    position: absolute;
+    top: 12px;
+    inset-inline-start: 12px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    white-space: nowrap;
+  }
+
+  .humann-header__mega-card-desc {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+    margin: 0;
+  }
+
+  /* Hide mega-menu on mobile */
+  @media screen and (max-width: 749px) {
+    .humann-header__mega-overlay,
+    .humann-header__mega-menu {
+      display: none !important;
+    }
+  }
+
+  /* ===== MOBILE DRAWER ===== */
+  .humann-header__drawer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 200;
+  }
+
+  .humann-header__drawer-overlay[aria-hidden="false"] {
+    display: block;
+  }
+
+  .humann-header__drawer {
+    position: fixed;
+    top: 0;
+    inset-inline-end: 0;
+    width: 100%;
+    max-width: 393px;
+    height: 100%;
+    background: #FFFFFF;
+    z-index: 201;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .humann-header__drawer[aria-hidden="false"] {
+    transform: translateX(0);
+  }
+
+  .humann-header__drawer-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-block-end: 24px;
+  }
+
+  .humann-header__drawer-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    border: 1px solid #A0A0A0;
+    border-radius: 32px;
+    padding: 8px 16px;
+  }
+
+  .humann-header__drawer-search-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .humann-header__drawer-search-input {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #414141;
+    min-width: 0;
+  }
+
+  .humann-header__drawer-search-input::placeholder {
+    color: #A0A0A0;
+  }
+
+  .humann-header__drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    color: #414141;
+    flex-shrink: 0;
+  }
+
+  .humann-header__drawer-close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Drawer Nav */
+  .humann-header__drawer-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-header__drawer-nav-link,
+  .humann-header__drawer-nav-btn {
+    font-family: 'Moderat Serif', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-header__drawer-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .humann-header__drawer-chevron {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+  }
+
+  .humann-header__drawer-nav-btn[aria-expanded="true"] .humann-header__drawer-chevron {
+    transform: rotate(90deg);
+  }
+
+  /* Drawer sub-menu (benefit items) */
+  .humann-header__drawer-sub {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    padding-block-start: 12px;
+    padding-inline-start: 8px;
+  }
+
+  .humann-header__drawer-sub[aria-hidden="false"] {
+    display: flex;
+  }
+
+  .humann-header__drawer-sub-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: 'Moderat Serif', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -1px;
+    color: #414141;
+  }
+
+  .humann-header__drawer-divider {
+    border: none;
+    border-top: 1px solid #E0E0E0;
+    margin: 24px 0;
+  }
+
+  /* Drawer Featured */
+  .humann-header__drawer-featured-heading {
+    font-family: '(K) Uniforma', 'Uniforma', var(--font-accent--family), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #767676;
+    margin: 0 0 16px 0;
+  }
+
+  .humann-header__drawer-cards {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-block-end: 4px;
+  }
+
+  .humann-header__drawer-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .humann-header__drawer-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    flex-shrink: 0;
+    width: 254px;
+    scroll-snap-align: start;
+  }
+
+  .humann-header__drawer-card-img {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 254 / 198;
+  }
+
+  .humann-header__drawer-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .humann-header__drawer-card-badge {
+    position: absolute;
+    top: 12px;
+    inset-inline-start: 12px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    white-space: nowrap;
+  }
+
+  .humann-header__drawer-card-desc {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+    margin: 0;
+  }
+
+  /* Drawer Secondary Links */
+  .humann-header__drawer-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-header__drawer-pro {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .humann-header__drawer-pro-title {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-header__drawer-pro-desc {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    margin: 0;
+  }
+
+  .humann-header__drawer-secondary-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-header__drawer-secondary-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-header__drawer-secondary-link:hover {
+    opacity: 0.7;
+  }
+
+  /* Hide drawer on desktop */
+  @media screen and (min-width: 750px) {
+    .humann-header__drawer-overlay,
+    .humann-header__drawer {
+      display: none !important;
+    }
+  }
+{% endstylesheet %}
+
+<script type="module">
+  if (!customElements.get('humann-header-component')) {
+    class HumannHeaderComponent extends HTMLElement {
+      connectedCallback() {
+        this.megaTrigger = this.querySelector('[data-mega-trigger]');
+        this.megaMenu = this.querySelector('[data-mega-menu]');
+        this.megaOverlay = this.querySelector('[data-mega-overlay]');
+        this.drawerOpenBtn = this.querySelector('[data-drawer-open]');
+        this.drawerCloseBtn = this.querySelector('[data-drawer-close]');
+        this.drawer = this.querySelector('[data-drawer]');
+        this.drawerOverlay = this.querySelector('[data-drawer-overlay]');
+        this.benefitToggle = this.querySelector('[data-benefit-toggle]');
+        this.benefitSub = this.querySelector('[data-benefit-sub]');
+        this.cartBadge = this.querySelector('[data-cart-badge]');
+        this.cartCount = this.querySelector('[data-cart-count]');
+
+        this.bindMegaMenu();
+        this.bindDrawer();
+        this.bindBenefitToggle();
+        this.fetchCartCount();
+      }
+
+      bindMegaMenu() {
+        if (!this.megaTrigger || !this.megaMenu) return;
+
+        this.megaTrigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          const isOpen = this.megaTrigger.getAttribute('aria-expanded') === 'true';
+          this.toggleMegaMenu(!isOpen);
+        });
+
+        if (this.megaOverlay) {
+          this.megaOverlay.addEventListener('click', () => {
+            this.toggleMegaMenu(false);
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.megaTrigger.getAttribute('aria-expanded') === 'true') {
+            this.toggleMegaMenu(false);
+            this.megaTrigger.focus();
+          }
+        });
+      }
+
+      toggleMegaMenu(open) {
+        this.megaTrigger.setAttribute('aria-expanded', String(open));
+        this.megaMenu.setAttribute('aria-hidden', String(!open));
+        if (this.megaOverlay) {
+          this.megaOverlay.setAttribute('aria-hidden', String(!open));
+        }
+      }
+
+      bindDrawer() {
+        if (!this.drawer) return;
+
+        if (this.drawerOpenBtn) {
+          this.drawerOpenBtn.addEventListener('click', () => {
+            this.openDrawer();
+          });
+        }
+
+        if (this.drawerCloseBtn) {
+          this.drawerCloseBtn.addEventListener('click', () => {
+            this.closeDrawer();
+          });
+        }
+
+        if (this.drawerOverlay) {
+          this.drawerOverlay.addEventListener('click', () => {
+            this.closeDrawer();
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.drawer.getAttribute('aria-hidden') === 'false') {
+            this.closeDrawer();
+          }
+        });
+      }
+
+      openDrawer() {
+        this.drawer.setAttribute('aria-hidden', 'false');
+        if (this.drawerOverlay) {
+          this.drawerOverlay.setAttribute('aria-hidden', 'false');
+        }
+        if (this.drawerOpenBtn) {
+          this.drawerOpenBtn.setAttribute('aria-expanded', 'true');
+        }
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeDrawer() {
+        this.drawer.setAttribute('aria-hidden', 'true');
+        if (this.drawerOverlay) {
+          this.drawerOverlay.setAttribute('aria-hidden', 'true');
+        }
+        if (this.drawerOpenBtn) {
+          this.drawerOpenBtn.setAttribute('aria-expanded', 'false');
+        }
+        document.body.style.overflow = '';
+      }
+
+      bindBenefitToggle() {
+        if (!this.benefitToggle || !this.benefitSub) return;
+
+        this.benefitToggle.addEventListener('click', () => {
+          const isExpanded = this.benefitToggle.getAttribute('aria-expanded') === 'true';
+          this.benefitToggle.setAttribute('aria-expanded', String(!isExpanded));
+          this.benefitSub.setAttribute('aria-hidden', String(isExpanded));
+        });
+      }
+
+      async fetchCartCount() {
+        try {
+          const res = await fetch('/cart.js', {
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const cart = await res.json();
+          if (cart.item_count > 0 && this.cartBadge && this.cartCount) {
+            this.cartCount.textContent = cart.item_count;
+            this.cartBadge.style.display = 'flex';
+          }
+        } catch (e) {
+          /* fail silently */
+        }
+      }
+    }
+
+    customElements.define('humann-header-component', HumannHeaderComponent);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Humann header",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "mega_trigger_text",
+      "label": "Mega-menu trigger text",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "mega_trigger_url",
+      "label": "Mega-menu trigger URL"
+    },
+    {
+      "type": "header",
+      "content": "Mega-menu: Shop"
+    },
+    {
+      "type": "text",
+      "id": "mega_shop_heading",
+      "label": "Shop heading",
+      "default": "Shop"
+    },
+    {
+      "type": "text",
+      "id": "mega_shop_link_1_text",
+      "label": "Shop link 1 text",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "mega_shop_link_1_url",
+      "label": "Shop link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "mega_shop_link_2_text",
+      "label": "Shop link 2 text",
+      "default": "Shop SuperBeets"
+    },
+    {
+      "type": "url",
+      "id": "mega_shop_link_2_url",
+      "label": "Shop link 2 URL"
+    },
+    {
+      "type": "header",
+      "content": "Mega-menu: Shop by Benefit"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_heading",
+      "label": "Benefit heading",
+      "default": "Shop by Benefit"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_1_text",
+      "label": "Benefit 1 text",
+      "default": "Blood Pressure"
+    },
+    {
+      "type": "url",
+      "id": "mega_benefit_1_url",
+      "label": "Benefit 1 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_benefit_1_color",
+      "label": "Benefit 1 dot color",
+      "default": "#761A2C"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_2_text",
+      "label": "Benefit 2 text",
+      "default": "Blood Flow"
+    },
+    {
+      "type": "url",
+      "id": "mega_benefit_2_url",
+      "label": "Benefit 2 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_benefit_2_color",
+      "label": "Benefit 2 dot color",
+      "default": "#D72A2A"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_3_text",
+      "label": "Benefit 3 text",
+      "default": "Metabolic"
+    },
+    {
+      "type": "url",
+      "id": "mega_benefit_3_url",
+      "label": "Benefit 3 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_benefit_3_color",
+      "label": "Benefit 3 dot color",
+      "default": "#E6305E"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_4_text",
+      "label": "Benefit 4 text",
+      "default": "Cholesterol"
+    },
+    {
+      "type": "url",
+      "id": "mega_benefit_4_url",
+      "label": "Benefit 4 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_benefit_4_color",
+      "label": "Benefit 4 dot color",
+      "default": "#D54427"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_5_text",
+      "label": "Benefit 5 text",
+      "default": "Cognitive"
+    },
+    {
+      "type": "url",
+      "id": "mega_benefit_5_url",
+      "label": "Benefit 5 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_benefit_5_color",
+      "label": "Benefit 5 dot color",
+      "default": "#B1369A"
+    },
+    {
+      "type": "text",
+      "id": "mega_benefit_6_text",
+      "label": "Benefit 6 text",
+      "default": "Sports"
+    },
+    {
+      "type": "url",
+      "id": "mega_benefit_6_url",
+      "label": "Benefit 6 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_benefit_6_color",
+      "label": "Benefit 6 dot color",
+      "default": "#E9FF6D"
+    },
+    {
+      "type": "header",
+      "content": "Mega-menu: Featured"
+    },
+    {
+      "type": "text",
+      "id": "mega_featured_heading",
+      "label": "Featured heading",
+      "default": "Featured"
+    },
+    {
+      "type": "image_picker",
+      "id": "mega_card_1_image",
+      "label": "Card 1 image"
+    },
+    {
+      "type": "text",
+      "id": "mega_card_1_badge_text",
+      "label": "Card 1 badge text",
+      "default": "#1 Doctor Recommended"
+    },
+    {
+      "type": "text",
+      "id": "mega_card_1_description",
+      "label": "Card 1 description",
+      "default": "Get 50% off our heart health routine"
+    },
+    {
+      "type": "url",
+      "id": "mega_card_1_url",
+      "label": "Card 1 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_card_1_bg_color",
+      "label": "Card 1 background",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "image_picker",
+      "id": "mega_card_2_image",
+      "label": "Card 2 image"
+    },
+    {
+      "type": "text",
+      "id": "mega_card_2_badge_text",
+      "label": "Card 2 badge text",
+      "default": "#1 Doctor Recommended"
+    },
+    {
+      "type": "text",
+      "id": "mega_card_2_description",
+      "label": "Card 2 description",
+      "default": "Buy 2 SuperBeets, get 1 free"
+    },
+    {
+      "type": "url",
+      "id": "mega_card_2_url",
+      "label": "Card 2 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_card_2_bg_color",
+      "label": "Card 2 background",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "image_picker",
+      "id": "mega_card_3_image",
+      "label": "Card 3 image"
+    },
+    {
+      "type": "text",
+      "id": "mega_card_3_badge_text",
+      "label": "Card 3 badge text",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "text",
+      "id": "mega_card_3_description",
+      "label": "Card 3 description",
+      "default": "Buy 2 Superbeets, get 1 free"
+    },
+    {
+      "type": "url",
+      "id": "mega_card_3_url",
+      "label": "Card 3 URL"
+    },
+    {
+      "type": "color",
+      "id": "mega_card_3_bg_color",
+      "label": "Card 3 background",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "header",
+      "content": "Mobile drawer"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Secondary menu"
+    },
+    {
+      "type": "text",
+      "id": "pro_heading",
+      "label": "Professional heading",
+      "default": "Humann Professional"
+    },
+    {
+      "type": "text",
+      "id": "pro_description",
+      "label": "Professional description",
+      "default": "Our program for medical organizations, professional collegiate sports teams, and more."
+    },
+    {
+      "type": "url",
+      "id": "pro_url",
+      "label": "Professional URL"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Text color",
+      "default": "#414141"
+    },
+    {
+      "type": "color",
+      "id": "header_border_color",
+      "label": "Border color",
+      "default": "#A0A0A0"
+    },
+    {
+      "type": "color",
+      "id": "cart_badge_color",
+      "label": "Cart badge color",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Humann header"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}
