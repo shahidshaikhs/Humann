@@ -223,7 +223,7 @@
     "banner_cards": {
       "type": "banner-cards",
       "settings": {
-        "heading": "Learn about the <br><strong>Miracle Molecule</strong>",
+        "heading": "Learn about the <strong>Miracle Molecule</strong>",
         "subtitle": "<strong>Did you know</strong> that Nitric Oxide is one of the most important molecules produced in your body?",
         "subtitle_mobile": "Science grounded in the <strong>Nobel Prize-winning</strong> nitric oxide pathway.",
         "button_text": "Explore Our Science",
