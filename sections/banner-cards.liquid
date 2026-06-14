@@ -1,0 +1,381 @@
+<section
+  class="banner-cards-wrapper"
+  style="background-color: {{ section.settings.background_color }};"
+>
+  <div class="banner-cards__inner">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="banner-cards__header">
+        {%- if section.settings.heading != blank -%}
+          <div class="banner-cards__heading">
+            {{ section.settings.heading }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <div class="banner-cards__subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <hr class="banner-cards__divider">
+
+    <div class="banner-cards__carousel">
+      {%- for block in section.blocks -%}
+        <div class="banner-cards__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img
+              class="banner-cards__card-bg"
+              src="{{ block.settings.image | image_url: width: 800 }}"
+              alt="{{ block.settings.image.alt | escape }}"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+          <div class="banner-cards__card-content">
+            {%- if block.settings.overlay_image != blank -%}
+              <img
+                class="banner-cards__card-overlay"
+                src="{{ block.settings.overlay_image | image_url: width: 340 }}"
+                alt="{{ block.settings.overlay_image.alt | escape }}"
+                width="{{ block.settings.overlay_image.width }}"
+                height="{{ block.settings.overlay_image.height }}"
+                loading="lazy"
+              >
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="banner-cards__card-text">
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <hr class="banner-cards__divider">
+
+    {%- if section.settings.button_text != blank -%}
+      <div class="banner-cards__cta">
+        <a
+          href="{{ section.settings.button_link }}"
+          class="banner-cards__button"
+        >
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  /* === Banner Cards Section === */
+  .banner-cards-wrapper {
+    overflow: hidden;
+  }
+
+  .banner-cards__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 80px 120px;
+  }
+
+  /* === Header === */
+  .banner-cards__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .banner-cards__heading {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 52px;
+    color: #FFFFFF;
+  }
+
+  .banner-cards__heading strong {
+    font-family: 'Moderat', serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .banner-cards__heading p {
+    margin: 0;
+  }
+
+  .banner-cards__subheading {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+  }
+
+  .banner-cards__subheading strong {
+    font-weight: 700;
+  }
+
+  .banner-cards__subheading p {
+    margin: 0;
+  }
+
+  /* === Divider === */
+  .banner-cards__divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0;
+    width: 100%;
+  }
+
+  /* === Carousel === */
+  .banner-cards__carousel {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  /* === Card === */
+  .banner-cards__card {
+    flex: 1;
+    position: relative;
+    height: 480px;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .banner-cards__card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .banner-cards__card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 24px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .banner-cards__card-overlay {
+    max-width: 169px;
+    height: auto;
+  }
+
+  .banner-cards__card-text {
+    font-family: 'Moderat', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  .banner-cards__card-text strong {
+    font-weight: 700;
+  }
+
+  .banner-cards__card-text p {
+    margin: 0;
+  }
+
+  /* === CTA Button === */
+  .banner-cards__cta {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+
+  .banner-cards__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #FFFFFF;
+    border-radius: 28px;
+    background: transparent;
+    padding: 12px 20px;
+    font-family: 'Uniforma', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .banner-cards__button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* === Mobile Styles === */
+  @media screen and (max-width: 749px) {
+    .banner-cards__inner {
+      padding: 40px 0;
+      gap: 16px;
+    }
+
+    .banner-cards__header {
+      padding: 0 16px;
+    }
+
+    .banner-cards__heading {
+      font-family: 'Moderat', serif;
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 36px;
+      letter-spacing: -1px;
+    }
+
+    .banner-cards__heading strong {
+      font-family: 'Moderat', serif;
+      font-weight: 400;
+    }
+
+    .banner-cards__subheading {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    .banner-cards__divider {
+      margin: 0 16px;
+    }
+
+    .banner-cards__carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .banner-cards__carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .banner-cards__card {
+      min-width: 320px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      flex: none;
+    }
+
+    .banner-cards__card-text {
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    .banner-cards__cta {
+      padding: 8px 16px;
+      justify-content: center;
+    }
+
+    .banner-cards__button {
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Banner cards",
+  "tag": "section",
+  "class": "banner-cards-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Learn about the <br><strong>Miracle Molecule</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p><strong>Did you know</strong> that Nitric Oxide is one of the most important molecules produced in your body?</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Explore Our Science"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#BC0F0F"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background image"
+        },
+        {
+          "type": "image_picker",
+          "id": "overlay_image",
+          "label": "Overlay image"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Card text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner cards",
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
