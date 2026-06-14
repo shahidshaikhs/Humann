@@ -1,0 +1,814 @@
+<section class="hero-carousel-section" style="--padding-block-start: {{ section.settings.padding-block-start }}px; --padding-block-end: {{ section.settings.padding-block-end }}px;">
+  <hero-carousel class="hero-carousel">
+    <div class="hero-carousel__track" aria-label="Hero carousel">
+
+      {%- comment -%} SLIDE 1: Product / gradient {%- endcomment -%}
+      <div class="hero-carousel__slide hero-carousel__slide--product" role="group" aria-label="Slide 1">
+        <div class="hero-carousel__slide-inner hero-carousel__slide-inner--product">
+
+          {%- comment -%} Mobile: product image as absolute background {%- endcomment -%}
+          {%- if section.settings.slide_1_product_image != blank -%}
+            <div class="hero-carousel__mobile-bg" aria-hidden="true">
+              <img
+                src="{{ section.settings.slide_1_product_image | image_url: width: 750 }}"
+                alt=""
+                width="375"
+                height="620"
+                loading="eager"
+                fetchpriority="high"
+                class="hero-carousel__mobile-bg-img"
+              >
+            </div>
+          {%- endif -%}
+
+          <div class="hero-carousel__content hero-carousel__content--product">
+            <div class="hero-carousel__text-col">
+              <div class="hero-carousel__text-group">
+                {%- if section.settings.slide_1_heading != blank -%}
+                  <h1 class="hero-carousel__heading hero-carousel__heading--product">
+                    {{- section.settings.slide_1_heading -}}
+                  </h1>
+                {%- endif -%}
+                {%- if section.settings.slide_1_subtitle != blank -%}
+                  <p class="hero-carousel__subtitle hero-carousel__subtitle--product">
+                    {{- section.settings.slide_1_subtitle -}}
+                  </p>
+                {%- endif -%}
+              </div>
+              {%- if section.settings.slide_1_button_text != blank -%}
+                <div class="hero-carousel__btn-row">
+                  <a
+                    href="{{ section.settings.slide_1_button_link | default: '#' }}"
+                    class="hero-carousel__cta hero-carousel__cta--dark"
+                  >
+                    {{- section.settings.slide_1_button_text -}}
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Desktop: product image inline {%- endcomment -%}
+            {%- if section.settings.slide_1_product_image != blank -%}
+              <div class="hero-carousel__img-col">
+                <img
+                  src="{{ section.settings.slide_1_product_image | image_url: width: 664 }}"
+                  alt="{{ section.settings.slide_1_heading | escape }}"
+                  width="664"
+                  height="582"
+                  loading="eager"
+                  fetchpriority="high"
+                  class="hero-carousel__product-img"
+                >
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="hero-carousel__footer hero-carousel__footer--slide1">
+            <div class="hero-carousel__badge">
+              {%- if section.settings.slide_1_badge_image != blank -%}
+                <img
+                  src="{{ section.settings.slide_1_badge_image | image_url: width: 340 }}"
+                  alt="Badge"
+                  width="323"
+                  height="40"
+                  loading="lazy"
+                  class="hero-carousel__badge-img"
+                >
+              {%- endif -%}
+            </div>
+            <div class="hero-carousel__arrows" data-slide="1">
+              <button class="hero-carousel__arrow hero-carousel__arrow--prev" data-prev aria-label="Previous slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="hero-carousel__arrow hero-carousel__arrow--next" data-next aria-label="Next slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {%- comment -%} SLIDE 2: Brand / blurred bg {%- endcomment -%}
+      <div class="hero-carousel__slide hero-carousel__slide--brand" role="group" aria-label="Slide 2">
+        <div class="hero-carousel__slide-inner hero-carousel__slide-inner--brand">
+
+          {%- if section.settings.slide_2_background_image != blank -%}
+            <div class="hero-carousel__blurred-bg" aria-hidden="true">
+              <img
+                src="{{ section.settings.slide_2_background_image | image_url: width: 1500 }}"
+                alt=""
+                width="1484"
+                height="965"
+                loading="eager"
+                fetchpriority="high"
+                class="hero-carousel__blurred-bg-img"
+              >
+            </div>
+          {%- endif -%}
+
+          <div class="hero-carousel__brand-body">
+            <div class="hero-carousel__brand-text">
+              {%- if section.settings.slide_2_heading != blank -%}
+                <h2 class="hero-carousel__heading hero-carousel__heading--brand">
+                  {{- section.settings.slide_2_heading -}}
+                </h2>
+              {%- endif -%}
+              {%- if section.settings.slide_2_subtitle != blank -%}
+                <p class="hero-carousel__subtitle hero-carousel__subtitle--brand">
+                  {{- section.settings.slide_2_subtitle -}}
+                </p>
+              {%- endif -%}
+            </div>
+            <div class="hero-carousel__brand-btns">
+              {%- if section.settings.slide_2_button_1_text != blank -%}
+                <a
+                  href="{{ section.settings.slide_2_button_1_link | default: '#' }}"
+                  class="hero-carousel__cta hero-carousel__cta--brand-primary"
+                >
+                  {{- section.settings.slide_2_button_1_text -}}
+                </a>
+              {%- endif -%}
+              {%- if section.settings.slide_2_button_2_text != blank -%}
+                <a
+                  href="{{ section.settings.slide_2_button_2_link | default: '#' }}"
+                  class="hero-carousel__cta hero-carousel__cta--brand-secondary"
+                >
+                  {{- section.settings.slide_2_button_2_text -}}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="hero-carousel__footer hero-carousel__footer--slide2">
+            <div class="hero-carousel__ut-logo">
+              <img
+                src="{{ 'ut.svg' | asset_url }}"
+                alt="humann UT"
+                width="198"
+                height="32"
+                loading="lazy"
+                class="hero-carousel__ut-img"
+              >
+            </div>
+            <div class="hero-carousel__arrows" data-slide="2">
+              <button class="hero-carousel__arrow hero-carousel__arrow--prev" data-prev aria-label="Previous slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="hero-carousel__arrow hero-carousel__arrow--next" data-next aria-label="Next slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </hero-carousel>
+</section>
+
+{% stylesheet %}
+/* ============================================================
+   hero-carousel — BEM component styles (mobile-first)
+   ============================================================ */
+
+.hero-carousel-section {
+  padding-block-start: var(--padding-block-start, 0px);
+  padding-block-end: var(--padding-block-end, 0px);
+  /* Mobile outer padding: 4px 12px 12px 12px */
+  padding: 4px 12px 12px;
+}
+
+.hero-carousel {
+  display: block;
+}
+
+/* Track: horizontal scroll-snap container */
+.hero-carousel__track {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.hero-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each slide takes full width of the track */
+.hero-carousel__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+/* ---- Slide inner shared ---- */
+.hero-carousel__slide-inner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 620px;
+}
+
+/* ============================================================
+   SLIDE 1 — Product / gradient
+   ============================================================ */
+.hero-carousel__slide-inner--product {
+  border-radius: 16px;
+  background: linear-gradient(170deg, #F0F0F0 0%, #E3E3E3 100%);
+  padding: 32px 12px 20px 12px;
+}
+
+/* Mobile bg image (product image behind content) */
+.hero-carousel__mobile-bg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-carousel__mobile-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+/* Content row — stacked on mobile */
+.hero-carousel__content--product {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.hero-carousel__text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.hero-carousel__text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Slide 1 heading — mobile */
+.hero-carousel__heading--product {
+  font-family: 'Stabil Grotesk', var(--font-heading--family, sans-serif);
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 48px;
+  letter-spacing: 0;
+  color: #BC0F0F;
+  margin: 0;
+  text-align: center;
+}
+
+.hero-carousel__subtitle--product {
+  font-family: 'Stabil Grotesk', var(--font-subheading--family, sans-serif);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+  color: #BC0F0F;
+  margin: 0;
+  text-align: center;
+}
+
+.hero-carousel__btn-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Shared CTA button base */
+.hero-carousel__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  text-decoration: none;
+  font-family: 'Uniforma', var(--font-body--family, sans-serif);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.hero-carousel__cta--dark {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+/* Desktop inline product image — hidden on mobile */
+.hero-carousel__img-col {
+  display: none;
+}
+
+/* Footer */
+.hero-carousel__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+}
+
+.hero-carousel__badge-img {
+  width: 226px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================================
+   SLIDE 2 — Brand / blurred background
+   ============================================================ */
+.hero-carousel__slide-inner--brand {
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 32px 8px;
+  background: #1a2a1a;
+  justify-content: center;
+  gap: 36px;
+}
+
+/* Blurred background */
+.hero-carousel__blurred-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-carousel__blurred-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: blur(3px);
+  transform: scale(1.05);
+}
+
+.hero-carousel__brand-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+.hero-carousel__brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+/* Slide 2 heading — mobile */
+.hero-carousel__heading--brand {
+  font-family: 'Moderat Serif', serif;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 48px;
+  letter-spacing: -1px;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+}
+
+.hero-carousel__subtitle--brand {
+  font-family: 'Stabil Grotesk', var(--font-subheading--family, sans-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+}
+
+.hero-carousel__brand-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slide 2 primary CTA — mobile: #BC0F0F */
+.hero-carousel__cta--brand-primary {
+  background-color: #BC0F0F;
+  color: #FFFFFF;
+}
+
+/* Slide 2 secondary CTA — mobile only (text link style) */
+.hero-carousel__cta--brand-secondary {
+  background-color: transparent;
+  color: #FFFFFF;
+  display: inline-flex;
+}
+
+/* Slide 2 footer — hidden on mobile */
+.hero-carousel__footer--slide2 {
+  display: none;
+}
+
+/* Slide 1 footer arrows — mobile sizing */
+.hero-carousel__arrows {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+}
+
+.hero-carousel__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  background: #F5F5F5;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 32px;
+  color: #000000;
+  flex-shrink: 0;
+}
+
+.hero-carousel__arrow:hover {
+  background: #E8E8E8;
+}
+
+.hero-carousel__arrow svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* UT logo */
+.hero-carousel__ut-img {
+  width: 198px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================================
+   DESKTOP overrides — min-width: 750px
+   ============================================================ */
+@media screen and (min-width: 750px) {
+  .hero-carousel-section {
+    /* Desktop outer padding: 8px 16px */
+    padding: 8px 16px;
+  }
+
+  .hero-carousel__slide-inner {
+    min-height: 704px;
+  }
+
+  /* Slide 1 desktop padding */
+  .hero-carousel__slide-inner--product {
+    padding: 32px 48px;
+    border-radius: 16px;
+  }
+
+  /* Hide mobile bg, show desktop inline image */
+  .hero-carousel__mobile-bg {
+    display: none;
+  }
+
+  .hero-carousel__img-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 50%;
+  }
+
+  .hero-carousel__product-img {
+    width: 100%;
+    max-width: 664px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Desktop horizontal row layout for slide 1 content */
+  .hero-carousel__content--product {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+  }
+
+  .hero-carousel__text-col {
+    flex: 0 0 50%;
+    max-width: 656px;
+  }
+
+  .hero-carousel__text-group {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Slide 1 heading desktop */
+  .hero-carousel__heading--product {
+    font-size: 60px;
+    line-height: 60px;
+    text-align: left;
+  }
+
+  .hero-carousel__subtitle--product {
+    font-size: 18px;
+    line-height: 24px;
+    text-align: left;
+  }
+
+  .hero-carousel__btn-row {
+    justify-content: flex-start;
+  }
+
+  .hero-carousel__cta {
+    font-size: 16px;
+    line-height: 16px;
+    padding: 16px 28px;
+  }
+
+  /* Slide 1 badge desktop */
+  .hero-carousel__badge-img {
+    width: 323px;
+    height: 40px;
+  }
+
+  /* Arrows desktop sizing */
+  .hero-carousel__arrow {
+    width: 64px;
+    height: 48px;
+  }
+
+  .hero-carousel__arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Slide 2 desktop */
+  .hero-carousel__slide-inner--brand {
+    border-radius: 12px;
+    padding: 32px 48px;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  /* Blur: desktop 4px */
+  .hero-carousel__blurred-bg-img {
+    filter: blur(4px);
+  }
+
+  .hero-carousel__brand-body {
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .hero-carousel__brand-text {
+    text-align: left;
+    padding: 0;
+    max-width: 661px;
+  }
+
+  /* Slide 2 heading desktop */
+  .hero-carousel__heading--brand {
+    font-size: 60px;
+    line-height: 60px;
+    color: #414141;
+    text-align: left;
+  }
+
+  .hero-carousel__subtitle--brand {
+    font-size: 20px;
+    line-height: 24px;
+    text-align: left;
+  }
+
+  .hero-carousel__brand-btns {
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px 0;
+  }
+
+  /* Slide 2 primary CTA — desktop: #000000 */
+  .hero-carousel__cta--brand-primary {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+
+  /* Slide 2 secondary CTA — hidden on desktop */
+  .hero-carousel__cta--brand-secondary {
+    display: none;
+  }
+
+  /* Slide 2 footer — visible on desktop */
+  .hero-carousel__footer--slide2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+}
+{% endstylesheet %}
+
+<script>
+  class HeroCarousel extends HTMLElement {
+    connectedCallback() {
+      this._track = this.querySelector('.hero-carousel__track');
+      if (!this._track) return;
+
+      const prevBtns = this.querySelectorAll('[data-prev]');
+      const nextBtns = this.querySelectorAll('[data-next]');
+
+      prevBtns.forEach((btn) => {
+        btn.addEventListener('click', () => this._scroll(-1));
+      });
+
+      nextBtns.forEach((btn) => {
+        btn.addEventListener('click', () => this._scroll(1));
+      });
+    }
+
+    _scroll(direction) {
+      const track = this._track;
+      const slide = track.querySelector('.hero-carousel__slide');
+      if (!slide) return;
+
+      const slideWidth = slide.offsetWidth;
+      const gap = 16;
+
+      track.scrollBy({
+        left: direction * (slideWidth + gap),
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  if (!customElements.get('hero-carousel')) {
+    customElements.define('hero-carousel', HeroCarousel);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Hero Carousel",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slide 1 — Product"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_heading",
+      "label": "Slide 1 Heading",
+      "default": "SuperBeets®, The Cardiovascular Health Original"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_subtitle",
+      "label": "Slide 1 Subtitle",
+      "default": "Combines category-leading trust with clinically researched cardiovascular support."
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_text",
+      "label": "Slide 1 Button Text",
+      "default": "SHOP SUPERBEETS"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_link",
+      "label": "Slide 1 Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_product_image",
+      "label": "Slide 1 Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_badge_image",
+      "label": "Slide 1 Badge Image"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2 — Brand"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_heading",
+      "label": "Slide 2 Heading",
+      "default": "Cardiovascular health is everything health."
+    },
+    {
+      "type": "text",
+      "id": "slide_2_subtitle",
+      "label": "Slide 2 Subtitle",
+      "default": "Inspired by Nobel-Prize winning science, born out of research from The University of Texas."
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_1_text",
+      "label": "Slide 2 Primary Button Text",
+      "default": "EXPLORE THE SCIENCE"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_1_link",
+      "label": "Slide 2 Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_2_text",
+      "label": "Slide 2 Secondary Button Text",
+      "default": "HOW IT WORKS"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_2_link",
+      "label": "Slide 2 Secondary Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_background_image",
+      "label": "Slide 2 Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Carousel"
+    }
+  ]
+}
+{% endschema %}
