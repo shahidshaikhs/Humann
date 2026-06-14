@@ -64,7 +64,19 @@
   endcapture
   # theme-check-enable UniqueStaticBlockId
 
+  capture utility_link
+    if section.settings.utility_link_label != blank
+      assign utility_url_val = section.settings.utility_link_url | default: '#'
+      echo '<a href="'
+      echo utility_url_val
+      echo '" class="header-actions__action header-actions__utility-link header-actions__text-style mobile:hidden">'
+      echo section.settings.utility_link_label
+      echo '</a>'
+    endif
+  endcapture
+
   capture actions
+    echo utility_link
     render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
   endcapture
 
@@ -1111,6 +1123,38 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* Humann: 20px gap between right-side action items */
+  .header__column--right {
+    gap: 20px;
+  }
+
+  /* Humann: header padding override */
+  @media screen and (min-width: 750px) {
+    .header__columns {
+      --padding-block-start: 16px;
+      --padding-block-end: 16px;
+      padding-inline: 24px;
+    }
+  }
+
+  /* Humann: Uniforma font for text-style actions */
+  .header-actions__text-style {
+    font-family: 'Uniforma', var(--font-accent--family), sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.75px;
+  }
+
+  /* Humann: text mode action gap */
+  .header-actions--text {
+    gap: 20px;
+  }
+
+  /* Humann: utility link styling */
+  .header-actions__utility-link {
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -1205,6 +1249,21 @@
       "id": "customer_account_menu",
       "label": "t:settings.menu",
       "default": "customer-account-main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Utility link"
+    },
+    {
+      "type": "text",
+      "id": "utility_link_label",
+      "label": "Utility link label",
+      "default": "PROFESSIONAL"
+    },
+    {
+      "type": "url",
+      "id": "utility_link_url",
+      "label": "Utility link URL"
     },
     {
       "type": "header",

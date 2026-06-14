@@ -83,6 +83,20 @@
           {{- 'icon-close.svg' | inline_asset_content -}}
         </span>
       </button>
+
+      <div class="header-drawer__search">
+        <span class="svg-wrapper header-drawer__search-icon">
+          {{- 'icon-search.svg' | inline_asset_content -}}
+        </span>
+        <input
+          type="search"
+          class="header-drawer__search-input"
+          placeholder="Search products, articles, etc..."
+          aria-label="Search"
+          autocomplete="off"
+        >
+      </div>
+
       <nav
         class="menu-drawer__navigation"
         style="
@@ -722,6 +736,8 @@
         endif
       -%}
       {% if top_level_featured_collections.size > 0 or top_level_featured_products_collection.products_count > 0 %}
+        <div class="header-drawer__divider"></div>
+        <div class="header-drawer__featured-label">Featured</div>
         <div
           class="menu-drawer__featured-content"
           style="--menu-drawer-animation-index: {{ linklist.links.size | plus: 1 }};"
@@ -756,6 +772,15 @@
           </ul>
         </div>
       {% endif %}
+
+      <div class="header-drawer__divider"></div>
+      <div class="header-drawer__secondary-links">
+        {% if section.settings.utility_link_label != blank %}
+          <a href="{{ section.settings.utility_link_url | default: '#' }}" class="header-drawer__secondary-link">
+            <span class="header-drawer__secondary-link-title">{{ section.settings.utility_link_label }}</span>
+          </a>
+        {% endif %}
+      </div>
     </div>
     <div
       class="menu-drawer__backdrop"
@@ -1409,5 +1434,78 @@
 
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
+  }
+
+  /* Humann: drawer search input */
+  .header-drawer__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid #E5E5E5;
+    border-radius: 24px;
+    margin: 16px 24px;
+  }
+
+  .header-drawer__search-icon {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+    flex-shrink: 0;
+    color: #9A9A9A;
+  }
+
+  .header-drawer__search-input {
+    border: none;
+    outline: none;
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-size: 14px;
+    width: 100%;
+    background: transparent;
+    color: var(--color-foreground);
+  }
+
+  .header-drawer__search-input::placeholder {
+    color: #9A9A9A;
+  }
+
+  /* Humann: drawer divider */
+  .header-drawer__divider {
+    height: 1px;
+    background: #E5E5E5;
+    margin-inline: 24px;
+  }
+
+  /* Humann: drawer featured label */
+  .header-drawer__featured-label {
+    font-family: 'Uniforma', var(--font-accent--family), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #767676;
+    padding: 16px 24px 8px;
+  }
+
+  /* Humann: drawer secondary links */
+  .header-drawer__secondary-links {
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-drawer__secondary-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .header-drawer__secondary-link-title {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
   }
 {% endstylesheet %}

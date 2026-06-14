@@ -679,6 +679,80 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+
+  /* Humann: top-level nav link font */
+  .menu-list__link {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
+
+  /* Humann: 28px gap between nav links */
+  .menu-list {
+    --menu-horizontal-gap: 28px;
+  }
+
+  .menu-list__link-title {
+    padding-inline: 14px;
+  }
+
+  /* Humann: mega menu parent (category heading) font */
+  .mega-menu__link--parent {
+    font-family: 'Uniforma', var(--font-accent--family), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #9A9A9A;
+  }
+
+  .mega-menu__link--parent:hover {
+    color: #414141;
+  }
+
+  /* Humann: mega menu child link font */
+  .mega-menu__link:not(.mega-menu__link--parent) {
+    font-family: 'Moderat', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    padding: 8px 0;
+  }
+
+  /* Humann: mega menu submenu container */
+  .menu-list__submenu-inner {
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Humann: colored benefit dots on mega menu links */
+  .mega-menu__link[data-benefit-dot] {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .mega-menu__link[data-benefit-dot]::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-right: 8px;
+    background-color: var(--dot-color);
+    border: var(--dot-border, none);
+  }
+
+  /* Humann: mobile drawer nav items */
+  .header__drawer .menu-drawer__menu-item--mainlist {
+    font-family: 'Moderat', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+  }
 {% endstylesheet %}
 
 {% schema %}

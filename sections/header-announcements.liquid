@@ -119,6 +119,33 @@
     position: absolute;
     inset: 0;
   }
+
+  /* Humann: widen slides, flex row for text + CTA, custom font */
+  .announcement-bar__slides {
+    max-width: 100%;
+  }
+
+  .announcement-bar__slide {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .announcement-bar .text-block {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar .text-block {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

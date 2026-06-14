@@ -107,9 +107,32 @@
       endif
     %}
     <div>
+      {% liquid
+        assign dot_color = ''
+        assign dot_border = ''
+        case link.handle
+          when 'blood-pressure'
+            assign dot_color = '#761A2C'
+          when 'blood-flow'
+            assign dot_color = '#D72A2A'
+          when 'metabolic'
+            assign dot_color = '#E6305E'
+          when 'cholesterol'
+            assign dot_color = '#D54427'
+          when 'cognitive'
+            assign dot_color = '#B1369A'
+          when 'sports'
+            assign dot_color = '#E9FF6D'
+            assign dot_border = '1px solid #A0A0A0'
+        endcase
+      %}
       <a
         href="{{ link.url }}"
         class="mega-menu__link {% if link.links != blank %}mega-menu__link--parent{% endif %}"
+        {% if dot_color != '' %}
+          data-benefit-dot
+          style="--dot-color: {{ dot_color }};{% if dot_border != '' %} --dot-border: {{ dot_border }};{% endif %}"
+        {% endif %}
       >
         {% if menu_content_type == 'collection_images' %}
           {%- capture collection_image_sizes -%}
