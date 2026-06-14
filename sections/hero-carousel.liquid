@@ -1,0 +1,708 @@
+{%- liquid
+  assign slide_count = 2
+-%}
+
+{%- capture slide_1_html -%}
+  <div
+    class="hero-carousel__slide hero-carousel__slide--product"
+    style="background: linear-gradient(170deg, {{ section.settings.slide_1_gradient_start }}, {{ section.settings.slide_1_gradient_end }});"
+  >
+    {%- if section.settings.slide_1_image != blank -%}
+      <img
+        class="hero-carousel__bg hero-carousel__bg--mobile-only"
+        src="{{ section.settings.slide_1_image | image_url: width: 800 }}"
+        alt="{{ section.settings.slide_1_image.alt | escape }}"
+        width="{{ section.settings.slide_1_image.width }}"
+        height="{{ section.settings.slide_1_image.height }}"
+        loading="eager"
+      >
+    {%- endif -%}
+
+    <div class="hero-carousel__content">
+      <div class="hero-carousel__text-col">
+        <div class="hero-carousel__text-inner">
+          {%- if section.settings.slide_1_heading != blank -%}
+            <div class="hero-carousel__title hero-carousel__title--product">
+              {{ section.settings.slide_1_heading }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.slide_1_subtitle != blank -%}
+            <p class="hero-carousel__subtitle hero-carousel__subtitle--product">
+              {{ section.settings.slide_1_subtitle }}
+            </p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.slide_1_button_text != blank -%}
+          <div class="hero-carousel__cta">
+            <a
+              href="{{ section.settings.slide_1_button_link }}"
+              class="hero-carousel__btn hero-carousel__btn--primary"
+            >
+              {{ section.settings.slide_1_button_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="hero-carousel__media-col">
+        {%- if section.settings.slide_1_image != blank -%}
+          <img
+            src="{{ section.settings.slide_1_image | image_url: width: 1400 }}"
+            alt="{{ section.settings.slide_1_image.alt | escape }}"
+            width="{{ section.settings.slide_1_image.width }}"
+            height="{{ section.settings.slide_1_image.height }}"
+            loading="eager"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="hero-carousel__slide-footer">
+      {%- if section.settings.slide_1_badge_image != blank -%}
+        <img
+          class="hero-carousel__badge"
+          src="{{ section.settings.slide_1_badge_image | image_url: width: 646 }}"
+          alt="{{ section.settings.slide_1_badge_image.alt | escape }}"
+          width="323"
+          height="40"
+          loading="eager"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+{%- endcapture -%}
+
+{%- capture slide_2_html -%}
+  <div class="hero-carousel__slide hero-carousel__slide--lifestyle">
+    {%- if section.settings.slide_2_background_image != blank -%}
+      <img
+        class="hero-carousel__bg hero-carousel__bg--blur"
+        src="{{ section.settings.slide_2_background_image | image_url: width: 3000 }}"
+        alt="{{ section.settings.slide_2_background_image.alt | escape }}"
+        width="{{ section.settings.slide_2_background_image.width }}"
+        height="{{ section.settings.slide_2_background_image.height }}"
+        loading="lazy"
+      >
+    {%- endif -%}
+
+    <div class="hero-carousel__content hero-carousel__content--lifestyle">
+      <div class="hero-carousel__text-inner">
+        {%- if section.settings.slide_2_heading != blank -%}
+          <div class="hero-carousel__title hero-carousel__title--lifestyle">
+            {{ section.settings.slide_2_heading }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.slide_2_subtitle != blank -%}
+          <p class="hero-carousel__subtitle hero-carousel__subtitle--lifestyle">
+            {{ section.settings.slide_2_subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+      <div class="hero-carousel__cta hero-carousel__cta--lifestyle">
+        {%- if section.settings.slide_2_button_text != blank -%}
+          <a
+            href="{{ section.settings.slide_2_button_link }}"
+            class="hero-carousel__btn hero-carousel__btn--primary hero-carousel__btn--red-mobile"
+          >
+            {{ section.settings.slide_2_button_text }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.slide_2_secondary_button_text != blank -%}
+          <a
+            href="{{ section.settings.slide_2_secondary_button_link }}"
+            class="hero-carousel__btn hero-carousel__btn--text"
+          >
+            {{ section.settings.slide_2_secondary_button_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="hero-carousel__slide-footer hero-carousel__slide-footer--desktop-only">
+      {%- if section.settings.slide_2_footer_image != blank -%}
+        <img
+          class="hero-carousel__footer-logo"
+          src="{{ section.settings.slide_2_footer_image | image_url: width: 400 }}"
+          alt="{{ section.settings.slide_2_footer_image.alt | escape }}"
+          width="198"
+          height="32"
+          loading="lazy"
+        >
+      {%- else -%}
+        <img
+          class="hero-carousel__footer-logo"
+          src="{{ 'ut.svg' | asset_url }}"
+          alt="University of Texas"
+          width="198"
+          height="32"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+{%- endcapture -%}
+
+{%- capture slides -%}
+  {%- render 'slideshow-slide', index: 0, children: slide_1_html, navigate_to_slide: true -%}
+  {%- render 'slideshow-slide', index: 1, children: slide_2_html, navigate_to_slide: true -%}
+{%- endcapture -%}
+
+<div class="hero-carousel color-{{ section.settings.color_scheme }}">
+  {%- render 'slideshow',
+    slides: slides,
+    slide_count: slide_count,
+    show_arrows: true,
+    icon_style: 'arrow',
+    icon_shape: 'none',
+    arrows_position: 'right',
+    infinite: true,
+    style: '--slideshow-gap: 16px;'
+  -%}
+</div>
+
+{% stylesheet %}
+  /* === Section outer === */
+  .hero-carousel {
+    padding: 8px 16px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel {
+      padding: 4px 12px 12px;
+    }
+  }
+
+  /* === Slideshow overrides === */
+  .hero-carousel slideshow-container {
+    background-color: transparent;
+  }
+
+  .hero-carousel slideshow-slide {
+    display: flex;
+  }
+
+  /* === Slide shared === */
+  .hero-carousel__slide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 620px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .hero-carousel__slide {
+      min-height: 704px;
+    }
+  }
+
+  /* === Slide 1: Product === */
+  .hero-carousel__slide--product {
+    border-radius: 16px;
+    padding: 32px 48px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__slide--product {
+      padding: 32px 12px 20px;
+      background: none !important;
+    }
+  }
+
+  /* === Slide 2: Lifestyle === */
+  .hero-carousel__slide--lifestyle {
+    border-radius: 12px;
+    padding: 32px 48px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__slide--lifestyle {
+      padding: 32px 8px;
+      border-radius: 16px;
+    }
+  }
+
+  /* === Content layout === */
+  .hero-carousel__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__content {
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .hero-carousel__text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    width: 50%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__text-col {
+      width: 100%;
+      align-items: center;
+    }
+  }
+
+  .hero-carousel__text-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-carousel__media-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+
+  .hero-carousel__media-col img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__media-col {
+      display: none;
+    }
+  }
+
+  /* === Lifestyle content === */
+  .hero-carousel__content--lifestyle {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .hero-carousel__content--lifestyle {
+      width: 50%;
+    }
+
+    .hero-carousel__content--lifestyle .hero-carousel__text-inner {
+      gap: 20px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__content--lifestyle {
+      width: 100%;
+      align-items: center;
+      text-align: center;
+      gap: 36px;
+    }
+  }
+
+  /* === Background images === */
+  .hero-carousel__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .hero-carousel__bg--mobile-only {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__bg--mobile-only {
+      display: block;
+    }
+  }
+
+  .hero-carousel__bg--blur {
+    filter: blur(4px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__bg--blur {
+      filter: blur(3px);
+    }
+  }
+
+  /* === Typography === */
+  .hero-carousel__title p {
+    margin: 0;
+  }
+
+  .hero-carousel__title--product {
+    font-family: 'Stabil Grotesk', var(--font-heading--family);
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 60px;
+    color: #BC0F0F;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__title--product {
+      line-height: 48px;
+      text-align: center;
+    }
+  }
+
+  .hero-carousel__title--product em {
+    font-style: italic;
+  }
+
+  .hero-carousel__subtitle--product {
+    font-family: 'Stabil Grotesk', var(--font-heading--family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #BC0F0F;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__subtitle--product {
+      font-size: 16px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+
+  .hero-carousel__title--lifestyle {
+    font-family: 'Moderat', serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: -1px;
+    color: #414141;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__title--lifestyle {
+      font-size: 42px;
+      line-height: 48px;
+      color: #FFFFFF;
+      text-align: center;
+    }
+  }
+
+  .hero-carousel__title--lifestyle strong {
+    font-weight: 700;
+  }
+
+  .hero-carousel__subtitle--lifestyle {
+    font-family: 'Stabil Grotesk', var(--font-heading--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__subtitle--lifestyle {
+      font-size: 18px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+
+  /* === Buttons === */
+  .hero-carousel__btn--primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Uniforma', var(--font-accent--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 28px;
+    padding: 16px 28px;
+    border: none;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__btn--primary {
+      font-size: 14px;
+      line-height: 14px;
+      padding: 12px 20px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__btn--red-mobile {
+      background: #BC0F0F;
+    }
+  }
+
+  .hero-carousel__btn--text {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Uniforma', var(--font-accent--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    padding: 12px 0;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__btn--text {
+      display: inline-flex;
+    }
+  }
+
+  .hero-carousel__cta--lifestyle {
+    padding-block-start: 16px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__cta--lifestyle {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      padding-block-start: 0;
+    }
+  }
+
+  /* === Footer === */
+  .hero-carousel__slide-footer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__slide-footer--desktop-only {
+      display: none;
+    }
+  }
+
+  .hero-carousel__badge {
+    max-height: 40px;
+    width: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel__badge {
+      max-height: 28px;
+    }
+  }
+
+  .hero-carousel__footer-logo {
+    width: 198px;
+    height: 32px;
+  }
+
+  /* === Arrow overrides === */
+  .hero-carousel slideshow-arrows {
+    inset: auto;
+    bottom: 32px;
+    right: 48px;
+    mix-blend-mode: normal;
+    gap: 2px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-inline: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel slideshow-arrows {
+      bottom: 20px;
+      right: 12px;
+    }
+  }
+
+  .hero-carousel slideshow-arrows .slideshow-control {
+    opacity: 1;
+    background-color: #F5F5F5;
+    border-radius: 28px;
+    width: 64px;
+    height: 48px;
+    padding: 12px 20px;
+    color: #000000;
+    min-height: unset;
+    min-width: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel slideshow-arrows .slideshow-control {
+      width: 44px;
+      height: 32px;
+      padding: 6px 12px;
+    }
+  }
+
+  .hero-carousel slideshow-arrows .slideshow-control .svg-wrapper,
+  .hero-carousel slideshow-arrows .slideshow-control svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-carousel slideshow-arrows .slideshow-control .svg-wrapper,
+    .hero-carousel slideshow-arrows .slideshow-control svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero carousel",
+  "tag": "section",
+  "class": "hero-carousel-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "richtext",
+      "id": "slide_1_heading",
+      "label": "Heading",
+      "default": "<p><strong>SuperBeets®,</strong><br><em>The Cardiovascular<br>Health Original</em></p>"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_subtitle",
+      "label": "Subtitle",
+      "default": "Combines category-leading trust with clinically researched cardiovascular support."
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_text",
+      "label": "Button text",
+      "default": "SHOP SUPERBEETS"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_badge_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "color",
+      "id": "slide_1_gradient_start",
+      "label": "Gradient start",
+      "default": "#F0F0F0"
+    },
+    {
+      "type": "color",
+      "id": "slide_1_gradient_end",
+      "label": "Gradient end",
+      "default": "#E3E3E3"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "richtext",
+      "id": "slide_2_heading",
+      "label": "Heading",
+      "default": "<p>Cardiovascular health is <strong>everything</strong> health.</p>"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_subtitle",
+      "label": "Subtitle",
+      "default": "Inspired by Nobel-Prize winning science, born out of research from The University of Texas."
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_text",
+      "label": "Button text",
+      "default": "EXPLORE THE SCIENCE"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_secondary_button_text",
+      "label": "Secondary button text",
+      "default": "HOW IT WORKS"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_footer_image",
+      "label": "Footer logo override"
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero carousel",
+      "category": "Banners"
+    }
+  ]
+}
+{% endschema %}
