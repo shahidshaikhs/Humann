@@ -36,7 +36,7 @@
     "humann_banner_cards": {
       "type": "humann-banner-cards",
       "settings": {
-        "title": "Learn about the <br><strong>Miracle Molecule<\/strong>",
+        "title": "Learn about the <strong>Miracle Molecule<\/strong>",
         "subtitle": "<strong>Did you know<\/strong> that Nitric Oxide is one of the most important molecules produced in your body?",
         "mobile_subtitle": "Science grounded in the <strong>Nobel Prize-winning<\/strong> nitric oxide pathway.",
         "card_1_image": "shopify://shop_images/1-mobile-31613935.jpg",
