@@ -110,6 +110,9 @@
           </span>
         {% endif %}
       </shopify-account>
+      {%- if customer -%}
+        <span class="header-actions__welcome-text mobile:hidden">Welcome, {{ customer.first_name }}!</span>
+      {%- endif -%}
     </div>
   {% endif %}
 
@@ -709,5 +712,13 @@
     .header__column--right .header-actions--text {
       margin-inline-start: 0;
     }
+  }
+
+  .header-actions__welcome-text {
+    font-size: 0.75rem;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--color-foreground);
+    pointer-events: none;
   }
 {% endstylesheet %}

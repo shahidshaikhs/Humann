@@ -1111,6 +1111,19 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* Humann brand overrides */
+  .cart-bubble .cart-bubble__background {
+    background-color: #BC0F0F;
+  }
+
+  .menu-list__link[aria-expanded='true'] .menu-list__link-title {
+    font-weight: 700;
+  }
+
+  .header__column--right {
+    gap: 24px;
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}

@@ -101,6 +101,9 @@
             ref="menuitem"
           >
             <span class="menu-list__link-title">{{- link.title -}}</span>
+            {%- if link.links != blank -%}
+              <span class="menu-list__link-chevron" aria-hidden="true">{{ 'chevron-down-2.svg' | inline_asset_content }}</span>
+            {%- endif -%}
           </a>
           {%- if link.links != blank -%}
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
@@ -111,21 +114,43 @@
               >
                 {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
                 <div class="mega-menu section section--full-width-margin section--{{ section.settings.section_width }}">
-                  <div
-                    class="mega-menu__grid"
-                    data-menu-grid-id="{{ list_id }}"
-                  >
-                    {% render 'mega-menu-list',
-                      parent_link: link,
-                      id: list_id,
-                      section: section,
-                      grid_columns_count: 6,
-                      grid_columns_count_tablet: 4,
-                      grid_columns_count_collection_images: 8,
-                      menu_content_type: menu_content_type,
-                      content_aspect_ratio: ratio,
-                      image_border_radius: image_border_radius
-                    %}
+                  <div class="mega-menu__layout-wrapper">
+                    <div
+                      class="mega-menu__grid"
+                      data-menu-grid-id="{{ list_id }}"
+                    >
+                      {% render 'mega-menu-list',
+                        parent_link: link,
+                        id: list_id,
+                        section: section,
+                        grid_columns_count: 6,
+                        grid_columns_count_tablet: 4,
+                        grid_columns_count_collection_images: 8,
+                        menu_content_type: menu_content_type,
+                        content_aspect_ratio: ratio,
+                        image_border_radius: image_border_radius
+                      %}
+                    </div>
+                    {%- if block_settings.promo_card_1_image != blank or block_settings.promo_card_1_badge != blank or block_settings.promo_card_2_image != blank or block_settings.promo_card_2_badge != blank -%}
+                      <div class="mega-menu__promo-column">
+                        {%- if block_settings.promo_card_1_image != blank or block_settings.promo_card_1_badge != blank -%}
+                          {% render 'mega-menu-promo-card',
+                            image: block_settings.promo_card_1_image,
+                            badge_text: block_settings.promo_card_1_badge,
+                            description: block_settings.promo_card_1_text,
+                            url: block_settings.promo_card_1_url
+                          %}
+                        {%- endif -%}
+                        {%- if block_settings.promo_card_2_image != blank or block_settings.promo_card_2_badge != blank -%}
+                          {% render 'mega-menu-promo-card',
+                            image: block_settings.promo_card_2_image,
+                            badge_text: block_settings.promo_card_2_badge,
+                            description: block_settings.promo_card_2_text,
+                            url: block_settings.promo_card_2_url
+                          %}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
                   </div>
                 </div>
               </div>
@@ -679,6 +704,75 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+
+  /* Layout wrapper: grid + promo column side by side */
+  .mega-menu__layout-wrapper {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .mega-menu__layout-wrapper > .mega-menu__grid {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Promo cards column */
+  .mega-menu__promo-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+    padding-inline-start: 24px;
+    border-inline-start: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+    align-self: stretch;
+  }
+
+  /* Chevron icon next to menu items with children */
+  .menu-list__link-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline-start: 4px;
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .menu-list__link-chevron svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .menu-list__link[aria-expanded='true'] .menu-list__link-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Column label (parent link heading in mega menu) */
+  .mega-menu__column-label {
+    font-weight: 700;
+  }
+
+  /* Benefit dot links */
+  .mega-menu__link--has-dot {
+    position: relative;
+    padding-inline-start: 20px;
+  }
+
+  .mega-menu__link--has-dot::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--dot-color, var(--color-foreground));
+    flex-shrink: 0;
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -874,6 +968,54 @@
     },
     {
       "type": "header",
+      "content": "Mega menu promo cards"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_card_1_image",
+      "label": "Promo card 1 image"
+    },
+    {
+      "type": "text",
+      "id": "promo_card_1_badge",
+      "label": "Promo card 1 badge",
+      "default": "#1 Doctor Recommended"
+    },
+    {
+      "type": "text",
+      "id": "promo_card_1_text",
+      "label": "Promo card 1 description",
+      "default": "Get 50% off our heart health routine"
+    },
+    {
+      "type": "url",
+      "id": "promo_card_1_url",
+      "label": "Promo card 1 URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_card_2_image",
+      "label": "Promo card 2 image"
+    },
+    {
+      "type": "text",
+      "id": "promo_card_2_badge",
+      "label": "Promo card 2 badge",
+      "default": "New Arrival"
+    },
+    {
+      "type": "text",
+      "id": "promo_card_2_text",
+      "label": "Promo card 2 description",
+      "default": "Discover our latest formula"
+    },
+    {
+      "type": "url",
+      "id": "promo_card_2_url",
+      "label": "Promo card 2 URL"
+    },
+    {
+      "type": "header",
       "content": "t:content.mobile_layout"
     },
     {
@@ -906,6 +1048,38 @@
       "id": "drawer_dividers",
       "label": "t:settings.dividers",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_search",
+      "label": "Show search bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_featured",
+      "label": "Show featured cards",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "utility_menu",
+      "label": "Utility link menu"
+    },
+    {
+      "type": "text",
+      "id": "utility_highlight_title",
+      "label": "Highlight title"
+    },
+    {
+      "type": "text",
+      "id": "utility_highlight_description",
+      "label": "Highlight description"
+    },
+    {
+      "type": "url",
+      "id": "utility_highlight_url",
+      "label": "Highlight URL"
     }
   ]
 }

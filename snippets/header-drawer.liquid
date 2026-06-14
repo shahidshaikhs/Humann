@@ -83,6 +83,20 @@
           {{- 'icon-close.svg' | inline_asset_content -}}
         </span>
       </button>
+      {%- if block_settings.show_drawer_search != false -%}
+        <div class="menu-drawer__search">
+          <form action="{{ routes.search_url }}" method="get" role="search" class="menu-drawer__search-form">
+            <span class="menu-drawer__search-icon svg-wrapper" aria-hidden="true">{{ 'icon-search.svg' | inline_asset_content }}</span>
+            <input
+              type="search"
+              name="q"
+              placeholder="Search"
+              class="menu-drawer__search-input"
+              aria-label="Search"
+            >
+          </form>
+        </div>
+      {%- endif -%}
       <nav
         class="menu-drawer__navigation"
         style="
@@ -756,6 +770,54 @@
           </ul>
         </div>
       {% endif %}
+      {%- if block_settings.show_drawer_featured != false and (block_settings.promo_card_1_image != blank or block_settings.promo_card_1_badge != blank or block_settings.promo_card_2_image != blank or block_settings.promo_card_2_badge != blank) -%}
+        <hr class="menu-drawer__divider">
+        <div class="menu-drawer__featured">
+          <div class="menu-drawer__featured-scroll">
+            {%- if block_settings.promo_card_1_image != blank or block_settings.promo_card_1_badge != blank -%}
+              {% render 'mega-menu-promo-card',
+                image: block_settings.promo_card_1_image,
+                badge_text: block_settings.promo_card_1_badge,
+                description: block_settings.promo_card_1_text,
+                url: block_settings.promo_card_1_url
+              %}
+            {%- endif -%}
+            {%- if block_settings.promo_card_2_image != blank or block_settings.promo_card_2_badge != blank -%}
+              {% render 'mega-menu-promo-card',
+                image: block_settings.promo_card_2_image,
+                badge_text: block_settings.promo_card_2_badge,
+                description: block_settings.promo_card_2_text,
+                url: block_settings.promo_card_2_url
+              %}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if block_settings.utility_menu.links.size > 0 or block_settings.utility_highlight_title != blank -%}
+        <hr class="menu-drawer__divider">
+        <div class="menu-drawer__utility-section">
+          {%- if block_settings.utility_highlight_title != blank -%}
+            <a href="{{ block_settings.utility_highlight_url | default: '#' }}" class="menu-drawer__utility-highlight">
+              <div class="menu-drawer__utility-highlight-content">
+                <span class="menu-drawer__utility-highlight-title">{{ block_settings.utility_highlight_title }}</span>
+                {%- if block_settings.utility_highlight_description != blank -%}
+                  <span class="menu-drawer__utility-highlight-desc">{{ block_settings.utility_highlight_description }}</span>
+                {%- endif -%}
+              </div>
+              <span class="svg-wrapper icon-caret icon-caret--forward">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+            </a>
+          {%- endif -%}
+          {%- if block_settings.utility_menu.links.size > 0 -%}
+            <ul class="menu-drawer__utility-menu list-unstyled">
+              {%- for util_link in block_settings.utility_menu.links -%}
+                <li class="menu-drawer__utility-menu-item">
+                  <a href="{{ util_link.url }}" class="menu-drawer__utility-link">{{ util_link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
     <div
       class="menu-drawer__backdrop"
@@ -1409,5 +1471,130 @@
 
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
+  }
+
+  /* Drawer search bar */
+  .menu-drawer__search {
+    padding: 12px var(--drawer-padding);
+  }
+
+  .menu-drawer__search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.2);
+    border-radius: 8px;
+    padding-inline: 12px;
+    height: 44px;
+  }
+
+  .menu-drawer__search-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+  }
+
+  .menu-drawer__search-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .menu-drawer__search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 0.875rem;
+    color: var(--color-foreground);
+    outline: none;
+    min-width: 0;
+  }
+
+  .menu-drawer__search-input::placeholder {
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+  }
+
+  /* Drawer horizontal divider */
+  .menu-drawer__divider {
+    border: none;
+    border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+    margin: 0;
+  }
+
+  /* Drawer featured promo cards */
+  .menu-drawer__featured {
+    padding-block: 16px;
+  }
+
+  .menu-drawer__featured-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-inline: var(--drawer-padding);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .menu-drawer__featured-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Drawer utility section */
+  .menu-drawer__utility-section {
+    padding: 16px var(--drawer-padding) 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menu-drawer__utility-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: rgb(var(--color-foreground-rgb) / 0.05);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-foreground);
+    margin-block-end: 12px;
+  }
+
+  .menu-drawer__utility-highlight-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .menu-drawer__utility-highlight-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .menu-drawer__utility-highlight-desc {
+    font-size: 0.75rem;
+    color: rgb(var(--color-foreground-rgb) / 0.7);
+  }
+
+  .menu-drawer__utility-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menu-drawer__utility-link {
+    display: block;
+    padding: 10px 0;
+    font-size: 0.875rem;
+    color: rgb(var(--color-foreground-rgb) / 0.8);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgb(var(--color-foreground-rgb) / 0.4);
+  }
+
+  .menu-drawer__utility-link:hover {
+    color: var(--color-foreground);
+    text-decoration-color: var(--color-foreground);
   }
 {% endstylesheet %}

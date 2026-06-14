@@ -10,6 +10,7 @@
 <aside
   class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
   style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;"
+  data-announcement-bar
 >
   {% liquid
     assign autoplay = false
@@ -34,6 +35,26 @@
       {% content_for 'blocks' %}
     </div>
   </announcement-bar-component>
+
+  {%- if section.settings.utility_link_1_text != blank or section.settings.utility_link_2_text != blank -%}
+    <div class="announcement-bar__utility-links">
+      {%- if section.settings.utility_link_1_text != blank -%}
+        <a
+          href="{{ section.settings.utility_link_1_url | default: '#' }}"
+          class="announcement-bar__utility-link"
+        >{{ section.settings.utility_link_1_text }}</a>
+      {%- endif -%}
+      {%- if section.settings.utility_link_1_text != blank and section.settings.utility_link_2_text != blank -%}
+        <span class="announcement-bar__utility-separator" aria-hidden="true"> | </span>
+      {%- endif -%}
+      {%- if section.settings.utility_link_2_text != blank -%}
+        <a
+          href="{{ section.settings.utility_link_2_url | default: '#' }}"
+          class="announcement-bar__utility-link"
+        >{{ section.settings.utility_link_2_text }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 </aside>
 
 {% stylesheet %}
@@ -119,6 +140,46 @@
     position: absolute;
     inset: 0;
   }
+
+  .announcement-bar__utility-links {
+    position: absolute;
+    inset-inline-end: var(--page-margin, 24px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    gap: 8px;
+    align-items: center;
+    z-index: 1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .announcement-bar__utility-links {
+      display: flex;
+    }
+  }
+
+  .announcement-bar__utility-link {
+    color: #ffffff;
+    text-decoration: underline;
+    font-size: 14px;
+    line-height: 16px;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .announcement-bar__utility-link:hover {
+    opacity: 0.8;
+  }
+
+  .announcement-bar__utility-separator {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  [data-announcement-bar] {
+    position: relative;
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -177,6 +238,32 @@
       "step": 0.5,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Utility Links"
+    },
+    {
+      "type": "text",
+      "id": "utility_link_1_text",
+      "label": "Utility link 1 text",
+      "default": "Store Locator"
+    },
+    {
+      "type": "url",
+      "id": "utility_link_1_url",
+      "label": "Utility link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "utility_link_2_text",
+      "label": "Utility link 2 text",
+      "default": "Humann Professional"
+    },
+    {
+      "type": "url",
+      "id": "utility_link_2_url",
+      "label": "Utility link 2 URL"
     },
     {
       "type": "header",

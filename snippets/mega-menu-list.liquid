@@ -106,6 +106,14 @@
         echo '<li class="mega-menu__column ' | append: span_class | append: '">'
       endif
     %}
+    {% liquid
+      assign is_benefit_column = false
+      assign link_handle_lower = link.handle | downcase
+      assign link_title_lower = link.title | downcase
+      if link_handle_lower contains 'benefit' or link_title_lower contains 'benefit'
+        assign is_benefit_column = true
+      endif
+    %}
     <div>
       <a
         href="{{ link.url }}"
@@ -131,7 +139,7 @@
 
           {% render 'link-featured-image', link: link, class: 'mega-menu__link-image', sizes: collection_image_sizes %}
         {% endif %}
-        <span class="wrap-text">
+        <span class="mega-menu__column-label">
           {{- link.title -}}
         </span>
       </a>
@@ -144,6 +152,25 @@
         >
           {% for childLink in link.links %}
             {% assign break_after_modulo = forloop.index | modulo: links_before_wrap %}
+            {% liquid
+              assign dot_color = ''
+              if is_benefit_column
+                case forloop.index
+                  when 1
+                    assign dot_color = '#761A2C'
+                  when 2
+                    assign dot_color = '#D72A2A'
+                  when 3
+                    assign dot_color = '#E6305E'
+                  when 4
+                    assign dot_color = '#D54427'
+                  when 5
+                    assign dot_color = '#B1369A'
+                  when 6
+                    assign dot_color = '#E9FF6D'
+                endcase
+              endif
+            %}
             <li
               {% if break_after_modulo == 0 and should_break_columns %}
                 style="break-after: column;"
@@ -151,7 +178,10 @@
             >
               <a
                 href="{{ childLink.url }}"
-                class="mega-menu__link"
+                class="mega-menu__link{% if is_benefit_column %} mega-menu__link--has-dot{% endif %}"
+                {% if is_benefit_column and dot_color != blank %}
+                  style="--dot-color: {{ dot_color }};"
+                {% endif %}
               >
                 <span class="wrap-text">{{- childLink.title -}}</span>
               </a>

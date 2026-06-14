@@ -1,0 +1,92 @@
+{%- doc -%}
+  Renders a promotional card used in both the desktop mega menu and mobile drawer.
+
+  @param {object} image - Shopify image object for the card background.
+  @param {string} badge_text - Badge text overlaid on the card image.
+  @param {string} description - Card description text below the image.
+  @param {string} url - Link URL for the card.
+
+  @example
+  {% render 'mega-menu-promo-card', image: block.settings.promo_card_1_image, badge_text: block.settings.promo_card_1_badge, description: block.settings.promo_card_1_text, url: block.settings.promo_card_1_url %}
+{%- enddoc -%}
+
+<a href="{{ url | default: '#' }}" class="mega-menu__promo-card" aria-label="{{ description | escape }}">
+  <div class="mega-menu__promo-card-image-wrap">
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 628
+        | image_tag:
+          class: 'mega-menu__promo-card-img',
+          loading: 'lazy',
+          widths: '314, 628',
+          sizes: '(min-width: 990px) 314px, 280px',
+          alt: image.alt
+      }}
+    {%- else -%}
+      <div class="mega-menu__promo-card-img mega-menu__promo-card-img--placeholder"></div>
+    {%- endif -%}
+    {%- if badge_text != blank -%}
+      <span class="mega-menu__promo-card-badge">{{ badge_text }}</span>
+    {%- endif -%}
+  </div>
+  {%- if description != blank -%}
+    <p class="mega-menu__promo-card-desc">{{ description }}</p>
+  {%- endif -%}
+</a>
+
+{% stylesheet %}
+  .mega-menu__promo-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    min-width: 254px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  .mega-menu__promo-card-image-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 314 / 244;
+    background-color: #BC0F0F;
+  }
+
+  .mega-menu__promo-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mega-menu__promo-card-img--placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #BC0F0F;
+  }
+
+  .mega-menu__promo-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: #F5F5F5;
+    color: #000000;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .mega-menu__promo-card-desc {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #414141;
+    margin: 0;
+  }
+{% endstylesheet %}
