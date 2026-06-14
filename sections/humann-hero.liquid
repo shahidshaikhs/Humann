@@ -1,0 +1,753 @@
+{%- liquid
+  assign slide_1_mobile_bg_url = ''
+  if section.settings.slide_1_product_image != blank
+    assign slide_1_mobile_bg_url = section.settings.slide_1_product_image | image_url: width: 800
+  endif
+-%}
+
+<humann-hero-carousel
+  class="humann-hero"
+  data-section-id="{{ section.id }}"
+  style="
+    --slide-1-gradient-start: {{ section.settings.slide_1_gradient_start }};
+    --slide-1-gradient-end: {{ section.settings.slide_1_gradient_end }};
+    --slide-1-title-color: {{ section.settings.slide_1_title_color }};
+    --slide-1-mobile-bg: url('{{ slide_1_mobile_bg_url }}');
+    --slide-2-title-color: {{ section.settings.slide_2_title_color }};
+    --slide-2-title-color-mobile: {{ section.settings.slide_2_title_color_mobile }};
+    --slide-2-subtitle-color: {{ section.settings.slide_2_subtitle_color }};
+    --slide-2-btn1-bg: {{ section.settings.slide_2_button_1_bg_color }};
+    --slide-2-btn1-bg-mobile: {{ section.settings.slide_2_button_1_bg_color_mobile }};
+    {% render 'spacing-style', settings: section.settings %}
+  "
+>
+  <div class="humann-hero__track">
+    {%- comment -%} ===== Slide 1: Product Hero ===== {%- endcomment -%}
+    <div class="humann-hero__slide humann-hero__slide--product">
+      <div class="humann-hero__slide-inner">
+        <div class="humann-hero__content">
+          <div class="humann-hero__text-group">
+            {%- if section.settings.slide_1_title != blank -%}
+              <h2 class="humann-hero__title">{{ section.settings.slide_1_title }}</h2>
+            {%- endif -%}
+            {%- if section.settings.slide_1_subtitle != blank -%}
+              <p class="humann-hero__subtitle">{{ section.settings.slide_1_subtitle }}</p>
+            {%- endif -%}
+          </div>
+          <div class="humann-hero__btn-group">
+            <a
+              class="humann-hero__button"
+              {% if section.settings.slide_1_button_url != blank %}href="{{ section.settings.slide_1_button_url }}"{% endif %}
+            >
+              {{ section.settings.slide_1_button_text }}
+            </a>
+          </div>
+        </div>
+        <div class="humann-hero__media">
+          {%- if section.settings.slide_1_product_image != blank -%}
+            {{
+              section.settings.slide_1_product_image
+              | image_url: width: 1328
+              | image_tag:
+                alt: section.settings.slide_1_title,
+                loading: 'eager',
+                widths: '375,550,750,1100,1328',
+                sizes: '(min-width: 750px) 50vw, 100vw'
+            }}
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="humann-hero__footer">
+        <div class="humann-hero__footer-badge">
+          {%- if section.settings.slide_1_badge_image != blank -%}
+            {{
+              section.settings.slide_1_badge_image
+              | image_url: width: 646
+              | image_tag:
+                alt: 'Cardiologist recommended badge',
+                loading: 'eager',
+                widths: '226,323,646',
+                sizes: '(min-width: 750px) 323px, 226px'
+            }}
+          {%- endif -%}
+        </div>
+        <div class="humann-hero__nav">
+          <button class="humann-hero__nav-btn" data-direction="prev" type="button" aria-label="Previous slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#414141" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="humann-hero__nav-btn" data-direction="next" type="button" aria-label="Next slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#414141" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} ===== Slide 2: Editorial Hero ===== {%- endcomment -%}
+    <div class="humann-hero__slide humann-hero__slide--editorial">
+      {%- if section.settings.slide_2_bg_image != blank -%}
+        {{
+          section.settings.slide_2_bg_image
+          | image_url: width: 2968
+          | image_tag:
+            class: 'humann-hero__bg-img',
+            alt: '',
+            loading: 'eager',
+            widths: '750,954,1484,2968',
+            sizes: '100vw'
+        }}
+      {%- endif -%}
+      <div class="humann-hero__slide-inner">
+        <div class="humann-hero__content">
+          <div class="humann-hero__text-group">
+            {%- if section.settings.slide_2_title != blank -%}
+              <h2 class="humann-hero__title">{{ section.settings.slide_2_title }}</h2>
+            {%- endif -%}
+            {%- if section.settings.slide_2_subtitle != blank -%}
+              <p class="humann-hero__subtitle">{{ section.settings.slide_2_subtitle }}</p>
+            {%- endif -%}
+          </div>
+          <div class="humann-hero__btn-group">
+            <a
+              class="humann-hero__button"
+              {% if section.settings.slide_2_button_1_url != blank %}href="{{ section.settings.slide_2_button_1_url }}"{% endif %}
+            >
+              {{ section.settings.slide_2_button_1_text }}
+            </a>
+            {%- if section.settings.slide_2_button_2_text != blank -%}
+              <a
+                class="humann-hero__button humann-hero__button--ghost"
+                {% if section.settings.slide_2_button_2_url != blank %}href="{{ section.settings.slide_2_button_2_url }}"{% endif %}
+              >
+                {{ section.settings.slide_2_button_2_text }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+      <div class="humann-hero__footer">
+        <div class="humann-hero__footer-logo">
+          <img
+            src="{{ 'ut.svg' | asset_url }}"
+            alt="University of Texas"
+            width="198"
+            height="32"
+            style="width:198px;height:32px"
+            loading="eager"
+          >
+        </div>
+        <div class="humann-hero__nav">
+          <button class="humann-hero__nav-btn" data-direction="prev" type="button" aria-label="Previous slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#414141" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="humann-hero__nav-btn" data-direction="next" type="button" aria-label="Next slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#414141" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</humann-hero-carousel>
+
+{% stylesheet %}
+  /* ===== Section wrapper ===== */
+  .humann-hero {
+    padding: 8px 16px;
+  }
+
+  /* ===== Carousel track ===== */
+  .humann-hero__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .humann-hero__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ===== Slides (shared) ===== */
+  .humann-hero__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    min-height: 704px;
+    box-sizing: border-box;
+  }
+
+  /* ===== Slide 1: Product Hero ===== */
+  .humann-hero__slide--product {
+    border-radius: 16px;
+    padding: 32px 48px;
+    background: linear-gradient(170deg, var(--slide-1-gradient-start), var(--slide-1-gradient-end));
+  }
+
+  .humann-hero__slide--product .humann-hero__slide-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+  }
+
+  .humann-hero__slide--product .humann-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .humann-hero__slide--product .humann-hero__text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-hero__slide--product .humann-hero__title {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: 0;
+    color: var(--slide-1-title-color);
+    margin: 0;
+  }
+
+  .humann-hero__slide--product .humann-hero__subtitle {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: var(--slide-1-title-color);
+    margin: 0;
+  }
+
+  .humann-hero__slide--product .humann-hero__media {
+    flex: 0 0 50%;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .humann-hero__slide--product .humann-hero__media img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ===== Slide 2: Editorial Hero ===== */
+  .humann-hero__slide--editorial {
+    border-radius: 12px;
+    padding: 32px 48px;
+  }
+
+  .humann-hero__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(4px);
+    transform: scale(1.05);
+    z-index: 0;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__slide-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 661px;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__title {
+    font-family: 'Moderat', 'Moderat Serif', var(--font-heading--family), serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: -1px;
+    color: var(--slide-2-title-color);
+    margin: 0;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__title strong {
+    font-weight: 700;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__subtitle {
+    font-family: 'Stabil Grotesk', var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: var(--slide-2-subtitle-color);
+    margin: 0;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__btn-group {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    padding-block-start: 16px;
+  }
+
+  .humann-hero__slide--editorial .humann-hero__button:not(.humann-hero__button--ghost) {
+    background-color: var(--slide-2-btn1-bg);
+  }
+
+  /* ===== Buttons (shared) ===== */
+  .humann-hero__btn-group {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .humann-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: '(K) Uniforma', var(--font-body--family), sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #FFFFFF;
+    border-radius: 28px;
+    border: none;
+    padding: 16px 28px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .humann-hero__slide--product .humann-hero__button {
+    background-color: #000000;
+  }
+
+  .humann-hero__button--ghost {
+    display: none;
+  }
+
+  /* ===== Footer ===== */
+  .humann-hero__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .humann-hero__footer-badge img {
+    width: auto;
+    max-height: 40px;
+    display: block;
+  }
+
+  .humann-hero__footer-logo img {
+    width: auto;
+    max-height: 32px;
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ===== Nav arrows ===== */
+  .humann-hero__nav {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .humann-hero__nav-btn {
+    width: 64px;
+    height: 48px;
+    border-radius: 28px;
+    background: #F5F5F5;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .humann-hero__nav-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* ===== Mobile ===== */
+  @media screen and (max-width: 749px) {
+    .humann-hero {
+      padding: 4px 12px 12px;
+    }
+
+    .humann-hero__slide {
+      min-height: 620px;
+    }
+
+    /* Slide 1 mobile */
+    .humann-hero__slide--product {
+      padding: 32px 12px 20px;
+      background: var(--slide-1-mobile-bg) center bottom / cover no-repeat;
+      align-items: center;
+    }
+
+    .humann-hero__slide--product .humann-hero__slide-inner {
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .humann-hero__slide--product .humann-hero__content {
+      flex: 0 0 auto;
+      max-width: 100%;
+      text-align: center;
+      align-items: center;
+    }
+
+    .humann-hero__slide--product .humann-hero__text-group {
+      align-items: center;
+    }
+
+    .humann-hero__slide--product .humann-hero__title {
+      font-size: 60px;
+      line-height: 48px;
+      text-align: center;
+    }
+
+    .humann-hero__slide--product .humann-hero__subtitle {
+      font-size: 16px;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    .humann-hero__slide--product .humann-hero__media {
+      display: none;
+    }
+
+    .humann-hero__slide--product .humann-hero__btn-group {
+      justify-content: center;
+    }
+
+    /* Slide 2 mobile */
+    .humann-hero__slide--editorial {
+      border-radius: 16px;
+      padding: 32px 8px;
+      align-items: center;
+    }
+
+    .humann-hero__bg-img {
+      filter: blur(3px);
+    }
+
+    .humann-hero__slide--editorial .humann-hero__slide-inner {
+      align-items: center;
+    }
+
+    .humann-hero__slide--editorial .humann-hero__content {
+      max-width: 100%;
+      align-items: center;
+      text-align: center;
+      padding-inline: 8px;
+    }
+
+    .humann-hero__slide--editorial .humann-hero__text-group {
+      gap: 16px;
+      align-items: center;
+    }
+
+    .humann-hero__slide--editorial .humann-hero__title {
+      font-size: 42px;
+      line-height: 48px;
+      text-align: center;
+      color: var(--slide-2-title-color-mobile);
+    }
+
+    .humann-hero__slide--editorial .humann-hero__subtitle {
+      font-size: 18px;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    .humann-hero__slide--editorial .humann-hero__btn-group {
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      padding-block-start: 0;
+    }
+
+    .humann-hero__slide--editorial .humann-hero__button:not(.humann-hero__button--ghost) {
+      background-color: var(--slide-2-btn1-bg-mobile);
+    }
+
+    .humann-hero__button--ghost {
+      display: inline-flex;
+      background: transparent;
+      padding: 12px 0;
+      color: #FFFFFF;
+    }
+
+    .humann-hero__slide--editorial .humann-hero__footer {
+      display: none;
+    }
+
+    /* Buttons mobile */
+    .humann-hero__button {
+      font-size: 14px;
+      line-height: 14px;
+      padding: 12px 20px;
+    }
+
+    /* Footer mobile */
+    .humann-hero__footer-badge img {
+      max-height: 28px;
+    }
+
+    /* Nav arrows mobile */
+    .humann-hero__nav-btn {
+      width: 44px;
+      height: 32px;
+    }
+
+    .humann-hero__nav-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  if (!customElements.get('humann-hero-carousel')) {
+    class HumannHeroCarousel extends HTMLElement {
+      connectedCallback() {
+        this.track = this.querySelector('.humann-hero__track');
+        this.slides = Array.from(this.querySelectorAll('.humann-hero__slide'));
+        this.currentIndex = 0;
+
+        const buttons = this.querySelectorAll('[data-direction]');
+        for (const btn of buttons) {
+          btn.addEventListener('click', (e) => {
+            const direction = e.currentTarget.getAttribute('data-direction');
+            if (direction === 'next') {
+              this.goTo(this.currentIndex + 1);
+            } else {
+              this.goTo(this.currentIndex - 1);
+            }
+          });
+        }
+      }
+
+      goTo(index) {
+        if (!this.track || !this.slides.length) return;
+        const total = this.slides.length;
+        this.currentIndex = ((index % total) + total) % total;
+        const target = this.slides[this.currentIndex];
+        this.track.scrollTo({
+          left: target.offsetLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    customElements.define('humann-hero-carousel', HumannHeroCarousel);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Humann hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slide 1 — Product hero"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_title",
+      "label": "Title",
+      "default": "SuperBeets®, The Cardiovascular Health Original"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_subtitle",
+      "label": "Subtitle",
+      "default": "Combines category-leading trust with clinically researched cardiovascular support."
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_text",
+      "label": "Button text",
+      "default": "SHOP SUPERBEETS"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_badge_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "color",
+      "id": "slide_1_title_color",
+      "label": "Title color",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "color",
+      "id": "slide_1_gradient_start",
+      "label": "Gradient start",
+      "default": "#F0F0F0"
+    },
+    {
+      "type": "color",
+      "id": "slide_1_gradient_end",
+      "label": "Gradient end",
+      "default": "#E3E3E3"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2 — Editorial hero"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "slide_2_title",
+      "label": "Title",
+      "default": "Cardiovascular health is <strong>everything health.</strong>"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_subtitle",
+      "label": "Subtitle",
+      "default": "Inspired by Nobel-Prize winning science, born out of research from The University of Texas."
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_1_text",
+      "label": "Button 1 text",
+      "default": "EXPLORE THE SCIENCE"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_1_url",
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_2_text",
+      "label": "Button 2 text",
+      "default": "HOW IT WORKS"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_2_url",
+      "label": "Button 2 URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "slide_2_title_color",
+      "label": "Title color (desktop)",
+      "default": "#414141"
+    },
+    {
+      "type": "color",
+      "id": "slide_2_title_color_mobile",
+      "label": "Title color (mobile)",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "slide_2_subtitle_color",
+      "label": "Subtitle color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "slide_2_button_1_bg_color",
+      "label": "Button 1 background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "slide_2_button_1_bg_color_mobile",
+      "label": "Button 1 background (mobile)",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Humann hero"
+    }
+  ]
+}
+{% endschema %}
