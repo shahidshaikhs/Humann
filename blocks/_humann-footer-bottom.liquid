@@ -1,0 +1,241 @@
+<div class="humann-footer-bottom" {{ block.shopify_attributes }}>
+  <div class="humann-footer-bottom__buttons">
+    {%- if block.settings.button_1_text != blank -%}
+      <a
+        href="{{ block.settings.button_1_url | default: '#' }}"
+        class="humann-footer-bottom__button"
+      >
+        {{ block.settings.button_1_text }}
+      </a>
+    {%- endif -%}
+    {%- if block.settings.button_2_text != blank -%}
+      <a
+        href="{{ block.settings.button_2_url | default: '#' }}"
+        class="humann-footer-bottom__button"
+      >
+        {{ block.settings.button_2_text }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- if block.settings.disclaimer != blank -%}
+    <div class="humann-footer-bottom__disclaimer">
+      {{ block.settings.disclaimer }}
+    </div>
+  {%- endif -%}
+
+  {%- if block.settings.legal_links != blank -%}
+    <div class="humann-footer-bottom__legal">
+      {{ block.settings.legal_links }}
+    </div>
+  {%- endif -%}
+
+  {%- if block.settings.copyright != blank -%}
+    <div class="humann-footer-bottom__copyright">
+      {{ block.settings.copyright }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .humann-footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Desktop order: buttons, disclaimer, legal, copyright */
+  .humann-footer-bottom__buttons {
+    order: 1;
+  }
+
+  .humann-footer-bottom__disclaimer {
+    order: 2;
+  }
+
+  .humann-footer-bottom__legal {
+    order: 3;
+  }
+
+  .humann-footer-bottom__copyright {
+    order: 4;
+  }
+
+  /* Desktop: extra spacing between buttons and disclaimer */
+  @media screen and (min-width: 750px) {
+    .humann-footer-bottom__buttons {
+      margin-block-end: 24px;
+    }
+  }
+
+  /* Mobile: reorder — disclaimer first, buttons second */
+  @media screen and (max-width: 749px) {
+    .humann-footer-bottom__disclaimer {
+      order: 1;
+    }
+
+    .humann-footer-bottom__buttons {
+      order: 2;
+      margin-block-end: 0;
+    }
+
+    .humann-footer-bottom__legal {
+      order: 3;
+    }
+
+    .humann-footer-bottom__copyright {
+      order: 4;
+    }
+  }
+
+  /* Buttons */
+  .humann-footer-bottom__buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .humann-footer-bottom__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    color: #000000;
+    border-radius: 28px;
+    font-family: '(K) Uniforma', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 28px;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .humann-footer-bottom__button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+
+  /* Disclaimer box */
+  .humann-footer-bottom__disclaimer {
+    border: 1px solid #D9D9DB;
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .humann-footer-bottom__disclaimer p {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    margin: 0;
+  }
+
+  .humann-footer-bottom__disclaimer p + p {
+    margin-block-start: 8px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .humann-footer-bottom__disclaimer {
+      border-color: #A0A0A0;
+    }
+  }
+
+  /* Legal links */
+  .humann-footer-bottom__legal {
+    padding: 4px 0;
+  }
+
+  .humann-footer-bottom__legal p {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .humann-footer-bottom__legal a {
+    text-decoration: underline;
+    color: #767676;
+  }
+
+  /* Copyright */
+  .humann-footer-bottom__copyright {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer bottom",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1 text",
+      "default": "Accessibility"
+    },
+    {
+      "type": "url",
+      "id": "button_1_url",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 text",
+      "default": "Chat"
+    },
+    {
+      "type": "url",
+      "id": "button_2_url",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Disclaimer"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Disclaimer text",
+      "default": "<p>* According to IQVIA ProVoice Survey 2024</p><p>1 Based on the combination of all sales data for medical practitioners and professionals for humann products sold through pro.humann.com and medical sales distributor partners from 12/1/23 to 11/30/2024.</p><p>2 In a 16-week, double-blind, placebo-controlled study involving 119 healthy men and women, Heart Chews' polyphenol compound, taken as part of a healthy lifestyle was clinically shown nearly 2-times as effective at promoting normal blood pressure already in the normal range as a healthy lifestyle alone.</p><p>3 Based on Amazon 5-star ratings and reviews as of May 2024 for SuperBeets Heart Chews, Powder, Collagen, Energy Plus, Circulation Gummies, Energy Gummies, Beet Root Capsules, Sport, Memory + Focus.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Legal"
+    },
+    {
+      "type": "richtext",
+      "id": "legal_links",
+      "label": "Legal links",
+      "default": "<p><a href=\"/policies/terms-of-service\">Terms &amp; Conditions</a> | <a href=\"/policies/privacy-policy\">Privacy Policy</a> | <a href=\"/pages/accessibility\">Accessibility</a> | <a href=\"/pages/user-generated-content\">User Generated Content</a></p>"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright text",
+      "default": "© 2025 Humann"
+    }
+  ]
+}
+{% endschema %}

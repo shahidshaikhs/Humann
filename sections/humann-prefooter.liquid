@@ -1,0 +1,211 @@
+<div
+  class="humann-prefooter__wrapper"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="humann-prefooter__inner">
+    <div class="humann-prefooter__logo">
+      <img src="{{ 'logo.svg' | asset_url }}" alt="Humann" width="280" height="48">
+    </div>
+
+    <div class="humann-prefooter__tagline">
+      <span class="humann-prefooter__serif">A</span>
+      <span class="humann-prefooter__serif">cardiovascular</span>
+      <span class="humann-prefooter__serif">health</span>
+      <span class="humann-prefooter__serif">company</span>
+      <span class="humann-prefooter__icon humann-prefooter__icon--chew">
+        {%- if section.settings.chew_image != blank -%}
+          {{ section.settings.chew_image | image_url: width: 56 | image_tag: loading: 'lazy', alt: '' }}
+        {%- endif -%}
+      </span>
+      <span class="humann-prefooter__serif">focused</span>
+      <span class="humann-prefooter__serif">on</span>
+      <span class="humann-prefooter__serif">the</span>
+      <span class="humann-prefooter__bold">60,000</span>
+      <span class="humann-prefooter__bold">miles</span>
+      <span class="humann-prefooter__serif">of</span>
+      <span class="humann-prefooter__serif">your</span>
+      <span class="humann-prefooter__serif">cardiovascular</span>
+      <span class="humann-prefooter__serif">system</span>
+      <span class="humann-prefooter__icon humann-prefooter__icon--capsule">
+        {%- if section.settings.capsule_image != blank -%}
+          {{ section.settings.capsule_image | image_url: width: 88 | image_tag: loading: 'lazy', alt: '' }}
+        {%- endif -%}
+      </span>
+      <span class="humann-prefooter__serif">fueling</span>
+      <span class="humann-prefooter__serif">your</span>
+      <span class="humann-prefooter__icon humann-prefooter__icon--gummie">
+        {%- if section.settings.gummie_image != blank -%}
+          {{ section.settings.gummie_image | image_url: width: 50 | image_tag: loading: 'lazy', alt: '' }}
+        {%- endif -%}
+      </span>
+      <span class="humann-prefooter__bold">36</span>
+      <span class="humann-prefooter__bold">trillion</span>
+      <span class="humann-prefooter__bold">cells.</span>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .humann-prefooter__wrapper {
+    background-color: #FFFFFF;
+    border: 1px solid #D9D9DB;
+    padding-block-start: var(--padding-block-start);
+    padding-block-end: var(--padding-block-end);
+    padding-inline: 160px;
+  }
+
+  .humann-prefooter__inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .humann-prefooter__logo img {
+    width: 280px;
+    height: 48px;
+  }
+
+  .humann-prefooter__tagline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    color: #BC0F0F;
+  }
+
+  .humann-prefooter__serif {
+    font-family: 'Moderat Serif', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+  }
+
+  .humann-prefooter__bold {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .humann-prefooter__icon {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .humann-prefooter__icon--chew {
+    padding: 3px 4px 0 4px;
+  }
+
+  .humann-prefooter__icon--chew img {
+    width: 28px;
+    height: 21px;
+  }
+
+  .humann-prefooter__icon--capsule {
+    padding: 8px 4px 0 4px;
+  }
+
+  .humann-prefooter__icon--capsule img {
+    width: 44px;
+    height: 15px;
+    transform: rotate(1.6deg);
+  }
+
+  .humann-prefooter__icon--gummie {
+    padding: 2px 2px 0 2px;
+  }
+
+  .humann-prefooter__icon--gummie img {
+    width: 23px;
+    height: 25px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .humann-prefooter__wrapper {
+      border: none;
+      padding-inline: 20px;
+    }
+
+    .humann-prefooter__inner {
+      gap: 60px;
+    }
+
+    .humann-prefooter__tagline {
+      gap: 2px;
+    }
+
+    .humann-prefooter__icon--chew {
+      padding: 5px 2px 0 2px;
+    }
+
+    .humann-prefooter__icon--capsule {
+      padding: 10px 0 0 0;
+    }
+
+    .humann-prefooter__icon--gummie {
+      padding: 4px 2px 0 2px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Prefooter",
+  "class": "humann-prefooter",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "chew_image",
+      "label": "Chew image"
+    },
+    {
+      "type": "image_picker",
+      "id": "capsule_image",
+      "label": "Capsule image"
+    },
+    {
+      "type": "image_picker",
+      "id": "gummie_image",
+      "label": "Gummie image"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 72
+    }
+  ]
+}
+{% endschema %}

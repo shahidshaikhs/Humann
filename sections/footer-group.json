@@ -1,132 +1,104 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
+    "humann_prefooter": {
+      "type": "humann-prefooter",
+      "settings": {
+        "chew_image": "shopify://shop_images/screenshot-2026-04-17-at-22-12-53-1-mobile-31614349.png",
+        "capsule_image": "shopify://shop_images/screenshot-2026-04-17-at-22-17-40-1-mobile-31614360.png",
+        "gummie_image": "shopify://shop_images/screenshot-2026-04-17-at-22-30-25-1-mobile-31614364.png",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
-        "group_wErUQf": {
+        "left_column": {
           "type": "group",
-          "name": "Join our email list",
           "settings": {
-            "link": "",
-            "open_in_new_tab": false,
             "content_direction": "column",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 8,
             "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
             "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
             "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "placeholder": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "text_pF6rVi": {
+            "email_heading": {
               "type": "text",
-              "name": "Heading",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<p><strong>Get 10% off when you sign up today.</strong></p><p>Humann science in your inbox</p>",
                 "width": "100%",
-                "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
+                "type_preset": "paragraph",
+                "padding-block-start": 8,
                 "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
+                "padding-inline-start": 8,
+                "padding-inline-end": 8
+              }
             },
-            "text_HafH7P": {
-              "type": "text",
-              "name": "Text",
-              "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "email-signup_HafH7P": {
+            "email_form": {
               "type": "email-signup",
-              "name": "Email Signup",
               "settings": {
-                "width": "fill"
+                "width": "fill",
+                "border_style": "all",
+                "border_width": 0,
+                "border_radius": 48,
+                "display_type": "arrow",
+                "integrated_button": true,
+                "style_class": "button-unstyled",
+                "input_type_preset": "paragraph",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "social": {
+              "type": "social-links",
+              "settings": {
+                "instagram_url": "https://www.instagram.com/humannsupplements",
+                "twitter_url": "https://x.com/humannsupps",
+                "facebook_url": "https://www.facebook.com/humannsupplements"
+              }
+            },
+            "contact_info": {
+              "type": "text",
+              "settings": {
+                "text": "<p>1250 S Capital of Texas Highway<br>Austin, TX 78746</p><p>(855) 636-4040</p><p>info@humann.com</p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "padding-block-start": 16,
+                "padding-block-end": 16,
+                "padding-inline-start": 8,
+                "padding-inline-end": 8
               }
             }
           },
           "block_order": [
-            "text_pF6rVi",
-            "text_HafH7P",
-            "email-signup_HafH7P"
+            "email_heading",
+            "email_form",
+            "social",
+            "contact_info"
           ]
         },
-        "menu_footer": {
+        "menu_shop": {
           "type": "menu",
           "settings": {
-            "menu": "footer",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
+            "menu": "footer-shop",
+            "heading": "Shop",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
             "accordion_icon": "plus",
             "accordion_dividers": false,
             "inherit_color_scheme": true,
@@ -138,13 +110,13 @@
             "padding-inline-end": 0
           }
         },
-        "menu_main": {
+        "menu_learn": {
           "type": "menu",
           "settings": {
-            "menu": "main-menu",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
+            "menu": "footer-learn",
+            "heading": "Learn",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
             "accordion_icon": "plus",
             "accordion_dividers": false,
             "inherit_color_scheme": true,
@@ -154,68 +126,68 @@
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
+          }
+        },
+        "menu_support": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer-support",
+            "heading": "Support",
+            "menu_spacing": 0,
+            "show_as_accordion": true,
+            "accordion_icon": "plus",
+            "accordion_dividers": false,
+            "inherit_color_scheme": true,
+            "heading_preset": "paragraph",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "footer_bottom": {
+          "type": "_humann-footer-bottom",
+          "settings": {
+            "button_1_text": "Accessibility",
+            "button_2_text": "Chat",
+            "disclaimer": "<p>* According to IQVIA ProVoice Survey 2024</p><p>1 Based on the combination of all sales data for medical practitioners and professionals for humann products sold through pro.humann.com and medical sales distributor partners from 12/1/23 to 11/30/2024.</p><p>2 In a 16-week, double-blind, placebo-controlled study involving 119 healthy men and women, Heart Chews' polyphenol compound, taken as part of a healthy lifestyle was clinically shown nearly 2-times as effective at promoting normal blood pressure already in the normal range as a healthy lifestyle alone.</p><p>3 Based on Amazon 5-star ratings and reviews as of May 2024 for SuperBeets Heart Chews, Powder, Collagen, Energy Plus, Circulation Gummies, Energy Gummies, Beet Root Capsules, Sport, Memory + Focus.</p>",
+            "legal_links": "<p><a href=\"/policies/terms-of-service\">Terms &amp; Conditions</a> | <a href=\"/policies/privacy-policy\">Privacy Policy</a> | <a href=\"/pages/accessibility\">Accessibility</a> | <a href=\"/pages/user-generated-content\">User Generated Content</a></p>",
+            "copyright": "© 2025 Humann"
           }
         }
       },
       "block_order": [
-        "group_wErUQf",
-        "menu_footer",
-        "menu_main"
+        "left_column",
+        "menu_shop",
+        "menu_learn",
+        "menu_support",
+        "footer_bottom"
       ],
-      "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
-        "gap": 40,
-        "color_scheme": "scheme-5",
-        "padding-block-start": 36,
-        "padding-block-end": 36
+        "gap": 32,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 40,
+        "padding-block-end": 60
       }
     },
     "utilities": {
       "type": "footer-utilities",
       "settings": {
         "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 1,
-        "color_scheme": "scheme-5",
-        "padding-block-start": 12,
-        "padding-block-end": 16
+        "gap": 0,
+        "divider_thickness": 0,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       },
-      "blocks": {
-        "copyright": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          }
-        },
-        "policy_list": {
-          "type": "footer-policy-list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          }
-        },
-        "social_icons": {
-          "type": "social-links",
-          "settings": {
-            "facebook_url": "https://www.facebook.com",
-            "instagram_url": "https://www.instagram.com",
-            "tiktok_url": "https://www.tiktok.com",
-            "twitter_url": "https://www.twitter.com",
-            "youtube_url": "https://www.youtube.com"
-          }
-        }
-      },
-      "block_order": [
-        "copyright",
-        "policy_list",
-        "social_icons"
-      ]
+      "blocks": {},
+      "block_order": []
     }
   },
   "order": [
+    "humann_prefooter",
     "footer",
     "utilities"
   ]
