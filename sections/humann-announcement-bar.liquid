@@ -1,0 +1,238 @@
+<humann-announcement-bar class="humann-announcement-bar" style="--humann-promo-bg: {{ section.settings.background_color }};" {{ section.shopify_attributes }}>
+  <div class="humann-announcement-bar__row">
+    <button class="humann-announcement-bar__chevron" data-direction="prev" aria-label="Previous announcement">
+      {{ 'chevron-left.svg' | inline_asset_content }}
+    </button>
+
+    <div class="humann-announcement-bar__slides">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'announcement' -%}
+          <div class="humann-announcement-bar__slide" data-slide {% if forloop.first %}data-slide-active{% endif %} {{ block.shopify_attributes }}>
+            <span class="humann-announcement-bar__text">{{ block.settings.text }}</span>
+            {%- if block.settings.link_text != blank -%}
+              <a
+                href="{{ block.settings.link_url | default: '#' }}"
+                class="humann-announcement-bar__link"
+              >{{ block.settings.link_text }}</a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <button class="humann-announcement-bar__chevron" data-direction="next" aria-label="Next announcement">
+      {{ 'chevron-right.svg' | inline_asset_content }}
+    </button>
+  </div>
+
+  <div class="humann-announcement-bar__utility">
+    {%- if section.settings.store_locator_text != blank -%}
+      <a href="{{ section.settings.store_locator_url | default: '#' }}" class="humann-announcement-bar__utility-link">
+        {{ section.settings.store_locator_text }}
+      </a>
+    {%- endif -%}
+    {%- if section.settings.professional_text != blank -%}
+      <a href="{{ section.settings.professional_url | default: '#' }}" class="humann-announcement-bar__utility-link">
+        {{ section.settings.professional_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</humann-announcement-bar>
+
+{% stylesheet %}
+  .humann-announcement-bar {
+    background: var(--humann-promo-bg, #BC0F0F);
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+  }
+
+  .humann-announcement-bar__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    padding: 0 16px;
+  }
+
+  .humann-announcement-bar__chevron {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: #ffffff;
+  }
+
+  .humann-announcement-bar__chevron svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .humann-announcement-bar__slides {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+  }
+
+  .humann-announcement-bar__slide {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .humann-announcement-bar__slide[data-slide-active] {
+    display: flex;
+  }
+
+  .humann-announcement-bar__text {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .humann-announcement-bar__link {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #ffffff;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .humann-announcement-bar__utility {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-announcement-bar__row {
+      gap: 16px;
+      padding: 0 208px;
+    }
+
+    .humann-announcement-bar__text {
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .humann-announcement-bar__link {
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.75px;
+      font-family: '(K) Uniforma', var(--font-body--family, sans-serif);
+      text-transform: uppercase;
+    }
+
+    .humann-announcement-bar__utility {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .humann-announcement-bar__utility-link {
+      font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      color: #ffffff;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Humann Announcement Bar",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#BC0F0F"
+    },
+    {
+      "type": "header",
+      "content": "Desktop utility links"
+    },
+    {
+      "type": "text",
+      "id": "store_locator_text",
+      "label": "Store locator text",
+      "default": "Store Locator"
+    },
+    {
+      "type": "url",
+      "id": "store_locator_url",
+      "label": "Store locator URL"
+    },
+    {
+      "type": "text",
+      "id": "professional_text",
+      "label": "Professional link text",
+      "default": "Humann Professional"
+    },
+    {
+      "type": "url",
+      "id": "professional_url",
+      "label": "Professional link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Announcement text",
+          "default": "Free Shipping on orders $49.99+"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Humann Announcement Bar"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

@@ -1,116 +1,181 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "header",
   "name": "t:names.header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
+    "humann_announcement_bar": {
+      "type": "humann-announcement-bar",
       "blocks": {
-        "announcement_BxgCk9": {
-          "type": "_announcement",
+        "announcement_1": {
+          "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
+            "text": "Free Shipping on orders $49.99+",
+            "link_text": "Shop now",
+            "link_url": ""
+          }
         }
       },
       "block_order": [
-        "announcement_BxgCk9"
+        "announcement_1"
       ],
-      "name": "t:names.announcement_bar",
       "settings": {
-        "speed": 5,
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "divider_width": 1,
-        "padding-block-start": 15,
-        "padding-block-end": 15
+        "background_color": "#BC0F0F",
+        "store_locator_text": "Store Locator",
+        "store_locator_url": "",
+        "professional_text": "Humann Professional",
+        "professional_url": ""
       }
     },
-    "header_section": {
-      "type": "header",
+    "humann_header_section": {
+      "type": "humann-header",
       "blocks": {
-        "header-logo": {
-          "type": "_header-logo",
-          "static": true,
+        "shop_link_1": {
+          "type": "shop_link",
           "settings": {
-            "hide_logo_on_home_page": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0
-          },
-          "blocks": {}
+            "title": "Shop All",
+            "url": "/collections/all"
+          }
         },
-        "header-menu": {
-          "type": "_header-menu",
-          "static": true,
+        "shop_link_2": {
+          "type": "shop_link",
           "settings": {
-            "menu": "main-menu",
-            "color_scheme": "",
-            "type_font_primary_size": "0.875rem",
-            "menu_font_style": "inverse",
-            "type_font_primary_link": "body",
-            "type_case_primary_link": "none",
-            "menu_style": "featured_products",
-            "featured_products_aspect_ratio": "4 / 5",
-            "featured_collections_aspect_ratio": "16 / 9",
-            "image_border_radius": 0,
-            "navigation_bar": false,
-            "color_scheme_navigation_bar": "",
-            "drawer_accordion": false,
-            "drawer_accordion_expand_first": false,
-            "drawer_dividers": false
-          },
-          "blocks": {}
+            "title": "Shop SuperBeets",
+            "url": "/collections/superbeets"
+          }
+        },
+        "benefit_blood_pressure": {
+          "type": "benefit_link",
+          "settings": {
+            "title": "Blood Pressure",
+            "url": "",
+            "dot_color": "#761A2C"
+          }
+        },
+        "benefit_blood_flow": {
+          "type": "benefit_link",
+          "settings": {
+            "title": "Blood Flow",
+            "url": "",
+            "dot_color": "#D72A2A"
+          }
+        },
+        "benefit_metabolic": {
+          "type": "benefit_link",
+          "settings": {
+            "title": "Metabolic",
+            "url": "",
+            "dot_color": "#E6305E"
+          }
+        },
+        "benefit_cholesterol": {
+          "type": "benefit_link",
+          "settings": {
+            "title": "Cholesterol",
+            "url": "",
+            "dot_color": "#D54427"
+          }
+        },
+        "benefit_cognitive": {
+          "type": "benefit_link",
+          "settings": {
+            "title": "Cognitive",
+            "url": "",
+            "dot_color": "#B1369A"
+          }
+        },
+        "benefit_sports": {
+          "type": "benefit_link",
+          "settings": {
+            "title": "Sports",
+            "url": "",
+            "dot_color": "#E9FF6D"
+          }
+        },
+        "featured_card_1": {
+          "type": "featured_card",
+          "settings": {
+            "image": "shopify://shop_images/hero-image-mobile-header-36563914.jpg",
+            "badge_text": "#1 Doctor Recommended",
+            "title": "Get 50% off our heart health routine",
+            "url": ""
+          }
+        },
+        "featured_card_2": {
+          "type": "featured_card",
+          "settings": {
+            "image": "shopify://shop_images/image-1-mobile-header-36563921.jpg",
+            "badge_text": "#1 Doctor Recommended",
+            "title": "Buy 2 SuperBeets, get 1 free",
+            "url": ""
+          }
+        },
+        "utility_professional": {
+          "type": "utility_link",
+          "settings": {
+            "title": "Humann Professional",
+            "url": "",
+            "description": "Our program for medical organizations, professional collegiate sports teams, and more."
+          }
+        },
+        "utility_story": {
+          "type": "utility_link",
+          "settings": {
+            "title": "Our Story",
+            "url": "/pages/our-story",
+            "description": ""
+          }
+        },
+        "utility_locator": {
+          "type": "utility_link",
+          "settings": {
+            "title": "Store Locator",
+            "url": "",
+            "description": ""
+          }
+        },
+        "utility_faqs": {
+          "type": "utility_link",
+          "settings": {
+            "title": "FAQs",
+            "url": "",
+            "description": ""
+          }
+        },
+        "utility_help": {
+          "type": "utility_link",
+          "settings": {
+            "title": "Help Center",
+            "url": "",
+            "description": ""
+          }
         }
       },
+      "block_order": [
+        "shop_link_1",
+        "shop_link_2",
+        "benefit_blood_pressure",
+        "benefit_blood_flow",
+        "benefit_metabolic",
+        "benefit_cholesterol",
+        "benefit_cognitive",
+        "benefit_sports",
+        "featured_card_1",
+        "featured_card_2",
+        "utility_professional",
+        "utility_story",
+        "utility_locator",
+        "utility_faqs",
+        "utility_help"
+      ],
       "settings": {
-        "logo_position": "left",
-        "menu_position": "left",
-        "menu_row": "top",
-        "show_search": true,
-        "search_position": "right",
-        "search_row": "top",
-        "show_country": true,
-        "country_selector_style": false,
-        "show_language": true,
-        "localization_font": "heading",
-        "localization_font_size": "0.875rem",
-        "localization_position": "right",
-        "localization_row": "top",
-        "section_width": "page-width",
-        "section_height": "standard",
-        "enable_sticky_header": "always",
-        "divider_width": 0,
-        "divider_size": "page-width",
-        "border_width": 0,
-        "color_scheme_top": "scheme-1",
-        "color_scheme_bottom": "",
-        "color_scheme_transparent": "scheme-6",
-        "enable_transparent_header_home": false,
-        "home_color_scheme": "inverse",
-        "enable_transparent_header_product": false,
-        "product_color_scheme": "default",
-        "enable_transparent_header_collection": false,
-        "collection_color_scheme": "default"
+        "main_menu": "main-menu",
+        "first_item_has_dropdown": true,
+        "professional_text": "PROFESSIONAL",
+        "professional_url": ""
       }
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
-    "header_section"
+    "humann_announcement_bar",
+    "humann_header_section"
   ]
 }

@@ -1,0 +1,992 @@
+<script src="{{ 'humann-header.js' | asset_url }}" defer></script>
+
+<humann-header class="humann-header" {{ section.shopify_attributes }}>
+  <div class="humann-header__wrap">
+
+    <!-- ======= DESKTOP HEADER ROW ======= -->
+    <div class="humann-header__desktop">
+      <div class="humann-header__left">
+        <a href="{{ routes.root_url }}" class="humann-header__logo-link" aria-label="{{ shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            {%- assign logo_alt = shop.name -%}
+            {{ section.settings.logo | image_url: width: 278 | image_tag: alt: logo_alt, loading: 'eager', width: 139, height: 24, class: 'humann-header__logo-img' }}
+          {%- else -%}
+            <span class="humann-header__logo-svg">{{ 'logo.svg' | inline_asset_content }}</span>
+          {%- endif -%}
+        </a>
+
+        <nav class="humann-header__nav" aria-label="Main navigation">
+          <ul class="humann-header__nav-list">
+            {%- for link in linklists[section.settings.main_menu].links -%}
+              <li class="humann-header__nav-item">
+                {%- if forloop.first and section.settings.first_item_has_dropdown -%}
+                  <button class="humann-header__nav-btn" data-has-dropdown aria-expanded="false" aria-haspopup="true">
+                    {{ link.title }}
+                    <span class="humann-header__nav-chevron" aria-hidden="true">
+                      <img src="{{ 'chevron-down-2.svg' | asset_url }}" alt="" width="16" height="16" style="width:16px;height:16px;">
+                    </span>
+                  </button>
+                {%- else -%}
+                  <a href="{{ link.url }}" class="humann-header__nav-link">{{ link.title }}</a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="humann-header__right">
+        {%- if section.settings.professional_text != blank -%}
+          <a href="{{ section.settings.professional_url | default: '#' }}" class="humann-header__pro-btn">
+            {{ section.settings.professional_text }}
+          </a>
+        {%- endif -%}
+
+        <a href="{{ routes.search_url }}" class="humann-header__icon-btn" aria-label="Search">
+          <img src="{{ 'search.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
+        </a>
+
+        <a href="{{ routes.account_url }}" class="humann-header__icon-btn humann-header__user-btn" aria-label="Account">
+          <img src="{{ 'user.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
+          {%- if customer -%}
+            <span class="humann-header__greeting">Welcome, {{ customer.first_name }}!</span>
+          {%- endif -%}
+        </a>
+
+        <a href="{{ routes.cart_url }}" class="humann-header__cart-btn" aria-label="Cart">
+          <img src="{{ 'cart.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
+          <span class="humann-header__cart-badge{% if cart.item_count == 0 %} humann-header__cart-badge--hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ======= MOBILE HEADER ROW ======= -->
+    <div class="humann-header__mobile">
+      <a href="{{ routes.root_url }}" class="humann-header__logo-link" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          {%- assign logo_alt_m = shop.name -%}
+          {{ section.settings.logo | image_url: width: 278 | image_tag: alt: logo_alt_m, loading: 'eager', width: 139, height: 24, class: 'humann-header__logo-img' }}
+        {%- else -%}
+          <span class="humann-header__logo-svg">{{ 'logo.svg' | inline_asset_content }}</span>
+        {%- endif -%}
+      </a>
+
+      <div class="humann-header__mobile-right">
+        <a href="{{ routes.search_url }}" class="humann-header__icon-btn" aria-label="Search">
+          <img src="{{ 'search.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
+        </a>
+        <a href="{{ routes.account_url }}" class="humann-header__icon-btn" aria-label="Account">
+          <img src="{{ 'user.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
+        </a>
+        <a href="{{ routes.cart_url }}" class="humann-header__cart-btn" aria-label="Cart">
+          <img src="{{ 'cart.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;">
+          <span class="humann-header__cart-badge{% if cart.item_count == 0 %} humann-header__cart-badge--hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
+        </a>
+        <button class="humann-header__icon-btn humann-header__hamburger" data-drawer-open aria-label="Open menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======= MEGA MENU (desktop) ======= -->
+    <div class="humann-header__megamenu" data-mega-menu style="display:none;" role="dialog" aria-label="Mega menu">
+      <div class="humann-header__megamenu-inner">
+
+        <div class="humann-header__megamenu-col">
+          <span class="humann-header__megamenu-label">Shop</span>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'shop_link' -%}
+              <a href="{{ block.settings.url | default: '#' }}" class="humann-header__megamenu-link" {{ block.shopify_attributes }}>{{ block.settings.title }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="humann-header__megamenu-col">
+          <span class="humann-header__megamenu-label">Shop by Benefit</span>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit_link' -%}
+              <div class="humann-header__benefit-item" {{ block.shopify_attributes }}>
+                <span class="humann-header__benefit-dot" style="background-color: {{ block.settings.dot_color }};"></span>
+                <a href="{{ block.settings.url | default: '#' }}" class="humann-header__megamenu-link">{{ block.settings.title }}</a>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="humann-header__megamenu-col humann-header__megamenu-col--featured">
+          <span class="humann-header__megamenu-label">Featured</span>
+          <div class="humann-header__featured-cards">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'featured_card' -%}
+                <a href="{{ block.settings.url | default: '#' }}" class="humann-header__featured-card" {{ block.shopify_attributes }}>
+                  <div class="humann-header__featured-card-img-wrap">
+                    {%- if block.settings.image != blank -%}
+                      {%- assign fc_sizes = '314px' -%}
+                      {{ block.settings.image | image_url: width: 628 | image_tag: loading: 'lazy', width: 314, height: 244, class: 'humann-header__featured-card-img', sizes: fc_sizes }}
+                    {%- endif -%}
+                    {%- if block.settings.badge_text != blank -%}
+                      <span class="humann-header__featured-card-badge">{{ block.settings.badge_text }}</span>
+                    {%- endif -%}
+                  </div>
+                  {%- if block.settings.title != blank -%}
+                    <p class="humann-header__featured-card-title">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======= DRAWER BACKDROP ======= -->
+  <div class="humann-header__backdrop" data-drawer-backdrop></div>
+
+  <!-- ======= MOBILE DRAWER ======= -->
+  <div class="humann-header__drawer" data-drawer>
+    <button class="humann-header__drawer-close" data-drawer-close aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <form action="{{ routes.search_url }}" method="GET" class="humann-header__drawer-search" role="search">
+      <div class="humann-header__drawer-search-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="humann-header__drawer-search-icon" aria-hidden="true">
+          <path d="M16.893 16.92L19.973 20M19.084 11.581C19.084 15.768 15.701 19.162 11.529 19.162C7.356 19.162 3.973 15.768 3.973 11.581C3.973 7.394 7.356 4 11.529 4C15.701 4 19.084 7.394 19.084 11.581Z" stroke="#767676" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <input type="search" name="q" class="humann-header__drawer-search-input" placeholder="Search products, articles, etc..." autocomplete="off" aria-label="Search">
+      </div>
+    </form>
+
+    <nav class="humann-header__drawer-nav" aria-label="Mobile navigation">
+      {%- assign has_benefit_links = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'benefit_link' -%}
+          {%- assign has_benefit_links = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_benefit_links -%}
+        <button class="humann-header__drawer-nav-item humann-header__drawer-benefit-btn" data-benefit-toggle aria-expanded="false">
+          <span>Shop by Benefit</span>
+          <img src="{{ 'chevron-right.svg' | asset_url }}" alt="" width="24" height="24" style="width:24px;height:24px;" aria-hidden="true" class="humann-header__drawer-chevron">
+        </button>
+        <div class="humann-header__drawer-benefit-submenu" data-benefit-submenu style="display:none;">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit_link' -%}
+              <a href="{{ block.settings.url | default: '#' }}" class="humann-header__drawer-benefit-link">{{ block.settings.title }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'shop_link' -%}
+          <a href="{{ block.settings.url | default: '#' }}" class="humann-header__drawer-nav-item">{{ block.settings.title }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- for link in linklists[section.settings.main_menu].links -%}
+        {%- unless forloop.first and section.settings.first_item_has_dropdown -%}
+          <a href="{{ link.url }}" class="humann-header__drawer-nav-item">{{ link.title }}</a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </nav>
+
+    <hr class="humann-header__drawer-divider">
+
+    {%- assign has_featured_cards = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'featured_card' -%}
+        {%- assign has_featured_cards = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_featured_cards -%}
+      <span class="humann-header__drawer-featured-label">Featured</span>
+      <div class="humann-header__drawer-featured-scroll">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'featured_card' -%}
+            <a href="{{ block.settings.url | default: '#' }}" class="humann-header__drawer-featured-card" {{ block.shopify_attributes }}>
+              <div class="humann-header__drawer-featured-img-wrap">
+                {%- if block.settings.image != blank -%}
+                  {%- assign dfc_sizes = '254px' -%}
+                  {{ block.settings.image | image_url: width: 508 | image_tag: loading: 'lazy', width: 254, height: 198, class: 'humann-header__drawer-featured-img', sizes: dfc_sizes }}
+                {%- endif -%}
+                {%- if block.settings.badge_text != blank -%}
+                  <span class="humann-header__drawer-featured-badge">{{ block.settings.badge_text }}</span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.title != blank -%}
+                <p class="humann-header__drawer-featured-title">{{ block.settings.title }}</p>
+              {%- endif -%}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <hr class="humann-header__drawer-divider">
+    {%- endif -%}
+
+    <div class="humann-header__drawer-utilities">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'utility_link' -%}
+          <div class="humann-header__drawer-utility" {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.url | default: '#' }}" class="humann-header__drawer-utility-title">{{ block.settings.title }}</a>
+            {%- if block.settings.description != blank -%}
+              <p class="humann-header__drawer-utility-desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+</humann-header>
+
+{% stylesheet %}
+  .humann-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: #ffffff;
+    border-bottom: 1px solid #A0A0A0;
+    display: block;
+  }
+
+  .humann-header__wrap {
+    position: relative;
+  }
+
+  /* ---- Desktop row ---- */
+  .humann-header__desktop {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-header__desktop {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 24px;
+      gap: 49px;
+    }
+  }
+
+  .humann-header__left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .humann-header__logo-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .humann-header__logo-img {
+    width: 139px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .humann-header__logo-svg svg {
+    width: 139px;
+    height: 24px;
+    display: block;
+  }
+
+  .humann-header__nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .humann-header__nav-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .humann-header__nav-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .humann-header__nav-link,
+  .humann-header__nav-btn {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .humann-header__nav-chevron {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .humann-header__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .humann-header__pro-btn {
+    font-family: '(K) Uniforma', var(--font-body--family, sans-serif);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #414141;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .humann-header__icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  .humann-header__user-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .humann-header__greeting {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    white-space: nowrap;
+  }
+
+  .humann-header__cart-btn {
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .humann-header__cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #BC0F0F;
+    color: #ffffff;
+    font-family: '(K) Uniforma', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .humann-header__cart-badge--hidden {
+    display: none;
+  }
+
+  /* ---- Mega menu ---- */
+  .humann-header__megamenu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  .humann-header__megamenu-inner {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    padding: 24px 48px;
+    align-items: flex-start;
+  }
+
+  .humann-header__megamenu-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .humann-header__megamenu-col--featured {
+    flex: 1;
+  }
+
+  .humann-header__megamenu-label {
+    font-family: '(K) Uniforma', var(--font-body--family, sans-serif);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #9A9A9A;
+    display: block;
+  }
+
+  .humann-header__megamenu-link {
+    font-family: 'Moderat Serif', var(--font-heading--family, serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+    text-decoration: none;
+    display: block;
+  }
+
+  .humann-header__megamenu-link:hover {
+    color: #BC0F0F;
+  }
+
+  .humann-header__benefit-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .humann-header__benefit-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .humann-header__benefit-dot[style*='E9FF6D'] {
+    border: 1px solid #A0A0A0;
+  }
+
+  .humann-header__featured-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .humann-header__featured-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    flex: 0 0 314px;
+  }
+
+  .humann-header__featured-card-img-wrap {
+    position: relative;
+    width: 314px;
+    height: 244px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #BC0F0F;
+  }
+
+  .humann-header__featured-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .humann-header__featured-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #F5F5F5;
+    color: #000000;
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .humann-header__featured-card-title {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+    margin: 0;
+  }
+
+  /* ---- Mobile row ---- */
+  .humann-header__mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .humann-header__mobile {
+      display: none;
+    }
+  }
+
+  .humann-header__mobile-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .humann-header__hamburger {
+    color: #000000;
+  }
+
+  /* ---- Backdrop ---- */
+  .humann-header__backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.5);
+    z-index: 290;
+  }
+
+  .humann-header__backdrop[data-backdrop-active] {
+    display: block;
+  }
+
+  /* ---- Mobile Drawer ---- */
+  .humann-header__drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(360px, 90vw);
+    height: 100vh;
+    background: #ffffff;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 300;
+    overflow-y: auto;
+    padding: 20px 24px 48px;
+    box-sizing: border-box;
+  }
+
+  .humann-header__drawer[data-drawer-active] {
+    transform: translateX(0);
+  }
+
+  .humann-header__drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-inline-start: auto;
+    margin-bottom: 20px;
+    color: #000000;
+    width: 24px;
+    height: 24px;
+  }
+
+  .humann-header__drawer-search {
+    margin-bottom: 24px;
+  }
+
+  .humann-header__drawer-search-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    background: #F0F0F0;
+    border-radius: 32px;
+    padding: 8px 16px;
+    height: 40px;
+    box-sizing: border-box;
+  }
+
+  .humann-header__drawer-search-icon {
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .humann-header__drawer-search-input {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #414141;
+    background: none;
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .humann-header__drawer-search-input::placeholder {
+    color: #A0A0A0;
+  }
+
+  .humann-header__drawer-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .humann-header__drawer-nav-item {
+    font-family: 'Moderat Serif', var(--font-heading--family, serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: start;
+  }
+
+  .humann-header__drawer-benefit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .humann-header__drawer-chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .humann-header__drawer-benefit-btn[data-benefit-open] .humann-header__drawer-chevron {
+    transform: rotate(90deg);
+  }
+
+  .humann-header__drawer-benefit-submenu {
+    flex-direction: column;
+    gap: 8px;
+    padding: 4px 0 8px 16px;
+  }
+
+  .humann-header__drawer-benefit-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #414141;
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+  }
+
+  .humann-header__drawer-divider {
+    border: none;
+    border-top: 1px solid #E0E0E0;
+    margin: 16px 0;
+  }
+
+  .humann-header__drawer-featured-label {
+    font-family: '(K) Uniforma', var(--font-body--family, sans-serif);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #767676;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .humann-header__drawer-featured-scroll {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+  }
+
+  .humann-header__drawer-featured-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .humann-header__drawer-featured-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    flex: 0 0 254px;
+    scroll-snap-align: start;
+  }
+
+  .humann-header__drawer-featured-img-wrap {
+    position: relative;
+    width: 254px;
+    height: 198px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #BC0F0F;
+  }
+
+  .humann-header__drawer-featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .humann-header__drawer-featured-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #F5F5F5;
+    color: #000000;
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .humann-header__drawer-featured-title {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+    margin: 0;
+  }
+
+  .humann-header__drawer-utilities {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-header__drawer-utility {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .humann-header__drawer-utility-title {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #414141;
+    text-decoration: none;
+    display: block;
+  }
+
+  .humann-header__drawer-utility-desc {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Humann Header",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "first_item_has_dropdown",
+      "label": "First menu item opens mega menu",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Professional link"
+    },
+    {
+      "type": "text",
+      "id": "professional_text",
+      "label": "Professional button text",
+      "default": "PROFESSIONAL"
+    },
+    {
+      "type": "url",
+      "id": "professional_url",
+      "label": "Professional link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shop_link",
+      "name": "Shop link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Shop All"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    },
+    {
+      "type": "benefit_link",
+      "name": "Benefit link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Blood Pressure"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        },
+        {
+          "type": "color",
+          "id": "dot_color",
+          "label": "Dot color",
+          "default": "#BC0F0F"
+        }
+      ]
+    },
+    {
+      "type": "featured_card",
+      "name": "Featured card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "#1 Doctor Recommended"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card title",
+          "default": "Featured product"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Card URL"
+        }
+      ]
+    },
+    {
+      "type": "utility_link",
+      "name": "Utility link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Our Story"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Humann Header"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}
