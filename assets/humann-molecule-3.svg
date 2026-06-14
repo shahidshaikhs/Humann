@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 169 169" fill="none">
+  <circle cx="84.5" cy="84.5" r="84" stroke="#FFFFFF" stroke-width="0.5"/>
+  <!-- Large dots (18px diameter, r=9) -->
+  <circle cx="90" cy="65" r="9" fill="#FFFFFF"/>
+  <circle cx="60" cy="95" r="9" fill="#FFFFFF"/>
+  <circle cx="110" cy="100" r="9" fill="#FFFFFF"/>
+  <!-- Medium-large dot (14px diameter, r=7) -->
+  <circle cx="78" cy="110" r="7" fill="#FFFFFF"/>
+  <!-- Medium dots (10px diameter, r=5) -->
+  <circle cx="70" cy="55" r="5" fill="#FFFFFF"/>
+  <circle cx="105" cy="60" r="5" fill="#FFFFFF"/>
+  <circle cx="50" cy="75" r="5" fill="#FFFFFF"/>
+  <circle cx="115" cy="78" r="5" fill="#FFFFFF"/>
+  <circle cx="95" cy="85" r="5" fill="#FFFFFF"/>
+  <!-- Small-medium dots (9px diameter, r=4.5) -->
+  <circle cx="65" cy="68" r="4.5" fill="#FFFFFF"/>
+  <circle cx="100" cy="115" r="4.5" fill="#FFFFFF"/>
+  <!-- Small dots (6px diameter, r=3) -->
+  <circle cx="80" cy="48" r="3" fill="#FFFFFF"/>
+  <circle cx="55" cy="60" r="3" fill="#FFFFFF"/>
+  <circle cx="120" cy="68" r="3" fill="#FFFFFF"/>
+  <circle cx="45" cy="90" r="3" fill="#FFFFFF"/>
+  <circle cx="88" cy="98" r="3" fill="#FFFFFF"/>
+  <circle cx="72" cy="80" r="3" fill="#FFFFFF"/>
+  <circle cx="105" cy="48" r="3" fill="#FFFFFF"/>
+</svg>

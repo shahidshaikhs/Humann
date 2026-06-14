@@ -1,0 +1,477 @@
+<div
+  class="humann-banner-cards"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  <div class="humann-banner-cards__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="humann-banner-cards__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="humann-banner-cards__subtitle humann-banner-cards__subtitle--desktop">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.mobile_subtitle != blank -%}
+      <p class="humann-banner-cards__subtitle humann-banner-cards__subtitle--mobile">{{ section.settings.mobile_subtitle }}</p>
+    {%- endif -%}
+
+    <hr class="humann-banner-cards__divider">
+
+    <div class="humann-banner-cards__carousel">
+      {%- comment -%} Card 1 {%- endcomment -%}
+      <div class="humann-banner-cards__card">
+        {%- if section.settings.card_1_image != blank -%}
+          {%- assign card_sizes = '(min-width: 750px) 389px, 320px' -%}
+          {{
+            section.settings.card_1_image
+            | image_url: width: section.settings.card_1_image.width
+            | image_tag:
+              sizes: card_sizes,
+              widths: '320,389,640,778',
+              loading: 'lazy',
+              alt: '',
+              class: 'humann-banner-cards__card-bg'
+          }}
+        {%- endif -%}
+        <div class="humann-banner-cards__card-content">
+          <div class="humann-banner-cards__molecule">
+            {{ 'humann-molecule-1.svg' | inline_asset_content }}
+          </div>
+          {%- if section.settings.card_1_text != blank -%}
+            <p class="humann-banner-cards__card-text">{{ section.settings.card_1_text }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Card 2 {%- endcomment -%}
+      <div class="humann-banner-cards__card">
+        {%- if section.settings.card_2_image != blank -%}
+          {{
+            section.settings.card_2_image
+            | image_url: width: section.settings.card_2_image.width
+            | image_tag:
+              sizes: card_sizes,
+              widths: '320,389,640,778',
+              loading: 'lazy',
+              alt: '',
+              class: 'humann-banner-cards__card-bg'
+          }}
+        {%- endif -%}
+        <div class="humann-banner-cards__card-content">
+          <div class="humann-banner-cards__molecule humann-banner-cards__molecule--large">
+            {{ 'humann-molecule-2.svg' | inline_asset_content }}
+          </div>
+          {%- if section.settings.card_2_text != blank -%}
+            <p class="humann-banner-cards__card-text">{{ section.settings.card_2_text }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Card 3 {%- endcomment -%}
+      <div class="humann-banner-cards__card">
+        {%- if section.settings.card_3_image != blank -%}
+          {{
+            section.settings.card_3_image
+            | image_url: width: section.settings.card_3_image.width
+            | image_tag:
+              sizes: card_sizes,
+              widths: '320,389,640,778',
+              loading: 'lazy',
+              alt: '',
+              class: 'humann-banner-cards__card-bg'
+          }}
+        {%- endif -%}
+        <div class="humann-banner-cards__card-content">
+          <div class="humann-banner-cards__molecule humann-banner-cards__molecule--large">
+            {{ 'humann-molecule-3.svg' | inline_asset_content }}
+          </div>
+          {%- if section.settings.card_3_text != blank -%}
+            <p class="humann-banner-cards__card-text">{{ section.settings.card_3_text }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <hr class="humann-banner-cards__divider">
+
+    {%- if section.settings.cta_text != blank -%}
+      <div class="humann-banner-cards__cta-wrapper">
+        <a
+          class="humann-banner-cards__cta"
+          {% if section.settings.cta_url != blank %}href="{{ section.settings.cta_url }}"{% endif %}
+        >
+          {{ section.settings.cta_text }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* ============================
+     Humann Banner Cards
+     ============================ */
+
+  .humann-banner-cards {
+    background: #BC0F0F;
+    padding-block-start: var(--padding-block-start);
+    padding-block-end: var(--padding-block-end);
+  }
+
+  .humann-banner-cards__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-inline: 24px;
+  }
+
+  /* --- Title --- */
+
+  .humann-banner-cards__title {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 52px;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .humann-banner-cards__title strong {
+    font-weight: 700;
+  }
+
+  /* --- Subtitle --- */
+
+  .humann-banner-cards__subtitle {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .humann-banner-cards__subtitle strong {
+    font-weight: 700;
+  }
+
+  .humann-banner-cards__subtitle--desktop {
+    display: block;
+  }
+
+  .humann-banner-cards__subtitle--mobile {
+    display: none;
+  }
+
+  /* --- Divider --- */
+
+  .humann-banner-cards__divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0;
+  }
+
+  /* --- Carousel / Cards Container --- */
+
+  .humann-banner-cards__carousel {
+    display: flex;
+    gap: 16px;
+  }
+
+  /* --- Card --- */
+
+  .humann-banner-cards__card {
+    flex: 1;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 480px;
+  }
+
+  .humann-banner-cards__card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .humann-banner-cards__card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 24px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  /* --- Molecule SVG --- */
+
+  .humann-banner-cards__molecule {
+    width: 161px;
+    height: 161px;
+    flex-shrink: 0;
+  }
+
+  .humann-banner-cards__molecule--large {
+    width: 169px;
+    height: 169px;
+  }
+
+  .humann-banner-cards__molecule svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* --- Card Text --- */
+
+  .humann-banner-cards__card-text {
+    font-family: 'Moderat', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .humann-banner-cards__card-text strong {
+    font-weight: 700;
+  }
+
+  /* --- CTA Button --- */
+
+  .humann-banner-cards__cta-wrapper {
+    padding: 8px 0;
+  }
+
+  .humann-banner-cards__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 28px;
+    padding: 12px 20px;
+    font-family: var(--font-accent--family), sans-serif;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* ============================
+     Mobile Styles
+     ============================ */
+
+  @media screen and (max-width: 749px) {
+    .humann-banner-cards {
+      padding-block: 40px;
+    }
+
+    .humann-banner-cards__inner {
+      gap: 16px;
+      padding-inline: 16px;
+    }
+
+    /* --- Title Mobile --- */
+
+    .humann-banner-cards__title {
+      font-family: 'Moderat', serif;
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 36px;
+      letter-spacing: -1px;
+    }
+
+    .humann-banner-cards__title strong {
+      font-weight: 400;
+    }
+
+    /* --- Subtitle Mobile --- */
+
+    .humann-banner-cards__subtitle--desktop {
+      display: none;
+    }
+
+    .humann-banner-cards__subtitle--mobile {
+      display: block;
+    }
+
+    .humann-banner-cards__subtitle--mobile {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    /* --- Carousel Mobile --- */
+
+    .humann-banner-cards__carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .humann-banner-cards__carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .humann-banner-cards__card {
+      flex: 0 0 320px;
+      scroll-snap-align: start;
+    }
+
+    /* --- Card Text Mobile --- */
+
+    .humann-banner-cards__card-text {
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    /* --- CTA Mobile --- */
+
+    .humann-banner-cards__cta {
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Banner cards",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Heading",
+      "default": "Learn about the <br><strong>Miracle Molecule</strong>"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle (desktop)",
+      "default": "<strong>Did you know</strong> that Nitric Oxide is one of the most important molecules produced in your body?"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "mobile_subtitle",
+      "label": "Subtitle (mobile)",
+      "default": "Science grounded in the <strong>Nobel Prize-winning</strong> nitric oxide pathway."
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "card_1_text",
+      "label": "Text",
+      "default": "By age 40, Humans naturally produce <strong>50% less Nitric Oxide</strong> than they did at age 20."
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "card_2_text",
+      "label": "Text",
+      "default": "Nitric Oxide helps circulate more oxygen and nutrients to your <strong>36 trillion cells.</strong>"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "card_3_text",
+      "label": "Text",
+      "default": "More oxygen and nutrients means <strong>more healthy energy support.</strong>"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Explore Our Science"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner cards"
+    }
+  ]
+}
+{% endschema %}
