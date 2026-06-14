@@ -795,7 +795,7 @@
       {%- endif -%}
       {%- if block_settings.utility_menu.links.size > 0 or block_settings.utility_highlight_title != blank -%}
         <hr class="menu-drawer__divider">
-        <div class="menu-drawer__utility-section">
+        <div class="menu-drawer__utility-section menu-drawer__utility-links">
           {%- if block_settings.utility_highlight_title != blank -%}
             <a href="{{ block_settings.utility_highlight_url | default: '#' }}" class="menu-drawer__utility-highlight">
               <div class="menu-drawer__utility-highlight-content">
