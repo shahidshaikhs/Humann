@@ -1,0 +1,249 @@
+{%- doc -%}
+  Renders the Humann custom mega menu dropdown with three columns:
+  SHOP, SHOP BY BENEFIT, and FEATURED.
+
+  @param {object} parent_link - The nav link whose children form the menu columns
+  @param {object} block - The block object containing featured card settings
+  @param {object} section - The section object
+
+  @example
+  {% render 'humann-mega-menu', parent_link: link, block: block, section: section %}
+{%- enddoc -%}
+
+<div class="humann-mega-menu">
+  <div class="humann-mega-menu__container">
+    {%- comment -%} Column 1: SHOP {%- endcomment -%}
+    <div class="humann-mega-menu__column">
+      <span class="humann-mega-menu__column-header">Shop</span>
+      <ul class="humann-mega-menu__links list-unstyled">
+        {%- if parent_link.links.size > 0 -%}
+          {%- assign shop_column = parent_link.links.first -%}
+          {%- for child_link in shop_column.links -%}
+            <li>
+              <a href="{{ child_link.url }}" class="humann-mega-menu__link">
+                {{- child_link.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment -%} Column 2: SHOP BY BENEFIT {%- endcomment -%}
+    <div class="humann-mega-menu__column">
+      <span class="humann-mega-menu__column-header">Shop by Benefit</span>
+      <ul class="humann-mega-menu__benefit-links list-unstyled">
+        {%- if parent_link.links.size > 1 -%}
+          {%- assign benefit_column = parent_link.links[1] -%}
+          {%- for child_link in benefit_column.links -%}
+            <li class="humann-mega-menu__benefit-item">
+              <span class="humann-mega-menu__benefit-dot"></span>
+              <a href="{{ child_link.url }}" class="humann-mega-menu__link">
+                {{- child_link.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment -%} Column 3: FEATURED {%- endcomment -%}
+    <div class="humann-mega-menu__column humann-mega-menu__column--featured">
+      <span class="humann-mega-menu__column-header">Featured</span>
+      <div class="humann-mega-menu__cards">
+        {%- if block.settings.featured_card_1_image != blank -%}
+          <a href="{{ block.settings.featured_card_1_url | default: '#' }}" class="humann-mega-menu__card">
+            <div class="humann-mega-menu__card-image-wrap">
+              {{
+                block.settings.featured_card_1_image
+                | image_url: width: 628
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '314px',
+                  widths: '314,628',
+                  class: 'humann-mega-menu__card-image',
+                  alt: block.settings.featured_card_1_title
+              }}
+              {%- if block.settings.featured_card_1_badge != blank -%}
+                <span class="humann-mega-menu__card-badge">{{ block.settings.featured_card_1_badge }}</span>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.featured_card_1_title != blank -%}
+              <span class="humann-mega-menu__card-title">{{ block.settings.featured_card_1_title }}</span>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+
+        {%- if block.settings.featured_card_2_image != blank -%}
+          <a href="{{ block.settings.featured_card_2_url | default: '#' }}" class="humann-mega-menu__card">
+            <div class="humann-mega-menu__card-image-wrap">
+              {{
+                block.settings.featured_card_2_image
+                | image_url: width: 628
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '314px',
+                  widths: '314,628',
+                  class: 'humann-mega-menu__card-image',
+                  alt: block.settings.featured_card_2_title
+              }}
+              {%- if block.settings.featured_card_2_badge != blank -%}
+                <span class="humann-mega-menu__card-badge">{{ block.settings.featured_card_2_badge }}</span>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.featured_card_2_title != blank -%}
+              <span class="humann-mega-menu__card-title">{{ block.settings.featured_card_2_title }}</span>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .humann-mega-menu {
+    padding: 40px 48px;
+  }
+
+  .humann-mega-menu__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 48px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 40px 48px;
+  }
+
+  .humann-mega-menu__column-header {
+    display: block;
+    font-family: 'Uniforma', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #9A9A9A;
+    margin-block-end: 24px;
+  }
+
+  .humann-mega-menu__links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .humann-mega-menu__link {
+    font-family: 'Moderat Serif', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .humann-mega-menu__link:hover {
+    color: #BC0F0F;
+  }
+
+  .humann-mega-menu__benefit-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .humann-mega-menu__benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .humann-mega-menu__benefit-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-color: #761A2C;
+  }
+
+  .humann-mega-menu__benefit-item:nth-child(1) .humann-mega-menu__benefit-dot {
+    background-color: #761A2C;
+  }
+
+  .humann-mega-menu__benefit-item:nth-child(2) .humann-mega-menu__benefit-dot {
+    background-color: #D72A2A;
+  }
+
+  .humann-mega-menu__benefit-item:nth-child(3) .humann-mega-menu__benefit-dot {
+    background-color: #E6305E;
+  }
+
+  .humann-mega-menu__benefit-item:nth-child(4) .humann-mega-menu__benefit-dot {
+    background-color: #D54427;
+  }
+
+  .humann-mega-menu__benefit-item:nth-child(5) .humann-mega-menu__benefit-dot {
+    background-color: #B1369A;
+  }
+
+  .humann-mega-menu__benefit-item:nth-child(6) .humann-mega-menu__benefit-dot {
+    background-color: #E9FF6D;
+    border: 1px solid #A0A0A0;
+  }
+
+  .humann-mega-menu__cards {
+    display: flex;
+    gap: 16px;
+  }
+
+  .humann-mega-menu__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    text-decoration: none;
+  }
+
+  .humann-mega-menu__card-image-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 314 / 244;
+    background-color: #BC0F0F;
+  }
+
+  .humann-mega-menu__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .humann-mega-menu__card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #F5F5F5;
+    color: #000000;
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .humann-mega-menu__card-title {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+  }
+{% endstylesheet %}

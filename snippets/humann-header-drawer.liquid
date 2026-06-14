@@ -1,0 +1,412 @@
+{%- doc -%}
+  Renders the Humann custom mobile drawer with search, navigation,
+  featured cards, and secondary links.
+
+  @param {object} linklist - The navigation menu linklist
+  @param {object} block - The block object containing featured card and secondary menu settings
+  @param {object} section - The section object
+
+  @example
+  {% render 'humann-header-drawer', linklist: block_settings.menu, block: block, section: section %}
+{%- enddoc -%}
+
+<script
+  src="{{ 'header-drawer.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<header-drawer class="header-drawer humann-drawer">
+  <details
+    id="Details-menu-drawer-container"
+    ref="details"
+    class="humann-drawer__details"
+  >
+    <summary
+      class="header__icon header__icon--menu"
+      aria-label="Menu"
+      ref="summary"
+    >
+      <span class="svg-wrapper">
+        {{ 'icon-hamburger.svg' | inline_asset_content }}
+      </span>
+    </summary>
+
+    <div
+      class="humann-drawer__overlay"
+      ref="overlay"
+    ></div>
+
+    <div class="humann-drawer__panel" ref="panel">
+      {%- comment -%} Close button {%- endcomment -%}
+      <button
+        class="humann-drawer__close button-unstyled"
+        aria-label="Close menu"
+        ref="closeButton"
+        on:click="/close"
+      >
+        <span class="svg-wrapper">
+          {{ 'icon-close.svg' | inline_asset_content }}
+        </span>
+      </button>
+
+      <div class="humann-drawer__content">
+        {%- comment -%} Search {%- endcomment -%}
+        <div class="humann-drawer__search">
+          <form action="{{ routes.search_url }}" method="get" role="search" class="humann-drawer__search-form">
+            <label for="humann-drawer-search" class="visually-hidden">Search</label>
+            <svg class="humann-drawer__search-icon" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none" aria-hidden="true">
+              <circle cx="10" cy="10" r="9" stroke="#767676" stroke-width="1.3"/>
+              <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="#767676" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <input
+              type="search"
+              name="q"
+              id="humann-drawer-search"
+              class="humann-drawer__search-input"
+              placeholder="Search products, articles, etc..."
+              autocomplete="off"
+            />
+          </form>
+        </div>
+
+        {%- comment -%} Primary navigation {%- endcomment -%}
+        <nav class="humann-drawer__nav" aria-label="Main navigation">
+          <ul class="humann-drawer__nav-list list-unstyled">
+            {%- for link in linklist.links -%}
+              <li class="humann-drawer__nav-item">
+                <a href="{{ link.url }}" class="humann-drawer__nav-link">
+                  <span>{{ link.title }}</span>
+                  {%- if link.links.size > 0 -%}
+                    <span class="humann-drawer__nav-chevron svg-wrapper">
+                      {{ 'icon-caret.svg' | inline_asset_content }}
+                    </span>
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+
+        <div class="humann-drawer__divider"></div>
+
+        {%- comment -%} Featured section {%- endcomment -%}
+        <div class="humann-drawer__featured">
+          <span class="humann-drawer__section-header">Featured</span>
+          <div class="humann-drawer__featured-scroll">
+            {%- if block.settings.featured_card_1_image != blank -%}
+              <a href="{{ block.settings.featured_card_1_url | default: '#' }}" class="humann-drawer__featured-card">
+                <div class="humann-drawer__featured-image-wrap">
+                  {{
+                    block.settings.featured_card_1_image
+                    | image_url: width: 508
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '254px',
+                      widths: '254,508',
+                      class: 'humann-drawer__featured-image',
+                      alt: block.settings.featured_card_1_title
+                  }}
+                  {%- if block.settings.featured_card_1_badge != blank -%}
+                    <span class="humann-drawer__featured-badge">{{ block.settings.featured_card_1_badge }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.featured_card_1_title != blank -%}
+                  <span class="humann-drawer__featured-title">{{ block.settings.featured_card_1_title }}</span>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+
+            {%- if block.settings.featured_card_2_image != blank -%}
+              <a href="{{ block.settings.featured_card_2_url | default: '#' }}" class="humann-drawer__featured-card">
+                <div class="humann-drawer__featured-image-wrap">
+                  {{
+                    block.settings.featured_card_2_image
+                    | image_url: width: 508
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '254px',
+                      widths: '254,508',
+                      class: 'humann-drawer__featured-image',
+                      alt: block.settings.featured_card_2_title
+                  }}
+                  {%- if block.settings.featured_card_2_badge != blank -%}
+                    <span class="humann-drawer__featured-badge">{{ block.settings.featured_card_2_badge }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.featured_card_2_title != blank -%}
+                  <span class="humann-drawer__featured-title">{{ block.settings.featured_card_2_title }}</span>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="humann-drawer__divider"></div>
+
+        {%- comment -%} Secondary links {%- endcomment -%}
+        {%- if block.settings.secondary_menu != blank -%}
+          <div class="humann-drawer__secondary">
+            {%- for link in block.settings.secondary_menu.links -%}
+              {%- if forloop.first -%}
+                <div class="humann-drawer__secondary-first">
+                  <a href="{{ link.url }}" class="humann-drawer__secondary-link humann-drawer__secondary-link--primary">
+                    {{ link.title }}
+                  </a>
+                  {%- if link.links.size > 0 -%}
+                    {%- assign first_child = link.links.first -%}
+                    <p class="humann-drawer__secondary-desc">{{ first_child.title }}</p>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <a href="{{ link.url }}" class="humann-drawer__secondary-link">
+                  {{ link.title }}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </details>
+</header-drawer>
+
+{% stylesheet %}
+  .humann-drawer__details {
+    display: flex;
+    align-items: center;
+  }
+
+  .humann-drawer__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: var(--layer-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .humann-drawer__details[open] .humann-drawer__overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .humann-drawer__panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 360px;
+    max-width: 90vw;
+    height: 100dvh;
+    background: #ffffff;
+    z-index: calc(var(--layer-overlay) + 1);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .humann-drawer__details[open] .humann-drawer__panel {
+    transform: translateX(0);
+  }
+
+  .humann-drawer__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .humann-drawer__close .svg-wrapper {
+    width: 20px;
+    height: 20px;
+  }
+
+  .humann-drawer__content {
+    padding: 24px;
+    padding-top: 16px;
+  }
+
+  .humann-drawer__search {
+    margin-block-end: 24px;
+  }
+
+  .humann-drawer__search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .humann-drawer__search-icon {
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  .humann-drawer__search-input {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 32px;
+    background: #F0F0F0;
+    padding: 0 16px 0 48px;
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #414141;
+    outline: none;
+  }
+
+  .humann-drawer__search-input::placeholder {
+    color: #A0A0A0;
+  }
+
+  .humann-drawer__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .humann-drawer__nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Moderat Serif', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-drawer__nav-chevron {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-90deg);
+    color: #414141;
+  }
+
+  .humann-drawer__nav-chevron svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .humann-drawer__divider {
+    height: 1px;
+    background: #E5E5E5;
+    margin-block: 24px;
+  }
+
+  .humann-drawer__section-header {
+    display: block;
+    font-family: 'Uniforma', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    color: #767676;
+    margin-block-end: 16px;
+  }
+
+  .humann-drawer__featured-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-block-end: 4px;
+  }
+
+  .humann-drawer__featured-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+    width: 254px;
+    text-decoration: none;
+    scroll-snap-align: start;
+  }
+
+  .humann-drawer__featured-image-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 254 / 198;
+    background-color: #BC0F0F;
+  }
+
+  .humann-drawer__featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .humann-drawer__featured-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #F5F5F5;
+    color: #000000;
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .humann-drawer__featured-title {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+  }
+
+  .humann-drawer__secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .humann-drawer__secondary-first {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .humann-drawer__secondary-link {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-drawer__secondary-link--primary {
+    font-weight: 500;
+  }
+
+  .humann-drawer__secondary-desc {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    margin: 0;
+  }
+{% endstylesheet %}

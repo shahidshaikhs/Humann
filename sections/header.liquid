@@ -68,6 +68,30 @@
     render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
   endcapture
 
+  capture utility_link
+    if section.settings.header_utility_link_text != blank
+      echo '<a href="'
+      echo section.settings.header_utility_link_url | default: '#'
+      echo '" class="header-actions__action humann-utility-link header-actions__text-style">'
+      echo section.settings.header_utility_link_text
+      echo '</a>'
+    endif
+  endcapture
+
+  capture welcome_text
+    if customer
+      echo '<span class="humann-welcome-text">Welcome, '
+      echo customer.first_name
+      echo '!</span>'
+    endif
+  endcapture
+
+  capture actions
+    echo utility_link
+    echo actions
+    echo welcome_text
+  endcapture
+
   if shop.customer_accounts_enabled
     assign search_class = 'search-action--hidden-on-drawer'
   endif
@@ -1111,6 +1135,63 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* Humann header overrides */
+  .header-section .menu-list__link-title {
+    padding-inline: 14px;
+  }
+
+  .header-section .header__column--right {
+    gap: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .header-section .header-actions__action {
+      font-family: 'Uniforma', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.75px;
+    }
+  }
+
+  .header-section .cart-bubble .cart-bubble__background {
+    background-color: #BC0F0F;
+  }
+
+  .header-section .cart-bubble .cart-bubble__text {
+    color: #fff;
+    font-family: 'Uniforma', sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: -1px;
+  }
+
+  .humann-welcome-text {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+
+  .humann-utility-link {
+    font-family: 'Uniforma', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 749px) {
+    .humann-welcome-text {
+      display: none;
+    }
+
+    .humann-utility-link {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -1541,6 +1622,21 @@
       ],
       "default": "none",
       "visible_if": "{{ section.settings.actions_display_style == 'text' }}"
+    },
+    {
+      "type": "header",
+      "content": "Humann utility link"
+    },
+    {
+      "type": "text",
+      "id": "header_utility_link_text",
+      "label": "Utility link text",
+      "default": "PROFESSIONAL"
+    },
+    {
+      "type": "url",
+      "id": "header_utility_link_url",
+      "label": "Utility link URL"
     },
     {
       "type": "header",

@@ -17,7 +17,11 @@
       data-hydration-key="header-drawer-mobile"
       {{ block.shopify_attributes }}
     >
-      {% render 'header-drawer', linklist: block_settings.menu, data_header_drawer_type: 'mobile-drawer', block: block, section: section %}
+      {%- unless block_settings.enable_humann_mega_menu -%}
+        {% render 'header-drawer', linklist: block_settings.menu, data_header_drawer_type: 'mobile-drawer', block: block, section: section %}
+      {%- else -%}
+        {% render 'humann-header-drawer', linklist: block_settings.menu, block: block, section: section %}
+      {%- endunless -%}
     </div>
 
   {% when 'navigation_bar' %}
@@ -109,25 +113,29 @@
                 class="menu-list__submenu-inner"
                 style="{% render 'submenu-font-styles', settings: block_settings %}"
               >
-                {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
-                <div class="mega-menu section section--full-width-margin section--{{ section.settings.section_width }}">
-                  <div
-                    class="mega-menu__grid"
-                    data-menu-grid-id="{{ list_id }}"
-                  >
-                    {% render 'mega-menu-list',
-                      parent_link: link,
-                      id: list_id,
-                      section: section,
-                      grid_columns_count: 6,
-                      grid_columns_count_tablet: 4,
-                      grid_columns_count_collection_images: 8,
-                      menu_content_type: menu_content_type,
-                      content_aspect_ratio: ratio,
-                      image_border_radius: image_border_radius
-                    %}
+                {%- unless block_settings.enable_humann_mega_menu -%}
+                  {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
+                  <div class="mega-menu section section--full-width-margin section--{{ section.settings.section_width }}">
+                    <div
+                      class="mega-menu__grid"
+                      data-menu-grid-id="{{ list_id }}"
+                    >
+                      {% render 'mega-menu-list',
+                        parent_link: link,
+                        id: list_id,
+                        section: section,
+                        grid_columns_count: 6,
+                        grid_columns_count_tablet: 4,
+                        grid_columns_count_collection_images: 8,
+                        menu_content_type: menu_content_type,
+                        content_aspect_ratio: ratio,
+                        image_border_radius: image_border_radius
+                      %}
+                    </div>
                   </div>
-                </div>
+                {%- else -%}
+                  {% render 'humann-mega-menu', parent_link: link, block: block, section: section %}
+                {%- endunless -%}
               </div>
             </div>
           {%- endif -%}
@@ -150,7 +158,7 @@
 
     <header-menu
       ref="headerMenu"
-      class="header-menu"
+      class="header-menu{% if block_settings.enable_humann_mega_menu %} humann-mega-menu-enabled{% endif %}"
       {{ block.shopify_attributes }}
       data-hydration-key="header-menu"
     >
@@ -679,6 +687,13 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+
+  /* Humann mega menu overrides */
+  .humann-mega-menu-enabled .menu-list__link {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -906,6 +921,65 @@
       "id": "drawer_dividers",
       "label": "t:settings.dividers",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Humann mega menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_humann_mega_menu",
+      "label": "Enable Humann mega menu",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_card_1_image",
+      "label": "Featured card 1 image"
+    },
+    {
+      "type": "text",
+      "id": "featured_card_1_title",
+      "label": "Featured card 1 title",
+      "default": "Get 50% off our heart health routine"
+    },
+    {
+      "type": "text",
+      "id": "featured_card_1_badge",
+      "label": "Featured card 1 badge",
+      "default": "#1 Doctor Recommended"
+    },
+    {
+      "type": "url",
+      "id": "featured_card_1_url",
+      "label": "Featured card 1 link"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_card_2_image",
+      "label": "Featured card 2 image"
+    },
+    {
+      "type": "text",
+      "id": "featured_card_2_title",
+      "label": "Featured card 2 title",
+      "default": "Buy 2 SuperBeets, get 1 free"
+    },
+    {
+      "type": "text",
+      "id": "featured_card_2_badge",
+      "label": "Featured card 2 badge",
+      "default": "#1 Doctor Recommended"
+    },
+    {
+      "type": "url",
+      "id": "featured_card_2_url",
+      "label": "Featured card 2 link"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Secondary menu (mobile drawer)"
     }
   ]
 }
