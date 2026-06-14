@@ -1,0 +1,274 @@
+{%- liquid
+  assign chew_image = section.settings.image_chew
+  assign capsule_image = section.settings.image_capsule
+  assign gummie_image = section.settings.image_gummie
+
+  assign part1_words = section.settings.tagline_part_1 | split: ' '
+  assign part2_words = section.settings.tagline_part_2 | split: ' '
+  assign highlight1_words = section.settings.tagline_highlight_1 | split: ' '
+  assign part3_words = section.settings.tagline_part_3 | split: ' '
+  assign part4_words = section.settings.tagline_part_4 | split: ' '
+  assign highlight2_words = section.settings.tagline_highlight_2 | split: ' '
+-%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--page-width color-{{ section.settings.color_scheme }} prefooter"
+  {{ section.shopify_attributes }}
+>
+  <div
+    class="prefooter__content spacing-style"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <div class="prefooter__logo">
+      <a href="/" aria-label="Home">
+        {{ 'logo.svg' | inline_asset_content }}
+      </a>
+    </div>
+
+    <div class="prefooter__tagline">
+      {%- for word in part1_words -%}
+        {%- unless word == blank -%}
+          <span class="prefooter__text prefooter__text--serif">{{ word }}</span>
+        {%- endunless -%}
+      {%- endfor -%}
+
+      <span class="prefooter__image-wrapper prefooter__image-wrapper--chew">
+        {%- if chew_image != blank -%}
+          {{ chew_image | image_url: width: 56 | image_tag: alt: '', loading: 'lazy', width: 28, height: 21, style: 'width:28px;height:21px;' }}
+        {%- else -%}
+          <img src="{{ 'chew.svg' | asset_url }}" alt="" width="28" height="21" loading="lazy" style="width:28px;height:21px;">
+        {%- endif -%}
+      </span>
+
+      {%- for word in part2_words -%}
+        {%- unless word == blank -%}
+          <span class="prefooter__text prefooter__text--serif">{{ word }}</span>
+        {%- endunless -%}
+      {%- endfor -%}
+
+      {%- for word in highlight1_words -%}
+        {%- unless word == blank -%}
+          <span class="prefooter__text prefooter__text--bold">{{ word }}</span>
+        {%- endunless -%}
+      {%- endfor -%}
+
+      {%- for word in part3_words -%}
+        {%- unless word == blank -%}
+          <span class="prefooter__text prefooter__text--serif">{{ word }}</span>
+        {%- endunless -%}
+      {%- endfor -%}
+
+      <span class="prefooter__image-wrapper prefooter__image-wrapper--capsule">
+        {%- if capsule_image != blank -%}
+          {{ capsule_image | image_url: width: 88 | image_tag: alt: '', loading: 'lazy', width: 44, height: 15, style: 'width:44px;height:15px;transform:rotate(1.6deg);' }}
+        {%- else -%}
+          <img src="{{ 'capsule.svg' | asset_url }}" alt="" width="44" height="15" loading="lazy" style="width:44px;height:15px;transform:rotate(1.6deg);">
+        {%- endif -%}
+      </span>
+
+      {%- for word in part4_words -%}
+        {%- unless word == blank -%}
+          <span class="prefooter__text prefooter__text--serif">{{ word }}</span>
+        {%- endunless -%}
+      {%- endfor -%}
+
+      <span class="prefooter__image-wrapper prefooter__image-wrapper--gummie">
+        {%- if gummie_image != blank -%}
+          {{ gummie_image | image_url: width: 46 | image_tag: alt: '', loading: 'lazy', width: 23, height: 25, style: 'width:23px;height:25px;' }}
+        {%- else -%}
+          <img src="{{ 'gummie.svg' | asset_url }}" alt="" width="23" height="25" loading="lazy" style="width:23px;height:25px;">
+        {%- endif -%}
+      </span>
+
+      {%- for word in highlight2_words -%}
+        {%- unless word == blank -%}
+          <span class="prefooter__text prefooter__text--bold">{{ word }}</span>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .prefooter {
+    /* no border on mobile */
+  }
+
+  .prefooter__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    max-width: 780px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .prefooter__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .prefooter__logo a {
+    display: block;
+    color: #BC0F0F;
+    line-height: 0;
+  }
+
+  .prefooter__logo svg {
+    display: block;
+    width: 280px;
+    height: 48px;
+    fill: currentColor;
+  }
+
+  .prefooter__tagline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .prefooter__text--serif {
+    font-family: 'Moderat Serif', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: #BC0F0F;
+  }
+
+  .prefooter__text--bold {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: 0;
+    color: #BC0F0F;
+  }
+
+  .prefooter__image-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+  }
+
+  .prefooter__image-wrapper img {
+    display: block;
+    vertical-align: middle;
+  }
+
+  @media screen and (min-width: 750px) {
+    .prefooter {
+      border: 1px solid #D9D9DB;
+    }
+
+    .prefooter__content {
+      gap: 48px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Prefooter",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "text",
+      "id": "tagline_part_1",
+      "label": "Tagline Part 1",
+      "default": "A cardiovascular health company"
+    },
+    {
+      "type": "text",
+      "id": "tagline_part_2",
+      "label": "Tagline Part 2",
+      "default": "focused on the"
+    },
+    {
+      "type": "text",
+      "id": "tagline_highlight_1",
+      "label": "Tagline Highlight 1 (bold)",
+      "default": "60,000 miles"
+    },
+    {
+      "type": "text",
+      "id": "tagline_part_3",
+      "label": "Tagline Part 3",
+      "default": "of your cardiovascular system"
+    },
+    {
+      "type": "text",
+      "id": "tagline_part_4",
+      "label": "Tagline Part 4",
+      "default": "fueling your"
+    },
+    {
+      "type": "text",
+      "id": "tagline_highlight_2",
+      "label": "Tagline Highlight 2 (bold)",
+      "default": "36 trillion cells."
+    },
+    {
+      "type": "header",
+      "content": "Product Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_chew",
+      "label": "Chew Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_capsule",
+      "label": "Capsule Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_gummie",
+      "label": "Gummie Image"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 72
+    }
+  ]
+}
+{% endschema %}

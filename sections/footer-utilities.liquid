@@ -84,6 +84,43 @@
       text-align: right;
     }
   }
+
+  /* Humann design overrides */
+
+  /* Policy link underlines and color */
+  .utilities a {
+    text-decoration: underline;
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+  }
+
+  .utilities a:hover {
+    color: #414141;
+  }
+
+  /* Policy list trigger button */
+  .utilities .footer-policy-list {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-size: 14px;
+    color: #767676;
+  }
+
+  /* Copyright text */
+  .utilities .footer-copyright {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+  }
+
+  /* Remove top border (backup for divider_thickness: 0 setting) */
+  .utilities {
+    border-top: none !important;
+  }
 {% endstylesheet %}
 
 {% schema %}
