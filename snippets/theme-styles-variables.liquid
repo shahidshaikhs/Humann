@@ -123,6 +123,82 @@
     endunless
   %}
 
+  /* Humann Custom Fonts — Stabil Grotesk (body) */
+  @font-face {
+    font-family: 'Stabil Grotesk';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'StabilGrotesk-50Regular.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Stabil Grotesk';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'StabilGrotesk-60Medium.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Stabil Grotesk';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'StabilGrotesk-80Bold.woff2' | file_url }}) format('woff2');
+  }
+
+  /* Humann Custom Fonts — Uniforma (accent / buttons / nav) */
+  @font-face {
+    font-family: 'Uniforma';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Uniforma-50Regular.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Uniforma';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Uniforma-60Medium.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Uniforma';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Uniforma-70Semibold.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Uniforma';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Uniforma-80Bold.woff2' | file_url }}) format('woff2');
+  }
+
+  /* Humann Custom Fonts — Moderat (headings) */
+  @font-face {
+    font-family: 'Moderat';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Moderat-Serif-Light.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Moderat';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Moderat-Serif-Regular.woff2' | file_url }}) format('woff2');
+  }
+  @font-face {
+    font-family: 'Moderat';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url({{ 'Moderat-Serif-Regular.woff2' | file_url }}) format('woff2');
+  }
+
   :root {
     /* Page Layout */
     --sidebar-width: 25rem;
@@ -684,5 +760,11 @@
     --cart-secondary-font-family: var(--font-{{ settings.cart_price_font }}--family);
     --cart-secondary-font-style: var(--font-{{ settings.cart_price_font }}--style);
     --cart-secondary-font-weight: var(--font-{{ settings.cart_price_font }}--weight);
+
+    /* Humann Design System Overrides */
+    --font-body--family: 'Stabil Grotesk', {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    --font-heading--family: 'Moderat', {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    --font-subheading--family: 'Uniforma', {{ settings.type_subheading_font.family }}, {{ settings.type_subheading_font.fallback_families }};
+    --font-accent--family: 'Uniforma', {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
   }
 {% endstyle %}
