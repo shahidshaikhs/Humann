@@ -18,6 +18,46 @@
         "padding-block-end": 0
       }
     },
+    "humann_banner_cards": {
+      "type": "humann-banner-cards",
+      "settings": {
+        "heading": "Learn about the",
+        "heading_accent": "Miracle Molecule",
+        "subheading": "Did you know that Nitric Oxide is one of the most important molecules produced in your body?",
+        "mobile_subheading": "Science grounded in the Nobel Prize-winning nitric oxide pathway.",
+        "cta_text": "Explore Our Science",
+        "cta_url": "/pages/our-science",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/1-mobile-31613935.jpg",
+            "text": "<p>By age 40, Humans naturally produce <strong>50% less Nitric Oxide</strong> than they did at age 20.</p>",
+            "molecule_variant": "1"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/2-mobile-31613943.jpg",
+            "text": "<p>Nitric Oxide helps circulate more oxygen and nutrients to your <strong>36 trillion cells.</strong></p>",
+            "molecule_variant": "2"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/3-mobile-31613972.jpg",
+            "text": "<p>More oxygen and nutrients means <strong>more healthy energy support.</strong></p>",
+            "molecule_variant": "3"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3"]
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -215,6 +255,7 @@
   },
   "order": [
     "humann_hero",
+    "humann_banner_cards",
     "product_list_fa6P9H"
   ]
 }

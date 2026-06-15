@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 161 161" width="161" height="161">
+  <!-- Outer ellipse: 161x161, stroke 0.5px white -->
+  <ellipse cx="80.5" cy="80.5" rx="80" ry="80" fill="none" stroke="#FFFFFF" stroke-width="0.5"/>
+  <!-- Ellipse 28: 10x10, filled white -->
+  <circle cx="49" cy="71" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 29: 10x10, filled white -->
+  <circle cx="96" cy="80" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 30: 18x18, filled white -->
+  <circle cx="68" cy="100" r="9" fill="#FFFFFF"/>
+  <!-- Ellipse 31: 9x9, filled white -->
+  <circle cx="86" cy="113" r="4.5" fill="#FFFFFF"/>
+</svg>

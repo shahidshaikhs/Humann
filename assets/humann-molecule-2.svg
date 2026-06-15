@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 169 169" width="169" height="169">
+  <!-- Outer ellipse: 169x169, stroke 0.5px white -->
+  <ellipse cx="84.5" cy="84.5" rx="83.5" ry="83.5" fill="none" stroke="#FFFFFF" stroke-width="0.5"/>
+  <!-- Inner ellipse: 125x125, stroke 1px white -->
+  <ellipse cx="84.5" cy="84.5" rx="62.5" ry="62.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Radial arrowheads pointing outward from inner circle (8 directions) -->
+  <!-- Angle 0° right -->
+  <path d="M 147.5,79.5 L 158.5,84.5 L 147.5,89.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 45° bottom-right -->
+  <path d="M 125.5,132.5 L 136.8,136.8 L 132.5,125.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 90° bottom -->
+  <path d="M 79.5,147.5 L 84.5,158.5 L 89.5,147.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 135° bottom-left -->
+  <path d="M 36.5,125.5 L 32.2,136.8 L 43.5,132.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 180° left -->
+  <path d="M 21.5,89.5 L 10.5,84.5 L 21.5,79.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 225° top-left -->
+  <path d="M 43.5,36.5 L 32.2,32.2 L 36.5,43.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 270° top -->
+  <path d="M 79.5,21.5 L 84.5,10.5 L 89.5,21.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Angle 315° top-right -->
+  <path d="M 125.5,36.5 L 136.8,32.2 L 132.5,43.5" fill="none" stroke="#FFFFFF" stroke-width="1"/>
+  <!-- Dots inside inner circle -->
+  <!-- Ellipse 33: 10x10 -->
+  <circle cx="75" cy="70" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 34: 10x10 -->
+  <circle cx="95" cy="80" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 38: 10x10 -->
+  <circle cx="82" cy="98" r="5" fill="#FFFFFF"/>
+  <!-- Ellipse 37: 6x6 -->
+  <circle cx="68" cy="90" r="3" fill="#FFFFFF"/>
+  <!-- Ellipse 40: 6x6 -->
+  <circle cx="92" cy="65" r="3" fill="#FFFFFF"/>
+  <!-- Ellipse 41: 6x6 -->
+  <circle cx="98" cy="95" r="3" fill="#FFFFFF"/>
+</svg>

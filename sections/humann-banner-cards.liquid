@@ -1,0 +1,453 @@
+<section
+  class="humann-banner-cards"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  <div class="humann-banner-cards__inner">
+
+    <div class="humann-banner-cards__header">
+      <h2 class="humann-banner-cards__heading">
+        <span class="humann-banner-cards__heading-line">{{ section.settings.heading }}</span>
+        <span class="humann-banner-cards__heading-accent">{{ section.settings.heading_accent }}</span>
+      </h2>
+      <p class="humann-banner-cards__subheading humann-banner-cards__subheading--desktop">
+        {{ section.settings.subheading }}
+      </p>
+      <p class="humann-banner-cards__subheading humann-banner-cards__subheading--mobile">
+        {{ section.settings.mobile_subheading }}
+      </p>
+    </div>
+
+    <hr class="humann-banner-cards__divider">
+
+    <div class="humann-banner-cards__carousel">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign card_img_src = ''
+          if block.settings.image != blank
+            assign card_img_src = block.settings.image | image_url: width: 800
+          endif
+          assign molecule_file = 'humann-molecule-' | append: block.settings.molecule_variant | append: '.svg'
+        -%}
+        <div class="humann-banner-cards__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img
+              src="{{ card_img_src }}"
+              alt="{{ block.settings.image.alt | default: '' }}"
+              class="humann-banner-cards__card-image"
+              loading="lazy"
+              width="389"
+              height="480"
+            >
+          {%- endif -%}
+          <div class="humann-banner-cards__card-content">
+            <div class="humann-banner-cards__molecule">
+              {{- molecule_file | inline_asset_content -}}
+            </div>
+            {%- if block.settings.text != blank -%}
+              <div class="humann-banner-cards__card-text">
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <hr class="humann-banner-cards__divider">
+
+    <div class="humann-banner-cards__cta">
+      {%- if section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="humann-banner-cards__button">
+          {{ section.settings.cta_text }}
+        </a>
+      {%- else -%}
+        <span class="humann-banner-cards__button">
+          {{ section.settings.cta_text }}
+        </span>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+/* ============================================================
+   Humann Banner Cards
+   ============================================================ */
+
+.humann-banner-cards {
+  background-color: #BC0F0F;
+  padding-block-start: var(--padding-block-start, 80px);
+  padding-block-end: var(--padding-block-end, 80px);
+}
+
+.humann-banner-cards__inner {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- Header --- */
+
+.humann-banner-cards__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.humann-banner-cards__heading {
+  margin: 0;
+  padding: 0;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: inherit;
+}
+
+.humann-banner-cards__heading-line,
+.humann-banner-cards__heading-accent {
+  display: block;
+}
+
+/* Mobile: Moderat Serif for heading-line */
+.humann-banner-cards__heading-line {
+  font-family: 'Moderat', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 36px;
+  letter-spacing: -1px;
+  color: #FFFFFF;
+}
+
+/* Heading accent: always Moderat Serif */
+.humann-banner-cards__heading-accent {
+  font-family: 'Moderat', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 36px;
+  letter-spacing: -1px;
+  color: #FFFFFF;
+}
+
+/* Subheadings */
+.humann-banner-cards__subheading {
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+}
+
+.humann-banner-cards__subheading--desktop {
+  display: none;
+  font-family: 'Stabil Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+.humann-banner-cards__subheading--mobile {
+  display: block;
+  font-family: 'Stabil Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+/* --- Divider --- */
+
+.humann-banner-cards__divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0;
+  height: 0;
+}
+
+/* --- Carousel --- */
+
+.humann-banner-cards__carousel {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.humann-banner-cards__carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Card --- */
+
+.humann-banner-cards__card {
+  position: relative;
+  height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 320px;
+  scroll-snap-align: start;
+}
+
+.humann-banner-cards__card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.humann-banner-cards__card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 24px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Molecule icon --- */
+
+.humann-banner-cards__molecule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.humann-banner-cards__molecule svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Card text --- */
+
+.humann-banner-cards__card-text {
+  font-family: 'Moderat', serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.humann-banner-cards__card-text p {
+  margin: 0;
+}
+
+.humann-banner-cards__card-text strong {
+  font-weight: 700;
+}
+
+/* --- CTA --- */
+
+.humann-banner-cards__cta {
+  display: flex;
+  justify-content: center;
+  padding-block: 8px;
+}
+
+.humann-banner-cards__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
+  border-radius: 28px;
+  padding: 12px 20px;
+  font-family: 'Uniforma', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Desktop overrides (min-width: 750px)
+   ============================================================ */
+
+@media screen and (min-width: 750px) {
+  .humann-banner-cards__inner {
+    padding-inline: 120px;
+  }
+
+  /* Desktop heading-line: Stabil Grotesk 500 */
+  .humann-banner-cards__heading-line {
+    font-family: 'Stabil Grotesk', sans-serif;
+    font-weight: 500;
+    line-height: 52px;
+    letter-spacing: 0;
+  }
+
+  .humann-banner-cards__subheading--desktop {
+    display: block;
+  }
+
+  .humann-banner-cards__subheading--mobile {
+    display: none;
+  }
+
+  /* Cards go flex:1 on desktop (equal width ~389px) */
+  .humann-banner-cards__card {
+    flex: 1;
+    width: auto;
+    flex-shrink: 1;
+  }
+
+  .humann-banner-cards__card-text {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .humann-banner-cards__button {
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Humann Banner Cards",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading line",
+      "default": "Learn about the"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent",
+      "default": "Miracle Molecule"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Desktop subheading",
+      "default": "Did you know that Nitric Oxide is one of the most important molecules produced in your body?"
+    },
+    {
+      "type": "text",
+      "id": "mobile_subheading",
+      "label": "Mobile subheading",
+      "default": "Science grounded in the Nobel Prize-winning nitric oxide pathway."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Explore Our Science"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Card text"
+        },
+        {
+          "type": "select",
+          "id": "molecule_variant",
+          "label": "Molecule icon",
+          "options": [
+            { "value": "1", "label": "Molecule 1" },
+            { "value": "2", "label": "Molecule 2" },
+            { "value": "3", "label": "Molecule 3" }
+          ],
+          "default": "1"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Humann Banner Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "molecule_variant": "1"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "molecule_variant": "2"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "molecule_variant": "3"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
