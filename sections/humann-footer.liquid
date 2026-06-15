@@ -1,0 +1,822 @@
+<script src="{{ 'humann-footer.js' | asset_url }}" defer type="module"></script>
+
+<section
+  class="humann-footer color-{{ section.settings.color_scheme }} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  <div class="humann-footer__inner">
+
+    <!-- ======= MAIN GRID: left-col + 3 nav cols ======= -->
+    <div class="humann-footer__main">
+
+      <!-- Left column: signup + social + address -->
+      <div class="humann-footer__left-col">
+
+        <!-- Signup -->
+        <div class="humann-footer__signup">
+          <div class="humann-footer__signup-heading-group">
+            <p class="humann-footer__signup-heading">{{ section.settings.signup_heading }}</p>
+            <p class="humann-footer__signup-subheading">{{ section.settings.signup_subheading }}</p>
+          </div>
+          {% form 'customer' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="humann-footer__email-form">
+              <input
+                type="email"
+                name="contact[email]"
+                class="humann-footer__email-input"
+                placeholder="Enter your email"
+                aria-label="Email address"
+                required
+              >
+              <button type="submit" class="humann-footer__email-submit" aria-label="Subscribe">
+                {{ 'long-arrow-alt-right-solid.svg' | inline_asset_content }}
+              </button>
+            </div>
+          {% endform %}
+        </div>
+
+        <!-- Social -->
+        <div class="humann-footer__social">
+          {%- if section.settings.instagram_url != blank -%}
+            <a href="{{ section.settings.instagram_url }}" class="humann-footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <span class="humann-footer__social-icon">{{ 'social-icons.svg' | inline_asset_content }}</span>
+            </a>
+          {%- else -%}
+            <span class="humann-footer__social-icon" aria-hidden="true">{{ 'social-icons.svg' | inline_asset_content }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.twitter_url != blank -%}
+            <a href="{{ section.settings.twitter_url }}" class="humann-footer__social-link" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+              <span class="humann-footer__social-icon">{{ 'social-icons-2.svg' | inline_asset_content }}</span>
+            </a>
+          {%- else -%}
+            <span class="humann-footer__social-icon" aria-hidden="true">{{ 'social-icons-2.svg' | inline_asset_content }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.facebook_url != blank -%}
+            <a href="{{ section.settings.facebook_url }}" class="humann-footer__social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <span class="humann-footer__social-icon">{{ 'social-icons-3.svg' | inline_asset_content }}</span>
+            </a>
+          {%- else -%}
+            <span class="humann-footer__social-icon" aria-hidden="true">{{ 'social-icons-3.svg' | inline_asset_content }}</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Address -->
+        <div class="humann-footer__address">
+          {%- if section.settings.address != blank -%}
+            <p class="humann-footer__address-line">{{ section.settings.address | newline_to_br }}</p>
+          {%- endif -%}
+          {%- if section.settings.phone != blank -%}
+            <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' }}" class="humann-footer__address-line humann-footer__address-phone">{{ section.settings.phone }}</a>
+          {%- endif -%}
+          {%- if section.settings.email != blank -%}
+            <a href="mailto:{{ section.settings.email }}" class="humann-footer__address-line humann-footer__address-email">{{ section.settings.email }}</a>
+          {%- endif -%}
+        </div>
+
+      </div><!-- /.humann-footer__left-col -->
+
+      <!-- Nav columns (3 accordion blocks) -->
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'nav_column' -%}
+          <humann-footer-accordion class="humann-footer__nav-col" {{ block.shopify_attributes }}>
+            <button class="humann-footer__nav-heading" aria-expanded="false">
+              <span class="humann-footer__nav-title">{{ block.settings.title }}</span>
+              <img
+                src="{{ 'plus-solid.svg' | asset_url }}"
+                class="humann-footer__nav-icon"
+                alt=""
+                aria-hidden="true"
+                width="20"
+                height="20"
+                style="width:20px;height:20px"
+              >
+            </button>
+            <div class="humann-footer__nav-body">
+              {%- if block.settings.menu != blank -%}
+                {%- for link in linklists[block.settings.menu].links -%}
+                  <a href="{{ link.url }}" class="humann-footer__nav-link">{{ link.title }}</a>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </humann-footer-accordion>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div><!-- /.humann-footer__main -->
+
+    <!-- Accessibility + Chat buttons -->
+    <div class="humann-footer__buttons">
+      {%- if section.settings.accessibility_label != blank -%}
+        <a
+          href="{{ section.settings.accessibility_url | default: '#' }}"
+          class="humann-footer__btn"
+        >{{ section.settings.accessibility_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.chat_label != blank -%}
+        <a
+          href="{{ section.settings.chat_url | default: '#' }}"
+          class="humann-footer__btn"
+        >{{ section.settings.chat_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="humann-footer__disclaimer">
+      <div class="humann-footer__disclaimer-box">
+        {{ section.settings.disclaimer_html }}
+      </div>
+    </div>
+
+    <!-- Legal links + copyright -->
+    <div class="humann-footer__legal">
+      <div class="humann-footer__legal-links">
+        {%- if section.settings.terms_label != blank -%}
+          <a href="{{ section.settings.terms_url | default: '#' }}" class="humann-footer__legal-link">{{ section.settings.terms_label }}</a>
+          <span class="humann-footer__legal-sep" aria-hidden="true">|</span>
+        {%- endif -%}
+        {%- if section.settings.privacy_label != blank -%}
+          <a href="{{ section.settings.privacy_url | default: '#' }}" class="humann-footer__legal-link">{{ section.settings.privacy_label }}</a>
+          <span class="humann-footer__legal-sep" aria-hidden="true">|</span>
+        {%- endif -%}
+        {%- if section.settings.accessibility_policy_label != blank -%}
+          <a href="{{ section.settings.accessibility_policy_url | default: '#' }}" class="humann-footer__legal-link">{{ section.settings.accessibility_policy_label }}</a>
+          <span class="humann-footer__legal-sep" aria-hidden="true">|</span>
+        {%- endif -%}
+        {%- if section.settings.ugc_label != blank -%}
+          <a href="{{ section.settings.ugc_url | default: '#' }}" class="humann-footer__legal-link">{{ section.settings.ugc_label }}</a>
+        {%- endif -%}
+      </div>
+      <p class="humann-footer__copyright">{{ section.settings.copyright_text }}</p>
+    </div>
+
+  </div><!-- /.humann-footer__inner -->
+</section>
+
+{% stylesheet %}
+  /* ===========================
+     HUMANN FOOTER — Base/Mobile
+  =========================== */
+
+  .humann-footer {
+    background-color: #F5F5F5;
+    display: block;
+  }
+
+  .humann-footer__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-inline: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* --- Main layout (mobile: flex column) --- */
+  .humann-footer__main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* --- Left column: display:contents on mobile so children join flex flow --- */
+  .humann-footer__left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .humann-footer__left-col {
+      display: contents;
+    }
+
+    .humann-footer__signup {
+      order: 1;
+    }
+
+    .humann-footer__social {
+      order: 2;
+    }
+
+    .humann-footer__nav-col {
+      order: 3;
+    }
+
+    .humann-footer__address {
+      order: 4;
+    }
+
+    /* On mobile: disclaimer before buttons */
+    .humann-footer__disclaimer {
+      order: 5;
+    }
+
+    .humann-footer__buttons {
+      order: 6;
+    }
+
+    .humann-footer__legal {
+      order: 7;
+    }
+  }
+
+  /* --- Signup --- */
+  .humann-footer__signup {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .humann-footer__signup-heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .humann-footer__signup-heading {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #414141;
+    margin: 0;
+  }
+
+  .humann-footer__signup-subheading {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #A0A0A0;
+    margin: 0;
+  }
+
+  .humann-footer__email-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #D9D9DB;
+    border-radius: 48px;
+    padding: 16px 24px;
+    gap: 10px;
+  }
+
+  .humann-footer__email-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #767676;
+    min-width: 0;
+  }
+
+  .humann-footer__email-input::placeholder {
+    color: #767676;
+  }
+
+  .humann-footer__email-submit {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: #000000;
+  }
+
+  .humann-footer__email-submit svg {
+    width: 20px;
+    height: 20px;
+    fill: #000000;
+  }
+
+  /* --- Social --- */
+  .humann-footer__social {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .humann-footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .humann-footer__social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .humann-footer__social-icon svg {
+    fill: #767676;
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+
+  /* --- Address --- */
+  .humann-footer__address {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 8px;
+  }
+
+  .humann-footer__address-line {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #767676;
+    margin: 0;
+    text-decoration: none;
+  }
+
+  .humann-footer__address-phone,
+  .humann-footer__address-email {
+    color: #767676;
+  }
+
+  /* --- Nav columns (accordion) --- */
+  .humann-footer__nav-col {
+    display: block;
+  }
+
+  .humann-footer__nav-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #414141;
+    text-align: left;
+  }
+
+  .humann-footer__nav-title {
+    display: block;
+  }
+
+  .humann-footer__nav-icon {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .humann-footer__nav-icon.is-rotated {
+    transform: rotate(45deg);
+  }
+
+  .humann-footer__nav-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .humann-footer__nav-body.is-open {
+    max-height: 1000px;
+  }
+
+  .humann-footer__nav-link {
+    display: block;
+    padding: 8px;
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #414141;
+    text-decoration: none;
+  }
+
+  .humann-footer__nav-link:hover {
+    text-decoration: underline;
+  }
+
+  /* --- Buttons --- */
+  .humann-footer__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+
+  .humann-footer__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28px;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-family: '(K) Uniforma', var(--font-accent--family, sans-serif);
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* --- Disclaimer --- */
+  .humann-footer__disclaimer {
+    width: 100%;
+  }
+
+  .humann-footer__disclaimer-box {
+    border: 1px solid #A0A0A0;
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .humann-footer__disclaimer-box,
+  .humann-footer__disclaimer-box p,
+  .humann-footer__disclaimer-box li,
+  .humann-footer__disclaimer-box span {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+  }
+
+  .humann-footer__disclaimer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .humann-footer__disclaimer-list li {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .humann-footer__disclaimer-list li span {
+    flex-shrink: 0;
+  }
+
+  /* --- Legal --- */
+  .humann-footer__legal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .humann-footer__legal-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding-block: 4px;
+  }
+
+  .humann-footer__legal-link {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    text-decoration: underline;
+  }
+
+  .humann-footer__legal-sep {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+  }
+
+  .humann-footer__copyright {
+    font-family: 'Stabil Grotesk', var(--font-body--family, sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #767676;
+    margin: 0;
+  }
+
+  /* ===========================
+     HUMANN FOOTER — Desktop
+  =========================== */
+
+  @media screen and (min-width: 750px) {
+    .humann-footer__inner {
+      padding-inline: 64px;
+      gap: 32px;
+    }
+
+    /* 4-column grid: auto + 3 × 208px */
+    .humann-footer__main {
+      display: grid;
+      grid-template-columns: auto repeat(3, 208px);
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Left column: normal flex column on desktop */
+    .humann-footer__left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      grid-column: 1;
+    }
+
+    .humann-footer__signup-subheading {
+      color: #767676;
+    }
+
+    .humann-footer__address-line {
+      color: #414141;
+    }
+
+    .humann-footer__address-phone,
+    .humann-footer__address-email {
+      color: #414141;
+    }
+
+    /* Nav: no accordion on desktop */
+    .humann-footer__nav-heading {
+      pointer-events: none;
+    }
+
+    .humann-footer__nav-icon {
+      display: none;
+    }
+
+    .humann-footer__nav-body {
+      max-height: none !important;
+      overflow: visible;
+    }
+
+    /* Social fill: dark on desktop */
+    .humann-footer__social-icon svg {
+      fill: #414141;
+    }
+
+    /* Buttons: larger on desktop */
+    .humann-footer__btn {
+      font-size: 16px;
+      padding: 16px 28px;
+    }
+
+    /* Disclaimer: lighter border on desktop */
+    .humann-footer__disclaimer-box {
+      border-color: #D9D9DB;
+    }
+
+    /* Legal */
+    .humann-footer__legal {
+      padding: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Humann Footer",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Email signup"
+    },
+    {
+      "type": "text",
+      "id": "signup_heading",
+      "label": "Signup heading",
+      "default": "Get 10% off when you sign up today."
+    },
+    {
+      "type": "text",
+      "id": "signup_subheading",
+      "label": "Signup subheading",
+      "default": "Humann science in your inbox"
+    },
+    {
+      "type": "header",
+      "content": "Social media"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "X (Twitter) URL"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "header",
+      "content": "Contact info"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "1250 S Capital of Texas Highway\nAustin, TX 78746"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number",
+      "default": "(855) 636-4040"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "info@humann.com"
+    },
+    {
+      "type": "header",
+      "content": "Disclaimer"
+    },
+    {
+      "type": "html",
+      "id": "disclaimer_html",
+      "label": "Disclaimer HTML"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility button label",
+      "default": "Accessibility"
+    },
+    {
+      "type": "url",
+      "id": "accessibility_url",
+      "label": "Accessibility button URL"
+    },
+    {
+      "type": "text",
+      "id": "chat_label",
+      "label": "Chat button label",
+      "default": "Chat"
+    },
+    {
+      "type": "url",
+      "id": "chat_url",
+      "label": "Chat button URL"
+    },
+    {
+      "type": "header",
+      "content": "Legal links"
+    },
+    {
+      "type": "text",
+      "id": "terms_label",
+      "label": "Terms label",
+      "default": "Terms & Conditions"
+    },
+    {
+      "type": "url",
+      "id": "terms_url",
+      "label": "Terms URL"
+    },
+    {
+      "type": "text",
+      "id": "privacy_label",
+      "label": "Privacy label",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Privacy URL"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_policy_label",
+      "label": "Accessibility policy label",
+      "default": "Accessibility"
+    },
+    {
+      "type": "url",
+      "id": "accessibility_policy_url",
+      "label": "Accessibility policy URL"
+    },
+    {
+      "type": "text",
+      "id": "ugc_label",
+      "label": "UGC label",
+      "default": "User Generated Content"
+    },
+    {
+      "type": "url",
+      "id": "ugc_url",
+      "label": "UGC URL"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2025 Humann"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_column",
+      "name": "Nav column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Navigation"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Humann Footer"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  }
+}
+{% endschema %}
