@@ -1,0 +1,46 @@
+{% liquid
+  assign product = closest.product
+%}
+
+{% if product != blank %}
+  <div
+    class="yotpo-star-rating-wrapper"
+    {{ block.shopify_attributes }}
+  >
+    <div class="yotpo-widget-instance"
+      data-yotpo-instance-id="{{ block.settings.yotpo_instance_id }}"
+      data-yotpo-product-id="{{ product.id }}"
+      data-yotpo-cart-product-id="{{ product.id }}"
+      data-yotpo-section-id="{{ template.name }}">
+    </div>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .yotpo-star-rating-wrapper {
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Yotpo star rating",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "yotpo_instance_id",
+      "label": "Yotpo instance ID",
+      "info": "Enter your Yotpo Star Rating widget instance ID"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Yotpo star rating",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
