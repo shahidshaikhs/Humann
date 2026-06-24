@@ -1,0 +1,308 @@
+{% style %}
+  /* ===================================================================
+     Humann Design System Foundation Tokens
+     Purely additive — does NOT modify any existing theme variables.
+     =================================================================== */
+
+  :root {
+    /* ---------------------------------------------------------------
+       Primitive Color Tokens
+       --------------------------------------------------------------- */
+    --color-brand-red: #BC0F0F;
+    --color-neutral-white: #FFFFFF;
+    --color-neutral-black: #000000;
+    --color-neutral-900: #414141;
+    --color-neutral-700: #767676;
+    --color-neutral-500: #A0A0A0;
+    --color-neutral-200: #D9D9DB;
+    --color-neutral-100: #F5F5F5;
+    --color-neutral-50: rgba(255, 255, 255, 0.7);
+
+    /* ---------------------------------------------------------------
+       Semantic Color Tokens — Surface
+       --------------------------------------------------------------- */
+    --color-surface-brand: var(--color-brand-red);
+    --color-background-page: var(--color-neutral-white);
+    --color-background-subtle: var(--color-neutral-100);
+    --color-surface-default: var(--color-neutral-white);
+    --color-surface-subtle: var(--color-neutral-100);
+    --color-surface-inverse: var(--color-neutral-700);
+
+    /* ---------------------------------------------------------------
+       Semantic Color Tokens — Button Surface
+       --------------------------------------------------------------- */
+    --color-button-surface-primary: var(--color-brand-red);
+    --color-button-surface-secondary: var(--color-neutral-black);
+    --color-button-surface-tertiary: var(--color-neutral-100);
+    --color-button-surface-inverse: var(--color-neutral-white);
+
+    /* ---------------------------------------------------------------
+       Semantic Color Tokens — Text
+       --------------------------------------------------------------- */
+    --color-text-brand: var(--color-brand-red);
+    --color-text-primary: var(--color-neutral-900);
+    --color-text-secondary: var(--color-neutral-700);
+    --color-text-tertiary: var(--color-neutral-500);
+    --color-text-inverse: var(--color-neutral-white);
+
+    /* ---------------------------------------------------------------
+       Semantic Color Tokens — Button Text
+       --------------------------------------------------------------- */
+    --color-button-text-primary: var(--color-brand-red);
+    --color-button-text-default: var(--color-neutral-white);
+    --color-button-text-subdued: var(--color-neutral-900);
+    --color-button-text-inversed: var(--color-neutral-black);
+
+    /* ---------------------------------------------------------------
+       Semantic Color Tokens — Border
+       --------------------------------------------------------------- */
+    --color-border-brand: var(--color-brand-red);
+    --color-border-default: var(--color-neutral-500);
+    --color-border-subtle: var(--color-neutral-200);
+    --color-border-inverse: var(--color-neutral-white);
+    --color-border-inverse-subtle: var(--color-neutral-50);
+
+    /* ---------------------------------------------------------------
+       Semantic Color Tokens — Button Border
+       --------------------------------------------------------------- */
+    --color-button-border-primary: var(--color-brand-red);
+    --color-button-border-secondary: var(--color-neutral-black);
+    --color-button-border-tertiary: var(--color-neutral-500);
+    --color-button-border-inverse: var(--color-neutral-white);
+
+    /* ---------------------------------------------------------------
+       Heading Typography Scale
+       --------------------------------------------------------------- */
+    --heading-3xl-size: 3.75rem;
+    --heading-3xl-line-height: 1;
+    --heading-2xl-size: 3rem;
+    --heading-2xl-line-height: 1.083;
+    --heading-l-size: 2rem;
+    --heading-l-line-height: 1.25;
+    --heading-m-size: 1.75rem;
+    --heading-m-line-height: 1.143;
+    --heading-s-size: 1.5rem;
+    --heading-s-line-height: 1.167;
+    --heading-xs-size: 1.25rem;
+    --heading-xs-line-height: 1.2;
+
+    /* ---------------------------------------------------------------
+       Button Size Tokens
+       --------------------------------------------------------------- */
+    --ds-btn-border-radius: 28px;
+    --ds-btn-font-family: var(--font-accent--family);
+    --ds-btn-letter-spacing: 0.75px;
+
+    --ds-btn-lg-padding-block: 16px;
+    --ds-btn-lg-padding-inline: 28px;
+    --ds-btn-lg-font-size: 1rem;
+
+    --ds-btn-md-padding-block: 12px;
+    --ds-btn-md-padding-inline: 20px;
+    --ds-btn-md-font-size: 1rem;
+
+    --ds-btn-sm-padding-block: 8px;
+    --ds-btn-sm-padding-inline: 16px;
+    --ds-btn-sm-font-size: 0.875rem;
+  }
+
+  /* =================================================================
+     Heading Size Classes
+     ================================================================= */
+
+  .heading-3xl {
+    font-size: var(--heading-3xl-size);
+    line-height: var(--heading-3xl-line-height);
+  }
+
+  .heading-2xl {
+    font-size: var(--heading-2xl-size);
+    line-height: var(--heading-2xl-line-height);
+  }
+
+  .heading-l {
+    font-size: var(--heading-l-size);
+    line-height: var(--heading-l-line-height);
+  }
+
+  .heading-m {
+    font-size: var(--heading-m-size);
+    line-height: var(--heading-m-line-height);
+  }
+
+  .heading-s {
+    font-size: var(--heading-s-size);
+    line-height: var(--heading-s-line-height);
+  }
+
+  .heading-xs {
+    font-size: var(--heading-xs-size);
+    line-height: var(--heading-xs-line-height);
+  }
+
+  /* =================================================================
+     Heading Font Variant Modifier Classes
+     ================================================================= */
+
+  .heading--primary {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -1px;
+  }
+
+  .heading--primary.heading-xs {
+    letter-spacing: -0.5px;
+  }
+
+  .heading--secondary {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: 0;
+  }
+
+  .heading--secondary-strong {
+    font-family: var(--font-body--family);
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0;
+  }
+
+  /* =================================================================
+     Button Base Class
+     ================================================================= */
+
+  .ds-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ds-btn-font-family);
+    text-transform: uppercase;
+    letter-spacing: var(--ds-btn-letter-spacing);
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    border-radius: var(--ds-btn-border-radius);
+    background: transparent;
+    color: inherit;
+    transition:
+      background-color var(--animation-speed) var(--animation-easing),
+      color var(--animation-speed) var(--animation-easing),
+      border-color var(--animation-speed) var(--animation-easing);
+  }
+
+  /* =================================================================
+     Button Size Modifiers
+     ================================================================= */
+
+  .ds-btn--lg {
+    padding: var(--ds-btn-lg-padding-block) var(--ds-btn-lg-padding-inline);
+    font-size: var(--ds-btn-lg-font-size);
+  }
+
+  .ds-btn--md {
+    padding: var(--ds-btn-md-padding-block) var(--ds-btn-md-padding-inline);
+    font-size: var(--ds-btn-md-font-size);
+  }
+
+  .ds-btn--sm {
+    padding: var(--ds-btn-sm-padding-block) var(--ds-btn-sm-padding-inline);
+    font-size: var(--ds-btn-sm-font-size);
+  }
+
+  /* =================================================================
+     Button Solid Style + Hierarchy
+     ================================================================= */
+
+  .ds-btn--solid.ds-btn--primary {
+    background-color: var(--color-button-surface-primary);
+    color: var(--color-button-text-default);
+  }
+
+  .ds-btn--solid.ds-btn--secondary {
+    background-color: var(--color-button-surface-secondary);
+    color: var(--color-button-text-default);
+  }
+
+  .ds-btn--solid.ds-btn--tertiary {
+    background-color: var(--color-button-surface-tertiary);
+    color: var(--color-button-text-subdued);
+  }
+
+  .ds-btn--solid.ds-btn--inverse {
+    background-color: var(--color-button-surface-inverse);
+    color: var(--color-button-text-inversed);
+  }
+
+  /* =================================================================
+     Button Outline Style + Hierarchy
+     ================================================================= */
+
+  .ds-btn--outline {
+    background-color: transparent;
+    border-style: solid;
+    border-width: 2px;
+  }
+
+  .ds-btn--outline.ds-btn--sm {
+    border-width: 1px;
+  }
+
+  .ds-btn--outline.ds-btn--primary {
+    border-color: var(--color-button-border-primary);
+    color: var(--color-brand-red);
+  }
+
+  .ds-btn--outline.ds-btn--secondary {
+    border-color: var(--color-button-border-secondary);
+    color: var(--color-neutral-black);
+  }
+
+  .ds-btn--outline.ds-btn--tertiary {
+    border-color: var(--color-button-border-tertiary);
+    color: var(--color-text-primary);
+  }
+
+  .ds-btn--outline.ds-btn--inverse {
+    border-color: var(--color-button-border-inverse);
+    color: var(--color-text-inverse);
+  }
+
+  /* =================================================================
+     Button Text Style + Hierarchy
+     ================================================================= */
+
+  .ds-btn--text {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .ds-btn--text.ds-btn--primary {
+    color: var(--color-brand-red);
+  }
+
+  .ds-btn--text.ds-btn--secondary {
+    color: var(--color-neutral-black);
+  }
+
+  .ds-btn--text.ds-btn--tertiary {
+    color: var(--color-text-primary);
+  }
+
+  .ds-btn--text.ds-btn--inverse {
+    color: var(--color-text-inverse);
+  }
+
+  /* =================================================================
+     Button Disabled State
+     ================================================================= */
+
+  .ds-btn[disabled],
+  .ds-btn[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+{% endstyle %}
