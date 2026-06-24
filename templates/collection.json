@@ -1,13 +1,4 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "sections": {
     "section": {
       "type": "section",
@@ -20,11 +11,11 @@
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
+            "type_preset": "h1",
+            "font": "var(--font-heading--family)",
             "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
+            "line_height": "1.08",
+            "letter_spacing": "-1px",
             "case": "none",
             "wrap": "pretty",
             "color": "",
@@ -38,36 +29,84 @@
           },
           "blocks": {}
         },
-        "text_twGGkJ": {
-          "type": "text",
-          "name": "Description",
+        "content_group": {
+          "type": "group",
           "settings": {
-            "text": "{{ closest.collection.description }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 0,
+            "width": "fill",
+            "width_mobile": "fill",
+            "height": "fit",
+            "inherit_color_scheme": true,
+            "color_scheme": "scheme-1",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {}
+          "blocks": {
+            "desc_text": {
+              "type": "text",
+              "settings": {
+                "text": "{{ closest.collection.description }}",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1.125rem",
+                "line_height": "normal",
+                "letter_spacing": "tight",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "#767676",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "learn_more": {
+              "type": "button",
+              "settings": {
+                "label": "Learn more",
+                "style_class": "link",
+                "open_in_new_tab": false,
+                "width": "fit-content",
+                "width_mobile": "fit-content"
+              }
+            }
+          },
+          "block_order": [
+            "desc_text",
+            "learn_more"
+          ]
         }
       },
       "block_order": [
         "text_tqQTNE",
-        "text_twGGkJ"
+        "content_group"
       ],
       "name": "Collection heading",
       "settings": {
@@ -78,7 +117,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
+        "gap": 16,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -95,7 +134,80 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-end": 16
+      }
+    },
+    "category_nav": {
+      "type": "collection-category-nav",
+      "blocks": {
+        "pill_bp": {
+          "type": "category",
+          "settings": {
+            "collection": "blood-pressure",
+            "dot_color": "",
+            "label": "Blood Pressure"
+          }
+        },
+        "pill_bf": {
+          "type": "category",
+          "settings": {
+            "collection": "blood-flow",
+            "dot_color": "#D72A2A",
+            "label": "Blood Flow"
+          }
+        },
+        "pill_metabolic": {
+          "type": "category",
+          "settings": {
+            "collection": "metabolic",
+            "dot_color": "#E62F5E",
+            "label": "Metabolic"
+          }
+        },
+        "pill_cholesterol": {
+          "type": "category",
+          "settings": {
+            "collection": "cholesterol",
+            "dot_color": "#D54427",
+            "label": "Cholesterol"
+          }
+        },
+        "pill_cognitive": {
+          "type": "category",
+          "settings": {
+            "collection": "cognitive",
+            "dot_color": "#B1369A",
+            "label": "Cognitive"
+          }
+        },
+        "pill_sports": {
+          "type": "category",
+          "settings": {
+            "collection": "sports",
+            "dot_color": "#E9FF6D",
+            "label": "Sports"
+          }
+        }
+      },
+      "block_order": [
+        "pill_bp",
+        "pill_bf",
+        "pill_metabolic",
+        "pill_cholesterol",
+        "pill_cognitive",
+        "pill_sports"
+      ],
+      "settings": {
+        "show_all_link": true,
+        "all_link_text": "Shop All",
+        "all_link_url": "/collections/all",
+        "active_bg_color": "#8C0132",
+        "active_text_color": "#FFFFFF",
+        "border_color": "#D9D9DB",
+        "text_color": "#414141",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 12,
+        "padding-block-end": 12
       }
     },
     "main": {
@@ -241,6 +353,7 @@
   },
   "order": [
     "section",
+    "category_nav",
     "main"
   ]
 }
