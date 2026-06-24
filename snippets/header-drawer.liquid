@@ -1410,4 +1410,58 @@
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
   }
+
+  /* Humann mobile drawer overrides */
+
+  /* Mobile drawer main menu links: Moderat Serif 28px */
+  .menu-drawer__menu-item--mainlist {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 2rem;
+    letter-spacing: -1px;
+    color: #414141;
+  }
+
+  /* Featured cards horizontal scroll */
+  .menu-drawer__featured-content-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 24px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-drawer__featured-content-list-item {
+    min-width: 254px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .menu-drawer__featured-content-list-item .resource-card__image {
+    border-radius: 16px;
+  }
+
+  /* Featured section label */
+  .menu-drawer__featured-content .menu-drawer__featured-label {
+    font-family: var(--font-accent--family);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    color: #767676;
+  }
+
+  /* Utility links at drawer bottom */
+  .menu-drawer__utility-links a {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.5px;
+    color: #414141;
+  }
+
+  .menu-drawer__utility-links .menu-drawer__utility-description {
+    font-size: 0.875rem;
+    color: #767676;
+    line-height: 1rem;
+  }
 {% endstylesheet %}
