@@ -679,6 +679,92 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+
+  /* Humann design overrides */
+
+  /* Menu link gap: 20px to match Figma */
+  .menu-list {
+    --menu-horizontal-gap: 20px;
+  }
+
+  .menu-list__link-title {
+    padding-inline: calc(var(--menu-horizontal-gap) / 2);
+  }
+
+  /* Mega menu panel border-radius */
+  .menu-list__submenu-inner {
+    border-radius: 16px;
+  }
+
+  /* Mega menu column headers (parent links) */
+  .mega-menu__link--parent {
+    font-family: var(--font-accent--family);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    color: #9A9A9A;
+    padding-block: 0 var(--padding-sm);
+  }
+
+  /* Mega menu child links */
+  .mega-menu__link:not(.mega-menu__link--parent) {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 2rem;
+    letter-spacing: -1px;
+    color: #414141;
+    padding-block: var(--padding-3xs) 0;
+  }
+
+  /* Mega menu column link gap */
+  .mega-menu__column > div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Colored dots for benefit category links */
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent)::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent):nth-of-type(2)::before {
+    background: #761A2C;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent):nth-of-type(3)::before {
+    background: #D72A2A;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent):nth-of-type(4)::before {
+    background: #E6305E;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent):nth-of-type(5)::before {
+    background: #D54427;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent):nth-of-type(6)::before {
+    background: #B1369A;
+  }
+
+  .mega-menu__column:nth-child(2) .mega-menu__link:not(.mega-menu__link--parent):nth-of-type(7)::before {
+    background: #E9FF6D;
+    border: 1px solid #A0A0A0;
+  }
 {% endstylesheet %}
 
 {% schema %}

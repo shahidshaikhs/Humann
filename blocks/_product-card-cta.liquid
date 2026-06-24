@@ -1,0 +1,63 @@
+{% liquid
+  assign product = closest.product
+%}
+
+{% if product != blank %}
+  <a
+    class="product-card-cta"
+    href="{{ product.url }}"
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.button_text }}
+  </a>
+{% endif %}
+
+{% stylesheet %}
+  .product-card-cta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #BC0F0F;
+    color: #FFFFFF;
+    border-radius: 28px;
+    font-family: var(--font-subheading--family);
+    font-weight: var(--font-subheading--weight);
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    width: fit-content;
+    text-decoration: none;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity var(--animation-speed, 0.2s) ease;
+  }
+
+  product-card:hover .product-card-cta,
+  product-card:focus-within .product-card-cta {
+    opacity: 1;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product card CTA",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Quick View"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product card CTA",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
