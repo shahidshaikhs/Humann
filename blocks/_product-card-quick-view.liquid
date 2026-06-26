@@ -1,0 +1,65 @@
+{% liquid
+  assign block_settings = block.settings
+-%}
+
+<div
+  class="product-card-quick-view"
+  style="--quick-view-bg: {{ block_settings.button_color }};"
+  {{ block.shopify_attributes }}
+>
+  <span class="product-card-quick-view__label">
+    {{- block_settings.button_text -}}
+  </span>
+</div>
+
+{% stylesheet %}
+  .product-card-quick-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--quick-view-bg, #BC0F0F);
+    color: #FFFFFF;
+    border-radius: 28px;
+    padding: 8px 16px;
+    font-family: var(--font-accent--family);
+    font-weight: var(--font-accent--weight, 400);
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    text-align: center;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .product-card-quick-view__label {
+    color: inherit;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Quick view button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Quick View"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#BC0F0F"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quick view button",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

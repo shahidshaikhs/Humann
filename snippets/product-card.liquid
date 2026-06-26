@@ -124,4 +124,30 @@
       display: none;
     }
   }
+  product-card .product-card__content {
+    transition: background-color 0.2s ease;
+  }
+
+  product-card:hover .product-card__content {
+    background-color: #F5F5F5;
+  }
+
+  .product-card-quick-view {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease, max-height 0.2s ease;
+  }
+
+  product-card:hover .product-card-quick-view {
+    opacity: 1;
+    max-height: 60px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-card-quick-view {
+      opacity: 1;
+      max-height: 60px;
+    }
+  }
 {% endstylesheet %}

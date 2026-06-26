@@ -43,6 +43,24 @@
 
 {% render 'product-badges-styles' %}
 
+{% stylesheet %}
+  .card-gallery {
+    background-color: #F5F5F5;
+    min-height: 180px;
+  }
+
+  .card-gallery .product-media-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-gallery .product-media-container img {
+    object-fit: contain;
+    padding: 12%;
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "t:names.product_image",
