@@ -248,7 +248,7 @@
                     "description_text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.description | strip_html | truncatewords: 8 }}</p>",
+                        "text": "<p>{{ closest.product.description | strip_html }}</p>",
                         "width": "100%",
                         "max_width": "none",
                         "alignment": "left",
