@@ -23,6 +23,31 @@
           {%- endif -%}
         </div>
       {%- endif -%}
+      {%- liquid
+        assign tag_badge_rendered = false
+        for tag in product.tags
+          if tag_badge_rendered
+            break
+          endif
+          assign tag_lower = tag | downcase
+          assign badge_prefix = 'badge:'
+          assign prefix_lower = badge_prefix | downcase
+          assign tag_size = tag | size
+          assign prefix_size = badge_prefix | size
+          if tag_lower contains prefix_lower
+            assign badge_check = tag_lower | slice: 0, prefix_size
+            if badge_check == prefix_lower
+              assign badge_text = tag | slice: prefix_size, tag_size
+              assign tag_badge_rendered = true
+            endif
+          endif
+        endfor
+      -%}
+      {%- if tag_badge_rendered -%}
+        <div class="product-badges__badge product-badges__badge--rectangle color-scheme-7">
+          {{- badge_text -}}
+        </div>
+      {%- endif -%}
     </div>
     {%  if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add', product: product, section_id: section.id %}
